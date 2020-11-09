@@ -8,6 +8,7 @@ import 'package:dlslim/Pages/registrasi.dart';
 import 'package:flutter/material.dart';
 
 import 'Pages/detail.dart';
+import 'Pages/detailNews.dart';
 import 'Pages/login.dart';
 import 'Pages/bottomnavbar.dart';
 import 'Pages/newPromo.dart';
@@ -47,6 +48,8 @@ class MyApp extends StatelessWidget {
         '/product': (BuildContext context) => Product(),
         '/detail': (context) =>
             DetailPage(ModalRoute.of(context).settings.arguments),
+        '/detailnews': (context) =>
+            DetailNews(ModalRoute.of(context).settings.arguments),
       },
     );
   }

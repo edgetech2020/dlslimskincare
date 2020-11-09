@@ -10,6 +10,8 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'dart:async';
 
+import 'detailNews.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -223,7 +225,18 @@ class _HomePageState extends State<HomePage> {
                                                   borderRadius:
                                                       BorderRadius.circular(15),
                                                   splashColor: Colors.grey,
-                                                  onTap: () {},
+                                                  onTap: () {
+                                                    Navigator.pushNamed(
+                                                        context, '/detailnews',
+                                                        arguments: NewsArguments(
+                                                            news[index]['title']
+                                                                .toString(),
+                                                            news[index]
+                                                                    ['content']
+                                                                .toString(),
+                                                            news[index]
+                                                                ['image']));
+                                                  },
                                                   child: Container(
                                                     decoration: BoxDecoration(
                                                         color: Color.fromRGBO(
