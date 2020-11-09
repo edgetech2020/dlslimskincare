@@ -16,7 +16,6 @@ class _DetailNewsState extends State<DetailNews> {
 }
 
 class ScreenArguments {
-  final String id;
   final String name;
   final String foto;
   final String harga;
@@ -24,5 +23,5 @@ class ScreenArguments {
   final String deskripsi;
 
   ScreenArguments(
-      this.id, this.name, this.foto, this.harga, this.rating, this.deskripsi);
+      this.name, this.foto, this.harga, this.rating, this.deskripsi);
 }
