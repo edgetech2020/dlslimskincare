@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dlslim/Pages/detailNews.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -74,22 +75,13 @@ class _NewsPromoState extends State<NewsPromo> {
                                           // splashColor: Color.fromRGBO(32, 59, 141, 1),
                                           onTap: () {
                                             Navigator.pushNamed(
-                                              context, '/detail',
-                                              // arguments: ScreenArguments(
-                                              //     product[index]['id']
-                                              //         .toString(),
-                                              //     product[index]['name']
-                                              //         .toString(),
-                                              //     product[index]['images'][0]
-                                              //         ['src'],
-                                              //     product[index]['price']
-                                              //         .toString(),
-                                              //     double.parse(product[index]
-                                              //         ['average_rating']),
-                                              //     product[index]
-                                              //             ['description']
-                                              //         .toString()));
-                                            );
+                                                context, '/detailnews',
+                                                arguments: NewsArguments(
+                                                    news[index]['title']
+                                                        .toString(),
+                                                    news[index]['content']
+                                                        .toString(),
+                                                    news[index]['image']));
                                           },
                                           child: Column(
                                             children: [
