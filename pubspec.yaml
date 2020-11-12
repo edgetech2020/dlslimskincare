@@ -37,6 +37,7 @@ dependencies:
   intl: ^0.16.1
   flutter_skeleton: ^0.1.0+1
   flutter_html: ^1.0.0
+  connectivity: ^2.0.1
 
 
 

@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:ui';
 
+import 'package:dlslim/Model/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   @override
@@ -9,6 +13,32 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController usernm = new TextEditingController();
+  TextEditingController passrr = new TextEditingController();
+
+  String msg = '';
+
+  Future _login() async {
+    var body = json.encode({'username': usernm.text, 'password': passrr.text});
+    var url = "https://dlslimskincare.com/wp-json/remote-login/login";
+    http.post(
+      url,
+      body: body,
+      headers: {"Content-Type": "application/json"},
+    ).then((http.Response response) {
+      final int statusCode = response.statusCode;
+      if (statusCode == 200) {
+        setState(() {
+          msg = 'Login berhasil';
+        });
+        Navigator.pushReplacementNamed(context, '/home');
+      } else
+        return setState(() {
+          msg = 'Login Fail';
+        });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +69,7 @@ class _LoginState extends State<Login> {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextField(
+                    controller: usernm,
                     obscureText: false,
                     decoration: InputDecoration(
                       filled: true,
@@ -59,6 +90,7 @@ class _LoginState extends State<Login> {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextField(
+                    controller: passrr,
                     obscureText: true,
                     decoration: InputDecoration(
                       filled: true,
@@ -86,13 +118,17 @@ class _LoginState extends State<Login> {
                       style: TextStyle(color: Hexcolor('#e6f8f6')),
                     ),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/rumah');
+                      _login();
                     },
                     color: Color.fromRGBO(0, 0, 104, 1),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                   ),
                 ),
+                Text(
+                  msg,
+                  style: TextStyle(fontSize: 20.0, color: Colors.red),
+                )
               ],
             )
           ],
