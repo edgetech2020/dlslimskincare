@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'dart:async';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 // import 'login_new.dart';
 
 class Splashscreen extends StatefulWidget {
@@ -10,18 +12,32 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _Splashscreen extends State<Splashscreen> {
+  bool isLogin = true;
+  // bool status;
+  Future userLogin() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    isLogin = pref.get('isLogin') ?? false;
+    if (isLogin) {
+      Navigator.pushReplacementNamed(context, '/rumah');
+    } else {
+      Navigator.pushReplacementNamed(context, '/hal');
+    }
+  }
+
   void initState() {
     super.initState();
     splashscreenStart();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   splashscreenStart() async {
     var duration = const Duration(seconds: 2);
     return Timer(duration, () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Hal()),
-      );
+      userLogin();
     });
   }
 

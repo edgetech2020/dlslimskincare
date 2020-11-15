@@ -29,7 +29,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   hexcolor: ^1.0.4
-  imagebutton: ^0.0.6
   http: ^0.12.2
   responsive_flutter: ^0.0.4
   image_picker: ^0.6.7+11
@@ -38,6 +37,7 @@ dependencies:
   flutter_skeleton: ^0.1.0+1
   flutter_html: ^1.0.0
   connectivity: ^2.0.1
+  shared_preferences: ^0.5.12+4
 
 
 

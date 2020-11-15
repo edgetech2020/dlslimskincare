@@ -19,8 +19,6 @@ class ApiProduct {
       if (response.statusCode == 200) {
         list = json.decode(response.body) as List;
         return list;
-      } else {
-        throw Exception('failed to load json');
       }
     }
 

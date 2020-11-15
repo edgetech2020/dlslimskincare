@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import 'Pages/detail.dart';
 import 'Pages/detailNews.dart';
+import 'Pages/hal_login.dart';
 import 'Pages/login.dart';
 import 'Pages/bottomnavbar.dart';
 import 'Pages/newPromo.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       // darkTheme: ThemeData.dark(),
       title: 'DL Slim Skin Care',
       theme: ThemeData(
+        // brightness: Brightness.dark,
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -36,6 +38,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         '/loginpage': (BuildContext context) => Login(),
+        '/hal': (BuildContext ctxt) => Hal(),
         '/registrasi': (BuildContext context) => Registrasi(),
         '/gender': (BuildContext context) => GenderSex(),
         '/skin': (BuildContext context) => SkinPage(),

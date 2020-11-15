@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:dlslim/Model/connectivity.dart';
+import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -13,10 +14,32 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController usernm = new TextEditingController();
+  TextEditingController usernm = TextEditingController();
   TextEditingController passrr = new TextEditingController();
 
+  String name = '';
+
   String msg = '';
+  bool isLogin = false;
+
+  void login() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool('isLogin', true);
+    if (isLogin == true) {
+      pref.setString('username', usernm.text);
+    }
+  }
+
+  // void loginSave() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   pref.setString('username', usernm.text);
+
+  //   setState(() {
+  //     name = usernm.text;
+  //     isLogin = true;
+  //   });
+  //   usernm.clear();
+  // }
 
   Future _login() async {
     var body = json.encode({'username': usernm.text, 'password': passrr.text});
@@ -31,10 +54,10 @@ class _LoginState extends State<Login> {
         setState(() {
           msg = 'Login berhasil';
         });
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.pushReplacementNamed(context, '/rumah');
       } else
         return setState(() {
-          msg = 'Login Fail';
+          msg = 'username/password salah silahkan coba lagi ya bunds';
         });
     });
   }
@@ -54,6 +77,7 @@ class _LoginState extends State<Login> {
         child: ListView(
           children: [
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.2,
@@ -119,15 +143,21 @@ class _LoginState extends State<Login> {
                     ),
                     onPressed: () {
                       _login();
+                      login();
                     },
                     color: Color.fromRGBO(0, 0, 104, 1),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                   ),
                 ),
-                Text(
-                  msg,
-                  style: TextStyle(fontSize: 20.0, color: Colors.red),
+                Container(
+                  width: 300,
+                  height: 100,
+                  child: Text(
+                    msg,
+                    style: ExtraStyle.productTitle(),
+                    textAlign: TextAlign.center,
+                  ),
                 )
               ],
             )
