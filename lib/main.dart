@@ -11,7 +11,7 @@ import 'Pages/detail.dart';
 import 'Pages/detailNews.dart';
 import 'Pages/hal_login.dart';
 import 'Pages/login.dart';
-import 'Pages/bottomnavbar.dart';
+import 'Model/bottomnavbar.dart';
 import 'Pages/newPromo.dart';
 import 'Pages/product.dart';
 import 'Pages/skin.dart';

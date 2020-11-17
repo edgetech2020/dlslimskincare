@@ -1,3 +1,4 @@
+import 'package:dlslim/Pages/hasilShared.dart';
 import 'package:dlslim/Pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -13,7 +14,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    HomePage(),
+    Hasil(),
     Text(
       'Index 2: School',
       style: optionStyle,

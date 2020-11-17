@@ -66,6 +66,14 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future loadUid() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      name = pref.getString('username') ?? "gagal Load";
+    });
+    return name;
+  }
+
   Future logoutUser() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref?.clear();
@@ -175,7 +183,22 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
-                      // Text(isLogin.toString()),
+                      Text(name),
+                      Container(
+                        width: 250.0,
+                        child: RaisedButton(
+                          child: Text(
+                            "lod",
+                            style: TextStyle(color: Hexcolor('#e6f8f6')),
+                          ),
+                          onPressed: () {
+                            loadUid();
+                          },
+                          color: Color.fromRGBO(0, 0, 104, 1),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)),
+                        ),
+                      ),
                       Container(
                         width: 250.0,
                         child: RaisedButton(

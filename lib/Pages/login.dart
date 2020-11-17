@@ -14,32 +14,19 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  Map uid = Map();
   TextEditingController usernm = TextEditingController();
   TextEditingController passrr = new TextEditingController();
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  bool _passwordVisible = false;
 
   String name = '';
 
   String msg = '';
   bool isLogin = false;
-
-  void login() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setBool('isLogin', true);
-    if (isLogin == true) {
-      pref.setString('username', usernm.text);
-    }
-  }
-
-  // void loginSave() async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   pref.setString('username', usernm.text);
-
-  //   setState(() {
-  //     name = usernm.text;
-  //     isLogin = true;
-  //   });
-  //   usernm.clear();
-  // }
+  bool isLoginButtonDisabled = false;
 
   Future _login() async {
     var body = json.encode({'username': usernm.text, 'password': passrr.text});
@@ -48,23 +35,53 @@ class _LoginState extends State<Login> {
       url,
       body: body,
       headers: {"Content-Type": "application/json"},
-    ).then((http.Response response) {
+    ).then((http.Response response) async {
       final int statusCode = response.statusCode;
       if (statusCode == 200) {
-        setState(() {
-          msg = 'Login berhasil';
-        });
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setBool('isLogin', true);
+        pref.setString('username', usernm.text);
+        pref.setString('response', response.body);
         Navigator.pushReplacementNamed(context, '/rumah');
       } else
         return setState(() {
           msg = 'username/password salah silahkan coba lagi ya bunds';
+          isLoginButtonDisabled = false;
         });
+      _scaffoldKey.currentState.hideCurrentSnackBar();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    var loginRaisedButton = RaisedButton(
+      child: Text(
+        "Login",
+        style: TextStyle(color: Hexcolor('#e6f8f6')),
+      ),
+      onPressed: isLoginButtonDisabled
+          ? null
+          : () {
+              FocusScope.of(context).unfocus();
+              _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                content: new Row(
+                  children: <Widget>[
+                    new CircularProgressIndicator(),
+                    new Text("  Sedang Masuk...")
+                  ],
+                ),
+              ));
+              setState(() {
+                msg = '';
+                isLoginButtonDisabled = true;
+              });
+              _login();
+            },
+      color: Color.fromRGBO(0, 0, 104, 1),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    );
     return Scaffold(
+      key: _scaffoldKey,
       // resizeToAvoidBottomInset: true,
       resizeToAvoidBottomPadding: false,
       body: Container(
@@ -94,6 +111,7 @@ class _LoginState extends State<Login> {
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextField(
                     controller: usernm,
+                    enabled: !isLoginButtonDisabled,
                     obscureText: false,
                     decoration: InputDecoration(
                       filled: true,
@@ -115,8 +133,27 @@ class _LoginState extends State<Login> {
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextField(
                     controller: passrr,
-                    obscureText: true,
+                    enabled: !isLoginButtonDisabled,
+                    obscureText: !_passwordVisible,
+                    onSubmitted: (_) {
+                      loginRaisedButton.onPressed?.call();
+                    },
                     decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          // Based on passwordVisible state choose the icon
+                          _passwordVisible
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Theme.of(context).primaryColorDark,
+                        ),
+                        onPressed: () {
+                          // Update the state i.e. toogle the state of passwordVisible variable
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
                       filled: true,
                       fillColor: Colors.white,
                       prefixIcon: Icon(Icons.lock),
@@ -136,19 +173,7 @@ class _LoginState extends State<Login> {
                 ),
                 Container(
                   width: 250.0,
-                  child: RaisedButton(
-                    child: Text(
-                      "Login",
-                      style: TextStyle(color: Hexcolor('#e6f8f6')),
-                    ),
-                    onPressed: () {
-                      _login();
-                      login();
-                    },
-                    color: Color.fromRGBO(0, 0, 104, 1),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                  ),
+                  child: loginRaisedButton,
                 ),
                 Container(
                   width: 300,
