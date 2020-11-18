@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dlslim/Model/appBar.dart';
 import 'package:dlslim/Pages/detailNews.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -27,9 +28,7 @@ class _NewsPromoState extends State<NewsPromo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Title"),
-      ),
+      appBar: Appbar.getAppBar(context),
       body: Container(
         width: MediaQuery.of(context).size.width * 1,
         height: MediaQuery.of(context).size.height * 1,

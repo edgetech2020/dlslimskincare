@@ -1,3 +1,4 @@
+import 'package:dlslim/Model/appBar.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -14,9 +15,7 @@ class _DetailNewsState extends State<DetailNews> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Title '),
-      ),
+      appBar: Appbar.getAppBar(context),
       body: Container(
         child: DraggableScrollableSheet(
           initialChildSize: 1.0,

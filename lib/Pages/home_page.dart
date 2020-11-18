@@ -7,9 +7,8 @@ import 'package:dlslim/Model/m_product.dart';
 
 import 'package:dlslim/Pages/test.dart';
 import 'package:dlslim/style/extraStyle.dart';
-import 'package:dlslim/Pages/api/api_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,9 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController usernm = TextEditingController();
-  List<NewsApi> newsApi = List();
-  List<NewsNew> news = List();
   String name = '';
   bool isLogin = true;
   bool isLogOut = false;
@@ -183,28 +179,13 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
-                      Text(name),
-                      Container(
-                        width: 250.0,
-                        child: RaisedButton(
-                          child: Text(
-                            "lod",
-                            style: TextStyle(color: Hexcolor('#e6f8f6')),
-                          ),
-                          onPressed: () {
-                            loadUid();
-                          },
-                          color: Color.fromRGBO(0, 0, 104, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                        ),
-                      ),
                       Container(
                         width: 250.0,
                         child: RaisedButton(
                           child: Text(
                             "LogOut",
-                            style: TextStyle(color: Hexcolor('#e6f8f6')),
+                            style: TextStyle(
+                                color: Color.fromRGBO(230, 248, 246, 1)),
                           ),
                           onPressed: () {
                             logoutUser();

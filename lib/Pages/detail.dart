@@ -1,10 +1,12 @@
 // import 'dart:convert';
 // import 'dart:html';
 
+import 'package:dlslim/Model/appBar.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
+import 'package:dlslim/Model/globals.dart' as globals;
 // import 'dart:async';
 // import 'package:http/http.dart' as http;
 
@@ -17,6 +19,9 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  int id;
+  int nId = 0;
+
   // List product = List();
 
   // Future<void> productDetail(String id) async {
@@ -42,46 +47,7 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Container(
-            height: MediaQuery.of(context).size.height * 0.04,
-            child: TextField(
-              obscureText: false,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  // borderSide: BorderSide(color: Hexcolor('#203b8d')),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                enabledBorder: OutlineInputBorder(
-                    // borderSide: BorderSide(color: Hexcolor('#203b8d')),
-                    borderRadius: BorderRadius.circular(15)),
-                labelText: 'Search',
-              ),
-            ),
-          ),
-          backgroundColor: Colors.blue,
-          elevation: 0.0,
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width * 0.05),
-              child: Icon(
-                Icons.favorite,
-                color: Colors.black,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width * 0.05),
-              child: Icon(
-                Icons.add_shopping_cart_rounded,
-                color: Colors.black,
-              ),
-            ),
-          ]),
+      appBar: Appbar.getAppBar(context),
       body: Container(
         width: MediaQuery.of(context).size.width * 1,
         height: MediaQuery.of(context).size.height * 1,
@@ -288,6 +254,7 @@ class _DetailPageState extends State<DetailPage> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.03,
                               ),
+                              // Text(widget.arguments.id.toString()),
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.85,
                                 child: Column(
@@ -335,7 +302,10 @@ class _DetailPageState extends State<DetailPage> {
                               TextStyle(color: Color.fromRGBO(32, 59, 141, 1)),
                         ),
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/rumah');
+                          // Navigator.pushReplacementNamed(context, '/rumah');
+
+                          globals.cartList.add(widget.arguments.id);
+                          setState(() {});
                         },
                         color: Color.fromRGBO(139, 223, 215, 1),
                         shape: RoundedRectangleBorder(
@@ -374,7 +344,7 @@ class _DetailPageState extends State<DetailPage> {
 }
 
 class ScreenArguments {
-  final String id;
+  final int id;
   final String name;
   final String foto;
   final String harga;

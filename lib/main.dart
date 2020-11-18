@@ -7,6 +7,7 @@ import 'package:dlslim/Pages/home_page.dart';
 import 'package:dlslim/Pages/registrasi.dart';
 import 'package:flutter/material.dart';
 
+import 'Pages/cartList.dart';
 import 'Pages/detail.dart';
 import 'Pages/detailNews.dart';
 import 'Pages/hal_login.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
             DetailPage(ModalRoute.of(context).settings.arguments),
         '/detailnews': (context) =>
             DetailNews(ModalRoute.of(context).settings.arguments),
+        '/cartlist': (BuildContext context) => CartList(),
       },
     );
   }

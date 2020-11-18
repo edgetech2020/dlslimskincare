@@ -1,10 +1,10 @@
 import 'dart:convert';
+import 'package:dlslim/Model/appBar.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'detail.dart';
 
 class Product extends StatefulWidget {
@@ -40,49 +40,7 @@ class _ProductState extends State<Product> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       resizeToAvoidBottomPadding: true,
-      appBar: AppBar(
-        // leading: Container(),
-        // leadingWidth: MediaQuery.of(context).size.width * 0.01,
-        title: Container(
-          height: MediaQuery.of(context).size.height * 0.04,
-          child: TextField(
-            obscureText: false,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(
-                // borderSide: BorderSide(color: Hexcolor('#203b8d')),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              enabledBorder: OutlineInputBorder(
-                  // borderSide: BorderSide(color: Hexcolor('#203b8d')),
-                  borderRadius: BorderRadius.circular(15)),
-              labelText: 'Search',
-            ),
-          ),
-        ),
-        backgroundColor: Colors.blue,
-        elevation: 0.0,
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(
-                right: MediaQuery.of(context).size.width * 0.05),
-            child: Icon(
-              Icons.favorite,
-              color: Colors.black,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                right: MediaQuery.of(context).size.width * 0.05),
-            child: Icon(
-              Icons.add_shopping_cart_rounded,
-              color: Colors.black,
-            ),
-          ),
-        ],
-      ),
+      appBar: Appbar.getAppBar(context),
       body: Container(
         width: MediaQuery.of(context).size.width * 1,
         height: MediaQuery.of(context).size.height * 1,
@@ -133,8 +91,7 @@ class _ProductState extends State<Product> {
                                             Navigator.pushNamed(
                                                 context, '/detail',
                                                 arguments: ScreenArguments(
-                                                    product[index]['id']
-                                                        .toString(),
+                                                    product[index]['id'],
                                                     product[index]['name']
                                                         .toString(),
                                                     product[index]['images'][0]

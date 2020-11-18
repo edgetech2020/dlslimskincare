@@ -59,7 +59,7 @@ class ApiProduct {
                                   onTap: () {
                                     Navigator.pushNamed(context, '/detail',
                                         arguments: ScreenArguments(
-                                            list[index]['id'].toString(),
+                                            list[index]['id'],
                                             list[index]['name'].toString(),
                                             list[index]['images'][0]['src'],
                                             list[index]['price'].toString(),

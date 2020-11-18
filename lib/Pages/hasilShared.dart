@@ -26,7 +26,7 @@ class _HasilState extends State<Hasil> {
 
   Future loadIslogin() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    isLogin = pref.getBool('isLogin') ?? false;
+    name = pref.getString('id') ?? 'gagal id';
     setState(() {});
   }
 
@@ -91,9 +91,9 @@ class _HasilState extends State<Hasil> {
                 loadLogin();
                 setState(() {});
               }),
-          Text(isLogin.toString()),
+          Text(name),
           RaisedButton(
-              child: Text('Load'),
+              child: Text('Load ID'),
               onPressed: () {
                 loadIslogin();
                 setState(() {});
