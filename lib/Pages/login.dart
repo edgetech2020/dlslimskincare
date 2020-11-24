@@ -45,7 +45,7 @@ class _LoginState extends State<Login> {
         Navigator.pushReplacementNamed(context, '/rumah');
       } else
         return setState(() {
-          msg = 'username/password salah silahkan coba lagi ya bunds';
+          msg = 'username/password Tidak Sesuai';
           isLoginButtonDisabled = false;
         });
       _scaffoldKey.currentState.hideCurrentSnackBar();
@@ -83,7 +83,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       key: _scaffoldKey,
       // resizeToAvoidBottomInset: true,
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:dlslim/Model/appBar.dart';
+import 'package:dlslim/Model/argument.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'detail.dart';
 
 class Product extends StatefulWidget {
   @override
@@ -90,19 +90,24 @@ class _ProductState extends State<Product> {
                                           onTap: () {
                                             Navigator.pushNamed(
                                                 context, '/detail',
-                                                arguments: ScreenArguments(
-                                                    product[index]['id'],
-                                                    product[index]['name']
-                                                        .toString(),
-                                                    product[index]['images'][0]
-                                                        ['src'],
-                                                    product[index]['price']
-                                                        .toString(),
-                                                    double.parse(product[index]
-                                                        ['average_rating']),
-                                                    product[index]
-                                                            ['description']
-                                                        .toString()));
+                                                arguments:
+                                                    DetailProductArgument(
+                                                        product[index]['id'],
+                                                        product[index]['name']
+                                                            .toString(),
+                                                        product[
+                                                                    index]
+                                                                ['images'][0][
+                                                            'src'],
+                                                        product[index]
+                                                                ['price']
+                                                            .toString(),
+                                                        double.parse(product[
+                                                                index]
+                                                            ['average_rating']),
+                                                        product[index]
+                                                                ['description']
+                                                            .toString()));
                                           },
                                           child: Column(
                                             children: [

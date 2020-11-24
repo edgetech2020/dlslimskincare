@@ -5,7 +5,6 @@ import 'package:dlslim/Model/m_carousel.dart';
 import 'package:dlslim/Model/m_newsPromo.dart';
 import 'package:dlslim/Model/m_product.dart';
 
-import 'package:dlslim/Pages/test.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 
@@ -163,10 +162,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                           FlatButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Test()));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => Test()));
                             },
                             child: Text(
                               'Lihat Semua',
@@ -178,22 +177,6 @@ class _HomePageState extends State<HomePage> {
                       ApiBeautyTreatment.apiBeautyTreatment(),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      Container(
-                        width: 250.0,
-                        child: RaisedButton(
-                          child: Text(
-                            "LogOut",
-                            style: TextStyle(
-                                color: Color.fromRGBO(230, 248, 246, 1)),
-                          ),
-                          onPressed: () {
-                            logoutUser();
-                          },
-                          color: Color.fromRGBO(0, 0, 104, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                        ),
                       ),
                     ],
                   ),

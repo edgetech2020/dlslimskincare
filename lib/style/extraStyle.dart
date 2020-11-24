@@ -36,6 +36,14 @@ class ExtraStyle {
         fontSize: 12);
   }
 
+  static TextStyle profileUname() {
+    return const TextStyle(
+        // color 203b8d
+        color: Color.fromRGBO(230, 248, 246, 1),
+        fontFamily: "MontSerrat",
+        fontSize: 18);
+  }
+
   static TextStyle productTitle() {
     return const TextStyle(
         // color 203b8d

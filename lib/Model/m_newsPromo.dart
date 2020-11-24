@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dlslim/Pages/detailNews.dart';
+import 'package:dlslim/Model/argument.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

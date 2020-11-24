@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import 'package:dlslim/Pages/detail.dart';
+import 'package:dlslim/Model/argument.dart';
+
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -58,7 +59,7 @@ class ApiProduct {
                                   borderRadius: BorderRadius.circular(15),
                                   onTap: () {
                                     Navigator.pushNamed(context, '/detail',
-                                        arguments: ScreenArguments(
+                                        arguments: DetailProductArgument(
                                             list[index]['id'],
                                             list[index]['name'].toString(),
                                             list[index]['images'][0]['src'],

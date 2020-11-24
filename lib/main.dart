@@ -1,5 +1,6 @@
 import 'package:dlslim/Pages/beauty_concern.dart';
 import 'package:dlslim/Pages/beauty_id.dart';
+import 'package:dlslim/Pages/buyNow.dart';
 import 'package:dlslim/Pages/camera.dart';
 import 'package:dlslim/Pages/gender.dart';
 
@@ -55,6 +56,8 @@ class MyApp extends StatelessWidget {
         '/detailnews': (context) =>
             DetailNews(ModalRoute.of(context).settings.arguments),
         '/cartlist': (BuildContext context) => CartList(),
+        '/buynow': (BuildContext context) =>
+            BuyNow(ModalRoute.of(context).settings.arguments),
       },
     );
   }

@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:ui';
 
+import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,12 +41,13 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/home.png'), fit: BoxFit.cover),
         ),
-        child: ListView(
+        child: Stack(
           children: [
             FutureBuilder(
                 future: idApi(),
@@ -56,7 +59,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     );
                   } else
                     return Container(
-                      width: MediaQuery.of(context).size.width * 0.2,
+                      margin: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.35),
+                      width: MediaQuery.of(context).size.width * 0.3,
                       height: MediaQuery.of(context).size.height * 0.2,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
@@ -65,24 +70,126 @@ class _ProfilePageState extends State<ProfilePage> {
                               image: NetworkImage("https:" + uid['avatar'] ??
                                   'https://dlslimskincare.com/wp-content/uploads/2020/10/no-image-icon-6.png'),
                               fit: BoxFit.contain)),
-                      child: Text(uid['user_login'].toString() ?? 'Noname'),
                     );
                 }),
-            Container(
-              width: 250.0,
-              child: RaisedButton(
-                child: Text(
-                  "LogOut",
-                  style: TextStyle(color: Color.fromRGBO(230, 248, 246, 1)),
+            FutureBuilder(
+                future: idApi(),
+                builder: (context, s) {
+                  if (s.connectionState == ConnectionState.waiting &&
+                      !s.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else
+                    return Container(
+                      margin: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.25,
+                          top: MediaQuery.of(context).size.width * 0.45),
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.13,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: Color.fromRGBO(32, 59, 141, 1),
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                                top: MediaQueryData.fromWindow(window)
+                                        .size
+                                        .height *
+                                    0.04),
+                            child: Text(
+                              uid['user_nicename'].toString(),
+                              style: ExtraStyle.profileUname(),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              uid['user_nicename'].toString(),
+                              style: ExtraStyle.profileUname(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                }),
+            Positioned.fill(
+                child: DraggableScrollableSheet(
+                    initialChildSize: 0.4,
+                    minChildSize: 0.4,
+                    maxChildSize: 1.0,
+                    builder: (BuildContext context,
+                        ScrollController scrollController) {
+                      return Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromRGBO(230, 248, 246, 1),
+                            borderRadius: BorderRadius.circular(40)),
+                        child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            controller: scrollController,
+                            itemCount: 1,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Column(
+                                children: [],
+                              );
+                            }),
+                      );
+                    })),
+            Center(
+              child: Container(
+                width: 250.0,
+                child: RaisedButton(
+                  child: Text(
+                    "LogOut",
+                    style: TextStyle(color: Color.fromRGBO(230, 248, 246, 1)),
+                  ),
+                  onPressed: () {
+                    logoutUser();
+                  },
+                  color: Color.fromRGBO(0, 0, 104, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
                 ),
-                onPressed: () {
-                  logoutUser();
-                },
-                color: Color.fromRGBO(0, 0, 104, 1),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
               ),
             ),
+            // FutureBuilder(
+            //     future: idApi(),
+            //     builder: (context, s) {
+            //       if (s.connectionState == ConnectionState.waiting &&
+            //           !s.hasData) {
+            //         return Center(
+            //           child: CircularProgressIndicator(),
+            //         );
+            //       } else
+            //         return Container(
+            //           width: MediaQuery.of(context).size.width * 0.2,
+            //           height: MediaQuery.of(context).size.height * 0.2,
+            //           decoration: BoxDecoration(
+            //               shape: BoxShape.circle,
+            //               color: Colors.black,
+            //               image: DecorationImage(
+            //                   image: NetworkImage("https:" + uid['avatar'] ??
+            //                       'https://dlslimskincare.com/wp-content/uploads/2020/10/no-image-icon-6.png'),
+            //                   fit: BoxFit.contain)),
+            //           child: Text(uid['user_login'].toString() ?? 'Noname'),
+            //         );
+            //     }),
+            // Container(
+            //   width: 250.0,
+            //   child: RaisedButton(
+            //     child: Text(
+            //       "LogOut",
+            //       style: TextStyle(color: Color.fromRGBO(230, 248, 246, 1)),
+            //     ),
+            //     onPressed: () {
+            //       logoutUser();
+            //     },
+            //     color: Color.fromRGBO(0, 0, 104, 1),
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(15)),
+            //   ),
+            // ),
           ],
         ),
       ),

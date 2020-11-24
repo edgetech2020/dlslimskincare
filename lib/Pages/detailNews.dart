@@ -1,4 +1,5 @@
 import 'package:dlslim/Model/appBar.dart';
+import 'package:dlslim/Model/argument.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -78,12 +79,4 @@ class _DetailNewsState extends State<DetailNews> {
       ),
     );
   }
-}
-
-class NewsArguments {
-  final String title;
-  final String deskripsi;
-  final String foto;
-
-  NewsArguments(this.title, this.deskripsi, this.foto);
 }

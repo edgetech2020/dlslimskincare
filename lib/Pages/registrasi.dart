@@ -8,6 +8,13 @@ class Registrasi extends StatefulWidget {
 }
 
 class _RegistrasiState extends State<Registrasi> {
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController alamat = TextEditingController();
+
+  Future postShared() async {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,6 +2,8 @@
 // import 'dart:html';
 
 import 'package:dlslim/Model/appBar.dart';
+import 'package:dlslim/Model/argument.dart';
+
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -11,7 +13,7 @@ import 'package:dlslim/Model/globals.dart' as globals;
 // import 'package:http/http.dart' as http;
 
 class DetailPage extends StatefulWidget {
-  final ScreenArguments arguments;
+  final DetailProductArgument arguments;
   DetailPage(this.arguments);
 
   @override
@@ -75,52 +77,11 @@ class _DetailPageState extends State<DetailPage> {
                             : 'https://dlslimskincare.com/wp-content/uploads/2020/10/no-image-icon-6.png'),
                         scale: 2.5)),
               ),
-              Positioned(
-                top: MediaQuery.of(context).size.width * 0.6,
-                right: MediaQuery.of(context).size.width * 0.1,
-                child: Container(
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.width * 0.1,
-                    left: MediaQuery.of(context).size.width * 0.4,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.arguments.name,
-                            style: ExtraStyle.productTitle(),
-                          ),
-                          Text(
-                            (widget.arguments.harga != null)
-                                ? NumberFormat.currency(
-                                        locale: 'id',
-                                        symbol: 'Rp. ',
-                                        decimalDigits: 0)
-                                    .format(int.parse(widget.arguments.harga))
-                                : 'data not found',
-                            style: ExtraStyle.productTitle(),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              right: MediaQuery.of(context).size.width * 0.33)),
-                      Icon(
-                        Icons.favorite_outline,
-                        size: 45,
-                      )
-                    ],
-                  ),
-                ),
-              ),
               Positioned.fill(
                 child: DraggableScrollableSheet(
-                  initialChildSize: 0.55,
-                  maxChildSize: 0.7,
-                  minChildSize: 0.55,
+                  initialChildSize: 0.7,
+                  maxChildSize: 0.9,
+                  minChildSize: 0.7,
                   builder: (BuildContext context,
                       ScrollController scrollController) {
                     return Container(
@@ -145,6 +106,52 @@ class _DetailPageState extends State<DetailPage> {
                                 decoration: BoxDecoration(
                                     color: Colors.grey[400],
                                     borderRadius: BorderRadius.circular(15)),
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.02,
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.width * 0.05,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          widget.arguments.name,
+                                          style: ExtraStyle.productTitle(),
+                                        ),
+                                        Text(
+                                          (widget.arguments.harga != null)
+                                              ? NumberFormat.currency(
+                                                      locale: 'id',
+                                                      symbol: 'Rp. ',
+                                                      decimalDigits: 0)
+                                                  .format(int.parse(
+                                                      widget.arguments.harga))
+                                              : 'data not found',
+                                          style: ExtraStyle.productTitle(),
+                                        ),
+                                      ],
+                                    ),
+                                    // Padding(
+                                    //     padding: EdgeInsets.only(
+                                    //         right: MediaQuery.of(context)
+                                    //                 .size
+                                    //                 .width *
+                                    //             0.3)),
+                                    Icon(
+                                      Icons.favorite_outline,
+                                      size: 45,
+                                    )
+                                  ],
+                                ),
                               ),
                               SizedBox(
                                 height:
@@ -324,7 +331,12 @@ class _DetailPageState extends State<DetailPage> {
                               TextStyle(color: Color.fromRGBO(32, 59, 141, 1)),
                         ),
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/rumah');
+                          Navigator.pushNamed(context, '/buynow',
+                              arguments: BuyNowArg(
+                                  widget.arguments.id,
+                                  widget.arguments.name,
+                                  widget.arguments.foto,
+                                  widget.arguments.harga));
                         },
                         color: Color.fromRGBO(139, 223, 215, 1),
                         shape: RoundedRectangleBorder(
@@ -341,16 +353,4 @@ class _DetailPageState extends State<DetailPage> {
       // floatingActionButton: FloatingActionButton(onPressed: null),
     );
   }
-}
-
-class ScreenArguments {
-  final int id;
-  final String name;
-  final String foto;
-  final String harga;
-  final double rating;
-  final String deskripsi;
-
-  ScreenArguments(
-      this.id, this.name, this.foto, this.harga, this.rating, this.deskripsi);
 }
