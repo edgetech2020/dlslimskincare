@@ -9,7 +9,6 @@ class Appbar {
       title: Container(
         height: MediaQueryData.fromWindow(window).size.height * 0.04,
         child: TextField(
-          obscureText: false,
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,

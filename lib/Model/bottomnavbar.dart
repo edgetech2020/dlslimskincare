@@ -18,11 +18,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Hasil(),
     Text(
       'Index 3: School',
       style: optionStyle,
     ),
+    Hasil(),
     ProfilePage(),
   ];
 

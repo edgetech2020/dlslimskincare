@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'package:dlslim/Model/globals.dart' as globals;
+import 'package:http/http.dart' as http;
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Registrasi extends StatefulWidget {
   @override
@@ -11,13 +15,71 @@ class _RegistrasiState extends State<Registrasi> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController email = TextEditingController();
-  TextEditingController alamat = TextEditingController();
 
-  Future postShared() async {}
+  String msg = "";
+  bool isRegistButtonDisabled = false;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  Future postShared() async {
+    var body = json.encode({
+      'username': username.text,
+      'password': password.text,
+      'email': email.text
+    });
+    var url = "";
+    http.post(url, body: body, headers: {
+      "Content-Type": "application/json"
+    }).then((http.Response response) async {
+      final int statusCode = response.statusCode;
+      if (statusCode == 200) {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setString('response', response.body);
+        globals.userId = response.body;
+        Navigator.pushReplacementNamed(context, '/gender');
+      } else
+        return setState(() {
+          msg = "Gagal daftar periksa koneksi internet anda";
+          isRegistButtonDisabled = false;
+        });
+      _scaffoldKey.currentState.hideCurrentSnackBar();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    var isRegistButton = Container(
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
+      width: MediaQuery.of(context).size.width * 0.9,
+      child: RaisedButton(
+        child: Text(
+          "Daftar",
+          style: TextStyle(color: Hexcolor('#e6f8f6')),
+        ),
+        onPressed: isRegistButtonDisabled
+            ? null
+            : () {
+                FocusScope.of(context).unfocus();
+                _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                  content: new Row(
+                    children: <Widget>[
+                      new CircularProgressIndicator(),
+                      new Text("  proses....")
+                    ],
+                  ),
+                ));
+                setState(() {
+                  msg = '';
+                  isRegistButtonDisabled = true;
+                });
+                postShared();
+              },
+        color: Color.fromRGBO(0, 0, 104, 1),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      ),
+    );
     return Scaffold(
+      key: _scaffoldKey,
       resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: true,
       body: Stack(
@@ -116,29 +178,6 @@ class _RegistrasiState extends State<Registrasi> {
                             ),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.01),
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: TextField(
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              prefixIcon: Icon(Icons.location_city),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromRGBO(32, 59, 141, 1)),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromRGBO(32, 59, 141, 1)),
-                                  borderRadius: BorderRadius.circular(15)),
-                              labelText: 'Alamat',
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                     Container(
@@ -190,23 +229,7 @@ class _RegistrasiState extends State<Registrasi> {
                     ),
                   ],
                 ),
-                Container(
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.1),
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: RaisedButton(
-                    child: Text(
-                      "Daftar",
-                      style: TextStyle(color: Hexcolor('#e6f8f6')),
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/gender');
-                    },
-                    color: Color.fromRGBO(0, 0, 104, 1),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                  ),
-                ),
+                isRegistButton,
               ],
             ),
           ),

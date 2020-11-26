@@ -2,7 +2,7 @@ class BuyNowArg {
   final int id;
   final String name;
   final String foto;
-  final String harga;
+  final int harga;
 
   BuyNowArg(this.id, this.name, this.foto, this.harga);
 }

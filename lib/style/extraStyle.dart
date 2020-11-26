@@ -52,6 +52,14 @@ class ExtraStyle {
         fontSize: 18);
   }
 
+  static TextStyle productBuyNow() {
+    return const TextStyle(
+        // color 203b8d
+        color: Color.fromRGBO(32, 59, 141, 1),
+        fontFamily: "MontSerrat",
+        fontSize: 20);
+  }
+
   static Container beautyTreatmen(text) {
     return Container(
         // width: MediaQueryData.fromWindow(window).size.width * 0.5,

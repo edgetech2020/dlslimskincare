@@ -336,7 +336,7 @@ class _DetailPageState extends State<DetailPage> {
                                   widget.arguments.id,
                                   widget.arguments.name,
                                   widget.arguments.foto,
-                                  widget.arguments.harga));
+                                  int.parse(widget.arguments.harga)));
                         },
                         color: Color.fromRGBO(139, 223, 215, 1),
                         shape: RoundedRectangleBorder(
