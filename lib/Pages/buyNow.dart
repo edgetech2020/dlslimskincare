@@ -1,5 +1,6 @@
 import 'package:dlslim/Model/argument.dart';
 import 'package:dlslim/style/extraStyle.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -59,7 +60,7 @@ class _BuyNowState extends State<BuyNow> {
         body: ListView(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.45,
               decoration: BoxDecoration(
                   color: Color.fromRGBO(230, 248, 246, 1),
                   borderRadius: BorderRadius.only(
@@ -76,46 +77,32 @@ class _BuyNowState extends State<BuyNow> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.03),
-                          height: MediaQuery.of(context).size.height * 0.2,
-                          // width: MediaQuery.of(context).size.width * 0.3,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(15),
-                                topLeft: Radius.circular(15)),
-                          ),
-                          child: Image(
-                            image: NetworkImage((widget.arg.foto != null)
-                                ? widget.arg.foto
-                                : 'https://dlslimskincare.com/wp-content/uploads/2020/10/no-image-icon-6.png'),
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              widget.arg.name,
-                              style: ExtraStyle.productBuyNow(),
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.02,
-                            ),
-                            Text(
-                              NumberFormat.currency(
-                                      locale: 'id',
-                                      symbol: 'Rp. ',
-                                      decimalDigits: 0)
-                                  .format(
-                                      int.parse(widget.arg.harga.toString())),
-                              style: ExtraStyle.productBuyNow(),
-                            )
-                          ],
-                        )
-                      ],
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(15),
+                            topLeft: Radius.circular(15)),
+                      ),
+                      child: Image(
+                          image: NetworkImage((widget.arg.foto != null)
+                              ? widget.arg.foto
+                              : 'https://dlslimskincare.com/wp-content/uploads/2020/10/no-image-icon-6.png'),
+                          fit: BoxFit.contain),
+                    ),
+                    Text(
+                      widget.arg.name,
+                      style: ExtraStyle.productBuyNow(),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                    ),
+                    Text(
+                      NumberFormat.currency(
+                              locale: 'id', symbol: 'Rp. ', decimalDigits: 0)
+                          .format(int.parse(widget.arg.harga.toString())),
+                      style: ExtraStyle.productBuyNow(),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
@@ -193,9 +180,18 @@ class _BuyNowState extends State<BuyNow> {
                               margin: EdgeInsets.only(
                                   left:
                                       MediaQuery.of(context).size.width * 0.05),
-                              child: Text('Masukan Alamat')),
+                              child: RichText(
+                                  text: TextSpan(children: <TextSpan>[
+                                TextSpan(
+                                    style: ExtraStyle.styleHeading(),
+                                    text: " Masukan Alamat",
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        setState(() {});
+                                      }),
+                              ]))),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.45,
+                            width: MediaQuery.of(context).size.width * 0.25,
                           ),
                           FloatingActionButton(
                             onPressed: () {},
@@ -312,7 +308,11 @@ class _BuyNowState extends State<BuyNow> {
                                     ),
                                     Container(child: Text('1     Hari')),
                                     Container(
-                                        child: Text(jneYesHarga.toString())),
+                                        child: Text(NumberFormat.currency(
+                                                locale: 'id',
+                                                symbol: 'Rp. ',
+                                                decimalDigits: 0)
+                                            .format(jneYesHarga))),
                                   ],
                                 ),
                               ),
@@ -382,7 +382,11 @@ class _BuyNowState extends State<BuyNow> {
                                     ),
                                     Container(child: Text('2 - 4 Hari')),
                                     Container(
-                                        child: Text(jneOkeHarga.toString())),
+                                        child: Text(NumberFormat.currency(
+                                                locale: 'id',
+                                                symbol: 'Rp. ',
+                                                decimalDigits: 0)
+                                            .format(jneOkeHarga))),
                                   ],
                                 ),
                               ),
@@ -453,7 +457,11 @@ class _BuyNowState extends State<BuyNow> {
                                     ),
                                     Container(child: Text('3 - 4 Hari')),
                                     Container(
-                                        child: Text(jneRegHarga.toString())),
+                                        child: Text(NumberFormat.currency(
+                                                locale: 'id',
+                                                symbol: 'Rp. ',
+                                                decimalDigits: 0)
+                                            .format(jneRegHarga))),
                                   ],
                                 ),
                               ),
@@ -464,7 +472,25 @@ class _BuyNowState extends State<BuyNow> {
                     ),
                   ],
                 )),
-            Center(child: Text("$total")),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.01,
+            ),
+            Container(
+              margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text("Total belanja anda :    ",
+                      style: ExtraStyle.styleHeading()),
+                  Text(
+                    NumberFormat.currency(
+                            locale: 'id', symbol: 'Rp. ', decimalDigits: 0)
+                        .format(total),
+                    style: ExtraStyle.styleHeading(),
+                  )
+                ],
+              ),
+            ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,
             ),

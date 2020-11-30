@@ -1,6 +1,9 @@
 // import 'dart:convert';
 // import 'dart:html';
 
+import 'dart:convert';
+import 'dart:ui';
+
 import 'package:dlslim/Model/appBar.dart';
 import 'package:dlslim/Model/argument.dart';
 
@@ -9,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
 import 'package:dlslim/Model/globals.dart' as globals;
-// import 'dart:async';
-// import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'package:http/http.dart' as http;
 
 class DetailPage extends StatefulWidget {
   final DetailProductArgument arguments;
@@ -24,27 +27,28 @@ class _DetailPageState extends State<DetailPage> {
   int id;
   int nId = 0;
 
-  // List product = List();
+  List product = List();
 
-  // Future<void> productDetail(String id) async {
-  //   final respon = await http
-  //       .get("https://dashboard.dlslimskincare.com/api/products/reviews/" + id);
+  Future<void> productDetail() async {
+    final respon = await http.get(
+        "https://dashboard.dlslimskincare.com/api/products/reviews/" +
+            widget.arguments.id.toString());
 
-  //   if (respon.statusCode == 200) {
-  //     product = json.decode(respon.body) as List;
-  //     // print(product);
-  //   } else {
-  //     throw Exception('failed to load json');
-  //   }
-  // }
+    if (respon.statusCode == 200) {
+      product = json.decode(respon.body) as List;
+      // print(product);
+    } else {
+      throw Exception('failed to load json');
+    }
+  }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   productDetail(widget.arguments.id).then((_) {
-  //     setState(() {});
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    productDetail().then((_) {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -278,7 +282,44 @@ class _DetailPageState extends State<DetailPage> {
                                           MediaQuery.of(context).size.height *
                                               0.01,
                                     ),
-                                    ExtraStyle.beautyTreatmen(Card()),
+                                    Container(
+                                        // width: MediaQueryData.fromWindow(window).size.width * 0.5,
+                                        height:
+                                            MediaQueryData.fromWindow(window)
+                                                    .size
+                                                    .height *
+                                                0.13,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: (product.length >= 0
+                                                ? product.length
+                                                : 1),
+                                            itemBuilder: (BuildContext context,
+                                                    int index) =>
+                                                Card(
+                                                  child: Container(
+                                                      width: MediaQueryData.fromWindow(window)
+                                                              .size
+                                                              .width *
+                                                          0.5,
+                                                      decoration: BoxDecoration(
+                                                          color: Color.fromRGBO(
+                                                              32, 59, 141, 1),
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  15)),
+                                                      child: Center(
+                                                          child: Text(
+                                                              (product[index]['reviewer'] != null
+                                                                  ? product[index]
+                                                                      ['reviewer']
+                                                                  : 'belum ada yang review nih'),
+                                                              style: ExtraStyle.styleIsi()))),
+                                                ))),
                                   ],
                                 ),
                               ),

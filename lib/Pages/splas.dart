@@ -1,3 +1,5 @@
+import 'package:data_connection_checker/data_connection_checker.dart';
+
 import 'package:dlslim/Pages/hal_login.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +14,10 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _Splashscreen extends State<Splashscreen> {
+  // ignore: cancel_subscriptions
+  StreamSubscription<DataConnectionStatus> listener;
+  var internetStatus = "Unknown";
+  var contentmessage = "Unknown";
   bool isLogin = true;
   // bool status;
   Future userLogin() async {
@@ -26,19 +32,46 @@ class _Splashscreen extends State<Splashscreen> {
 
   void initState() {
     super.initState();
-    splashscreenStart();
+    splashscreenStart(context);
+    // Konek.checkConnection(context);
   }
 
-  @override
   void dispose() {
     super.dispose();
+    listener.cancel();
   }
 
-  splashscreenStart() async {
-    var duration = const Duration(seconds: 2);
-    return Timer(duration, () {
-      userLogin();
+  void _showDialog(String title, String content, BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: new Text("Internet Status"),
+              content: new Text(content),
+              actions: <Widget>[
+                new FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    },
+                    child: new Text("Ok"))
+              ]);
+        });
+  }
+
+  splashscreenStart(BuildContext context) async {
+    listener = DataConnectionChecker().onStatusChange.listen((status) {
+      switch (status) {
+        case DataConnectionStatus.connected:
+          userLogin();
+          break;
+        case DataConnectionStatus.disconnected:
+          internetStatus = "Kamu terputus dari internet. ";
+          contentmessage = "Harap periksa koneksi internet anda";
+          _showDialog(internetStatus, contentmessage, context);
+          break;
+      }
     });
+    return await DataConnectionChecker().connectionStatus;
   }
 
   @override
