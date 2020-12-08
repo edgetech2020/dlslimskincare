@@ -5,6 +5,7 @@ import 'package:dlslim/Pages/camera.dart';
 import 'package:dlslim/Pages/gender.dart';
 
 import 'package:dlslim/Pages/home_page.dart';
+import 'package:dlslim/Pages/product_demo.dart';
 import 'package:dlslim/Pages/registrasi.dart';
 import 'package:flutter/material.dart';
 
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         '/cartlist': (BuildContext context) => CartList(),
         '/buynow': (BuildContext context) =>
             BuyNow(ModalRoute.of(context).settings.arguments),
+        '/productsdemo': (BuildContext context) => ProductDemo(),
       },
     );
   }

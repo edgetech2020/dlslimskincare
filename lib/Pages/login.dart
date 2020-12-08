@@ -24,6 +24,7 @@ class _LoginState extends State<Login> {
 
   String name = '';
 
+  Map<String, dynamic> mseg;
   String msg = '';
   bool isLogin = false;
   bool isLoginButtonDisabled = false;
@@ -36,7 +37,8 @@ class _LoginState extends State<Login> {
       body: body,
       headers: {"Content-Type": "application/json"},
     ).then((http.Response response) async {
-      final int statusCode = response.statusCode;
+      mseg = json.decode(response.body);
+      final int statusCode = mseg['code'];
       if (statusCode == 200) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setBool('isLogin', true);
@@ -45,7 +47,7 @@ class _LoginState extends State<Login> {
         Navigator.pushReplacementNamed(context, '/rumah');
       } else
         return setState(() {
-          msg = 'username/password Tidak Sesuai';
+          msg = mseg['message'] ?? 'Anda tidak terhubung ke internet';
           isLoginButtonDisabled = false;
         });
       _scaffoldKey.currentState.hideCurrentSnackBar();

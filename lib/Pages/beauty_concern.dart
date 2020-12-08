@@ -1302,7 +1302,7 @@ class _ConcernState extends State<Concern> {
                     style: TextStyle(color: Hexcolor('#e6f8f6')),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/home');
+                    Navigator.pushNamed(context, '/rumah');
                   },
                   color: Color.fromRGBO(0, 0, 104, 1),
                   shape: RoundedRectangleBorder(

@@ -5,6 +5,7 @@ import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:email_validator/email_validator.dart';
 
 class Registrasi extends StatefulWidget {
   @override
@@ -14,12 +15,19 @@ class Registrasi extends StatefulWidget {
 class _RegistrasiState extends State<Registrasi> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
-  TextEditingController email = TextEditingController();
+  var email = TextEditingController();
 
-  String msg = "";
   bool isRegistButtonDisabled = false;
+  Map<String, dynamic> mseg;
+  String msg;
+  bool isLogin = false;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  // void emailVal() {
+  //   var email = TextEditingController().text;
+  //   assert(EmailValidator.validate(email));
+  // }
 
   Future postShared() async {
     var body = json.encode({
@@ -27,23 +35,38 @@ class _RegistrasiState extends State<Registrasi> {
       'password': password.text,
       'email': email.text
     });
-    var url = "";
+    var url = "http://dlslimskincare.com/wp-json/wp/v2/users/register";
     http.post(url, body: body, headers: {
       "Content-Type": "application/json"
     }).then((http.Response response) async {
-      final int statusCode = response.statusCode;
+      mseg = json.decode(response.body);
+      final int statusCode = mseg["code"];
       if (statusCode == 200) {
         SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setBool('isLogin', true);
         pref.setString('response', response.body);
-        globals.userId = response.body;
+        pref.setString('uname', username.text);
+        globals.userId = response.body.toString();
         Navigator.pushReplacementNamed(context, '/gender');
       } else
-        return setState(() {
-          msg = "Gagal daftar periksa koneksi internet anda";
+        setState(() {
+          msg = mseg["message"] ?? "Anda tidak terhubung ke internet";
           isRegistButtonDisabled = false;
         });
       _scaffoldKey.currentState.hideCurrentSnackBar();
     });
+  }
+
+  String validateEmail(String value) {
+    Pattern pattern =
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value) || value == null)
+      return 'Enter a valid email address';
+    else
+      return null;
   }
 
   @override
@@ -69,7 +92,6 @@ class _RegistrasiState extends State<Registrasi> {
                   ),
                 ));
                 setState(() {
-                  msg = '';
                   isRegistButtonDisabled = true;
                 });
                 postShared();
@@ -114,6 +136,7 @@ class _RegistrasiState extends State<Registrasi> {
                         Container(
                           width: MediaQuery.of(context).size.width * 0.5,
                           child: TextField(
+                            controller: username,
                             obscureText: false,
                             decoration: InputDecoration(
                               filled: true,
@@ -137,6 +160,7 @@ class _RegistrasiState extends State<Registrasi> {
                               top: MediaQuery.of(context).size.height * 0.01),
                           width: MediaQuery.of(context).size.width * 0.5,
                           child: TextField(
+                            controller: password,
                             obscureText: true,
                             decoration: InputDecoration(
                               filled: true,
@@ -159,22 +183,27 @@ class _RegistrasiState extends State<Registrasi> {
                           margin: EdgeInsets.only(
                               top: MediaQuery.of(context).size.height * 0.01),
                           width: MediaQuery.of(context).size.width * 0.5,
-                          child: TextField(
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              prefixIcon: Icon(Icons.mail_outline),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromRGBO(32, 59, 141, 1)),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              enabledBorder: OutlineInputBorder(
+                          child: Form(
+                            autovalidateMode: AutovalidateMode.always,
+                            child: TextFormField(
+                              validator: validateEmail,
+                              controller: email,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                prefixIcon: Icon(Icons.mail_outline),
+                                border: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Color.fromRGBO(32, 59, 141, 1)),
-                                  borderRadius: BorderRadius.circular(15)),
-                              labelText: 'E - Mail',
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Color.fromRGBO(32, 59, 141, 1)),
+                                    borderRadius: BorderRadius.circular(15)),
+                                labelText: 'E - Mail',
+                              ),
                             ),
                           ),
                         ),
@@ -230,6 +259,7 @@ class _RegistrasiState extends State<Registrasi> {
                   ],
                 ),
                 isRegistButton,
+                SizedBox(height: 50, child: Center(child: Text(msg ?? "")))
               ],
             ),
           ),

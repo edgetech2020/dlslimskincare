@@ -2,6 +2,8 @@ import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import 'camera.dart';
+
 class Hal extends StatefulWidget {
   @override
   HalState createState() => HalState();
@@ -15,6 +17,7 @@ class HalState extends State<Hal> {
         // top: true,
         bottom: true,
         child: Container(
+          width: MediaQuery.of(context).size.width * 1,
           decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/images/utama.png'),
@@ -36,7 +39,7 @@ class HalState extends State<Hal> {
                 height: MediaQuery.of(context).size.height * 0.6,
               ),
               Container(
-                width: double.infinity,
+                width: MediaQuery.of(context).size.width * 0.7,
                 child: RaisedButton(
                   child: Text(
                     "Login",
@@ -47,11 +50,11 @@ class HalState extends State<Hal> {
                   },
                   color: Color.fromRGBO(0, 0, 104, 1),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
+                      borderRadius: BorderRadius.circular(13)),
                 ),
               ),
               Container(
-                width: double.infinity,
+                width: MediaQuery.of(context).size.width * 0.7,
                 child: RaisedButton(
                   child: Text(
                     "Daftar",
@@ -62,7 +65,23 @@ class HalState extends State<Hal> {
                   },
                   color: Color.fromRGBO(0, 0, 104, 1),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
+                      borderRadius: BorderRadius.circular(13)),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: RaisedButton(
+                  child: Text(
+                    "Camera",
+                    style: TextStyle(color: Hexcolor('#e6f8f6')),
+                  ),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => CameraFace()));
+                  },
+                  color: Color.fromRGBO(0, 0, 104, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(13)),
                 ),
               ),
             ],

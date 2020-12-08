@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GenderSex extends StatefulWidget {
   @override
@@ -11,6 +12,40 @@ class GenderSex extends StatefulWidget {
 
 class _GenderSexState extends State<GenderSex> {
   int _value = 0;
+  String uname;
+  int genderhsl;
+  String hsl;
+  String genderHsl;
+
+  void initState() {
+    super.initState();
+    getUsername().then((_) {
+      setState(() {});
+    });
+  }
+
+  Future setGender() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('gender', _value);
+    if (_value == 0) {
+      hsl = 'Perempuan';
+    } else
+      hsl = 'Laki laki';
+    prefs.setString('genderHsl', hsl);
+  }
+
+  Future loadGender() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // genderhsl = prefs.getInt('gender');
+    genderHsl = prefs.getString('genderHsl');
+    setState(() {});
+  }
+
+  Future getUsername() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    uname = pref.getString('uname');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +82,7 @@ class _GenderSexState extends State<GenderSex> {
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.14),
                     child: Text(
-                      "Nindi Rizkia Putri.",
+                      uname ?? 'No Name',
                       style: TextStyle(
                         fontFamily: "Roboto",
                         fontSize: ResponsiveFlutter.of(context).hp(5),
@@ -165,12 +200,33 @@ class _GenderSexState extends State<GenderSex> {
                       style: TextStyle(color: Hexcolor('#e6f8f6')),
                     ),
                     onPressed: () {
+                      setGender();
+                      // Navigator.push(context,
+                      //     MaterialPageRoute(builder: (_) => CameraPage()));
                       Navigator.pushNamed(context, '/camera');
                     },
                     color: Color.fromRGBO(0, 0, 104, 1),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                   ),
+                  RaisedButton(
+                    child: Text(
+                      "load",
+                      style: TextStyle(color: Hexcolor('#e6f8f6')),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        loadGender();
+                      });
+                      // Navigator.pushNamed(context, '/camera');
+                    },
+                    color: Color.fromRGBO(0, 0, 104, 1),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                  Center(
+                    child: Text(genderHsl ?? ""),
+                  )
                 ],
               ),
             ],

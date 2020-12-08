@@ -144,12 +144,6 @@ class _DetailPageState extends State<DetailPage> {
                                         ),
                                       ],
                                     ),
-                                    // Padding(
-                                    //     padding: EdgeInsets.only(
-                                    //         right: MediaQuery.of(context)
-                                    //                 .size
-                                    //                 .width *
-                                    //             0.3)),
                                     Icon(
                                       Icons.favorite_outline,
                                       size: 45,
