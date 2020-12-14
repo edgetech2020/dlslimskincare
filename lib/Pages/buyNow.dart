@@ -216,7 +216,7 @@ class _BuyNowState extends State<BuyNow> {
                         top: MediaQuery.of(context).size.height * 0.01,
                       ),
                       width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.3,
+                      height: MediaQuery.of(context).size.height * 0.2,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: Color.fromRGBO(230, 248, 246, 1),
@@ -318,80 +318,80 @@ class _BuyNowState extends State<BuyNow> {
                               ),
                             ),
                           ),
-                          Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              splashColor: Colors.grey[300],
-                              onTap: () {
-                                setState(() {
-                                  jne = jneOkeHarga;
-                                  price = widget.arg.harga * qty;
-                                  total = price + jne;
-                                });
-                              },
-                              child: Container(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.07,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.07,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.white),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  jne = jneOkeHarga;
-                                                  price =
-                                                      widget.arg.harga * qty;
-                                                  total = price + jne;
-                                                });
-                                              },
-                                              child: Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.01,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.01,
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: jne == jneOkeHarga
-                                                        ? Color.fromRGBO(
-                                                            32, 59, 141, 1)
-                                                        : Colors.transparent),
-                                              ),
-                                            )),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text('JNE Oke')
-                                      ],
-                                    ),
-                                    Container(child: Text('2 - 4 Hari')),
-                                    Container(
-                                        child: Text(NumberFormat.currency(
-                                                locale: 'id',
-                                                symbol: 'Rp. ',
-                                                decimalDigits: 0)
-                                            .format(jneOkeHarga))),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          // Material(
+                          //   color: Colors.transparent,
+                          //   child: InkWell(
+                          //     splashColor: Colors.grey[300],
+                          //     onTap: () {
+                          //       setState(() {
+                          //         jne = jneOkeHarga;
+                          //         price = widget.arg.harga * qty;
+                          //         total = price + jne;
+                          //       });
+                          //     },
+                          //     child: Container(
+                          //       child: Row(
+                          //         mainAxisAlignment:
+                          //             MainAxisAlignment.spaceAround,
+                          //         children: [
+                          //           Row(
+                          //             children: [
+                          //               Container(
+                          //                   height: MediaQuery.of(context)
+                          //                           .size
+                          //                           .height *
+                          //                       0.07,
+                          //                   width: MediaQuery.of(context)
+                          //                           .size
+                          //                           .width *
+                          //                       0.07,
+                          //                   decoration: BoxDecoration(
+                          //                       shape: BoxShape.circle,
+                          //                       color: Colors.white),
+                          //                   child: GestureDetector(
+                          //                     onTap: () {
+                          //                       setState(() {
+                          //                         jne = jneOkeHarga;
+                          //                         price =
+                          //                             widget.arg.harga * qty;
+                          //                         total = price + jne;
+                          //                       });
+                          //                     },
+                          //                     child: Container(
+                          //                       width: MediaQuery.of(context)
+                          //                               .size
+                          //                               .width *
+                          //                           0.01,
+                          //                       height: MediaQuery.of(context)
+                          //                               .size
+                          //                               .height *
+                          //                           0.01,
+                          //                       decoration: BoxDecoration(
+                          //                           shape: BoxShape.circle,
+                          //                           color: jne == jneOkeHarga
+                          //                               ? Color.fromRGBO(
+                          //                                   32, 59, 141, 1)
+                          //                               : Colors.transparent),
+                          //                     ),
+                          //                   )),
+                          //               SizedBox(
+                          //                 width: 10,
+                          //               ),
+                          //               Text('JNE Oke')
+                          //             ],
+                          //           ),
+                          //           Container(child: Text('2 - 4 Hari')),
+                          //           Container(
+                          //               child: Text(NumberFormat.currency(
+                          //                       locale: 'id',
+                          //                       symbol: 'Rp. ',
+                          //                       decimalDigits: 0)
+                          //                   .format(jneOkeHarga))),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           Material(
                             color: Colors.transparent,
                             child: InkWell(

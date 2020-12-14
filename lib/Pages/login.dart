@@ -38,8 +38,8 @@ class _LoginState extends State<Login> {
       headers: {"Content-Type": "application/json"},
     ).then((http.Response response) async {
       mseg = json.decode(response.body);
-      final int statusCode = mseg['code'];
-      if (statusCode == 200) {
+      // final int statusCode = mseg['code'];
+      if (response.statusCode == 200) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setBool('isLogin', true);
         pref.setString('username', usernm.text);
@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
         Navigator.pushReplacementNamed(context, '/rumah');
       } else
         return setState(() {
-          msg = mseg['message'] ?? 'Anda tidak terhubung ke internet';
+          msg = mseg['message'] ?? '';
           isLoginButtonDisabled = false;
         });
       _scaffoldKey.currentState.hideCurrentSnackBar();
@@ -84,8 +84,6 @@ class _LoginState extends State<Login> {
     );
     return Scaffold(
       key: _scaffoldKey,
-      // resizeToAvoidBottomInset: true,
-      // resizeToAvoidBottomPadding: false,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

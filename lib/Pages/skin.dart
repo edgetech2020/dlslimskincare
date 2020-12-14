@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SkinPage extends StatefulWidget {
   @override
@@ -9,6 +10,12 @@ class SkinPage extends StatefulWidget {
 
 class _SkinPageState extends State<SkinPage> {
   int _value = 0;
+
+  Future saveBeautyID() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt('tipeKulitWajah', _value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -178,6 +185,7 @@ class _SkinPageState extends State<SkinPage> {
                         style: TextStyle(color: Hexcolor('#e6f8f6')),
                       ),
                       onPressed: () {
+                        saveBeautyID();
                         Navigator.pushNamed(context, '/beauty');
                       },
                       color: Color.fromRGBO(0, 0, 104, 1),

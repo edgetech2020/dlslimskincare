@@ -40,11 +40,11 @@ class _RegistrasiState extends State<Registrasi> {
       "Content-Type": "application/json"
     }).then((http.Response response) async {
       mseg = json.decode(response.body);
-      final int statusCode = mseg["code"];
-      if (statusCode == 200) {
+      // final int statusCode = mseg["code"];
+      if (response.statusCode == 200) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setBool('isLogin', true);
-        pref.setString('response', response.body);
+        pref.setString('regist', response.body);
         pref.setString('uname', username.text);
         globals.userId = response.body.toString();
         Navigator.pushReplacementNamed(context, '/gender');

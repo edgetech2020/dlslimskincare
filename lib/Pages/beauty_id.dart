@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BeautyId extends StatefulWidget {
   @override
@@ -14,6 +15,16 @@ class _BeautyIdState extends State<BeautyId> {
   int _rambut = 0;
   int _warnaRambut = 0;
   int _hijab = 0;
+
+  Future saveBeautyID() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt('tipe', _tipe);
+    pref.setInt('warna', _warna);
+    pref.setInt('dasar', _dasar);
+    pref.setInt('rambut', _rambut);
+    pref.setInt('warna_rambut', _warnaRambut);
+    pref.setInt('hijab', _hijab);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -988,6 +999,7 @@ class _BeautyIdState extends State<BeautyId> {
                             style: TextStyle(color: Hexcolor('#e6f8f6')),
                           ),
                           onPressed: () {
+                            saveBeautyID();
                             Navigator.pushNamed(context, '/concern');
                           },
                           color: Color.fromRGBO(0, 0, 104, 1),

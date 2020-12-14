@@ -19,31 +19,11 @@ class _GenderSexState extends State<GenderSex> {
 
   void initState() {
     super.initState();
-    getUsername().then((_) {
-      setState(() {});
-    });
   }
 
   Future setGender() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('gender', _value);
-    if (_value == 0) {
-      hsl = 'Perempuan';
-    } else
-      hsl = 'Laki laki';
-    prefs.setString('genderHsl', hsl);
-  }
-
-  Future loadGender() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    // genderhsl = prefs.getInt('gender');
-    genderHsl = prefs.getString('genderHsl');
-    setState(() {});
-  }
-
-  Future getUsername() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    uname = pref.getString('uname');
   }
 
   @override
@@ -70,11 +50,11 @@ class _GenderSexState extends State<GenderSex> {
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.14),
                     child: Text(
-                      "Halo",
+                      "Hai,",
                       style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: ResponsiveFlutter.of(context).hp(10),
-                          fontWeight: FontWeight.w500),
+                        fontFamily: "Roboto",
+                        fontSize: ResponsiveFlutter.of(context).hp(6),
+                      ),
                       maxLines: 1,
                     ),
                   ),
@@ -82,11 +62,11 @@ class _GenderSexState extends State<GenderSex> {
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.14),
                     child: Text(
-                      uname ?? 'No Name',
+                      uname ?? '',
                       style: TextStyle(
                         fontFamily: "Roboto",
-                        fontSize: ResponsiveFlutter.of(context).hp(5),
-                        fontWeight: FontWeight.w400,
+                        fontSize: ResponsiveFlutter.of(context).hp(6),
+                        fontWeight: FontWeight.w700,
                       ),
                       maxLines: 1,
                     ),
@@ -194,39 +174,42 @@ class _GenderSexState extends State<GenderSex> {
                               "Terima kasih telah mengisi data diri anda ")),
                     ],
                   ),
-                  RaisedButton(
-                    child: Text(
-                      "Selanjutnya",
-                      style: TextStyle(color: Hexcolor('#e6f8f6')),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: RaisedButton(
+                      child: Text(
+                        "Selanjutnya",
+                        style: TextStyle(color: Hexcolor('#e6f8f6')),
+                      ),
+                      onPressed: () {
+                        setGender();
+                        // Navigator.push(context,
+                        //     MaterialPageRoute(builder: (_) => CameraPage()));
+                        Navigator.pushNamed(context, '/camera');
+                      },
+                      color: Color.fromRGBO(0, 0, 104, 1),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
                     ),
-                    onPressed: () {
-                      setGender();
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (_) => CameraPage()));
-                      Navigator.pushNamed(context, '/camera');
-                    },
-                    color: Color.fromRGBO(0, 0, 104, 1),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
                   ),
-                  RaisedButton(
-                    child: Text(
-                      "load",
-                      style: TextStyle(color: Hexcolor('#e6f8f6')),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        loadGender();
-                      });
-                      // Navigator.pushNamed(context, '/camera');
-                    },
-                    color: Color.fromRGBO(0, 0, 104, 1),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                  ),
-                  Center(
-                    child: Text(genderHsl ?? ""),
-                  )
+                  // RaisedButton(
+                  //   child: Text(
+                  //     "load",
+                  //     style: TextStyle(color: Hexcolor('#e6f8f6')),
+                  //   ),
+                  //   onPressed: () {
+                  //     setState(() {
+                  //       loadGender();
+                  //     });
+                  //     // Navigator.pushNamed(context, '/camera');
+                  //   },
+                  //   color: Color.fromRGBO(0, 0, 104, 1),
+                  //   shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(15)),
+                  // ),
+                  // Center(
+                  //   child: Text(genderHsl ?? ""),
+                  // )
                 ],
               ),
             ],

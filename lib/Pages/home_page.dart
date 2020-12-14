@@ -178,24 +178,24 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
-                      Center(
-                        child: Container(
-                          width: 250.0,
-                          child: RaisedButton(
-                            child: Text(
-                              "LogOut",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(230, 248, 246, 1)),
-                            ),
-                            onPressed: () {
-                              logoutUser();
-                            },
-                            color: Color.fromRGBO(0, 0, 104, 1),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                          ),
-                        ),
-                      ),
+                      // Center(
+                      //   child: Container(
+                      //     width: 250.0,
+                      //     child: RaisedButton(
+                      //       child: Text(
+                      //         "LogOut",
+                      //         style: TextStyle(
+                      //             color: Color.fromRGBO(230, 248, 246, 1)),
+                      //       ),
+                      //       onPressed: () {
+                      //         logoutUser();
+                      //       },
+                      //       color: Color.fromRGBO(0, 0, 104, 1),
+                      //       shape: RoundedRectangleBorder(
+                      //           borderRadius: BorderRadius.circular(15)),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

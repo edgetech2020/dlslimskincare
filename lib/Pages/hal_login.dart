@@ -1,3 +1,4 @@
+import 'package:dlslim/Pages/gender.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -72,12 +73,12 @@ class HalState extends State<Hal> {
                 width: MediaQuery.of(context).size.width * 0.7,
                 child: RaisedButton(
                   child: Text(
-                    "Camera",
+                    "Test 1",
                     style: TextStyle(color: Hexcolor('#e6f8f6')),
                   ),
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => CameraFace()));
+                        MaterialPageRoute(builder: (_) => GenderSex()));
                   },
                   color: Color.fromRGBO(0, 0, 104, 1),
                   shape: RoundedRectangleBorder(

@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class Concern extends StatefulWidget {
   @override
@@ -11,6 +15,77 @@ class _ConcernState extends State<Concern> {
   var _skin = [];
   var _body = [];
   var _hair = [];
+  int gender;
+  String tampakDepanBase64;
+  String tampakKananBase64;
+  String tampakKiriBase64;
+  int tipe;
+  int warna;
+  int dasar;
+  int rambut;
+  int warnaRambut;
+  int hijab;
+  int uid = 9;
+  int value;
+  String msg;
+  Map rspns;
+
+  @override
+  void initState() {
+    super.initState();
+    loadAPI().then((_) {
+      setState(() {});
+    });
+  }
+
+  Future loadAPI() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    gender = pref.getInt('gender');
+    tampakDepanBase64 = pref.getString('depan');
+    tampakKananBase64 = pref.getString('kanan');
+    tampakKiriBase64 = pref.getString('kiri');
+    value = pref.getInt('tipeKulitWajah');
+    tipe = pref.getInt('tipe');
+    warna = pref.getInt('warna');
+    dasar = pref.getInt('dasar');
+    rambut = pref.getInt('rambut');
+    warnaRambut = pref.getInt('warna_rambut');
+    hijab = pref.getInt('hijab');
+    // uid = json.decode(pref.getString('regist')); //FUCK
+  }
+
+  Future postQuestion() async {
+    var url = 'https://dashboard.dlslimskincare.com/api/user-meta';
+    http.post(url, body: {
+      'uid': "9",
+      'depan_base64_image': tampakDepanBase64.substring(
+          (tampakDepanBase64.indexOf(",")) + 1, tampakDepanBase64.length),
+      'kanan_base64_image': tampakKananBase64.substring(
+          (tampakKananBase64.indexOf(",")) + 1, tampakKananBase64.length),
+      'kiri_base64_image': tampakKiriBase64.substring(
+          (tampakKiriBase64.indexOf(",")) + 1, tampakKiriBase64.length),
+      'gender': gender.toString(),
+      'face_skin_cond': value.toString(),
+      'skin_type': tipe.toString(),
+      'skin_color': warna.toString(),
+      'base_skin_color': dasar.toString(),
+      'hair_type': rambut.toString(),
+      'is_colored_hair': warnaRambut.toString(),
+      'is_hijaber': hijab.toString(),
+    }).then((http.Response response) {
+      rspns = json.decode(response.body);
+      if (response.statusCode == 200) {
+        setState(() {
+          msg = rspns['message'];
+        });
+      } else {
+        setState(() {
+          msg = 'Gagal';
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,11 +102,12 @@ class _ConcernState extends State<Concern> {
               height: MediaQuery.of(context).size.height * 0.1,
               child: Center(
                   child: Text(
-                "Complete your beauty ID",
+                "Complete your beauty ID" + gender.toString() + tipe.toString(),
                 style: TextStyle(
                     fontSize: ResponsiveFlutter.of(context).fontSize(3)),
               )),
             ),
+            Text(msg ?? 'Test'),
             //skin concern
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
@@ -1302,7 +1378,8 @@ class _ConcernState extends State<Concern> {
                     style: TextStyle(color: Hexcolor('#e6f8f6')),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/rumah');
+                    postQuestion();
+                    // Navigator.pushNamed(context, '/rumah');
                   },
                   color: Color.fromRGBO(0, 0, 104, 1),
                   shape: RoundedRectangleBorder(
