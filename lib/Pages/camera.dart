@@ -156,7 +156,7 @@ class _CameraFaceState extends State<CameraFace> {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage(
-                                'assets/images/Background-Login 1.jpg'),
+                                'assets/images/Background Complete Your Account1.jpg'),
                             fit: BoxFit.cover)),
                   )),
                   Column(
@@ -220,15 +220,14 @@ class _CameraFaceState extends State<CameraFace> {
                                           child: new Text(
                                             "Tampak Depan",
                                             style: TextStyle(
-                                              color: Colors.black,
+                                              color: Colors.white,
                                               letterSpacing: 0.5,
                                               fontSize: 20.0,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Arial Black',
                                             ),
                                           ),
-                                          color:
-                                              Color.fromRGBO(208, 249, 255, 1),
+                                          color: Hexcolor('#4C8CA7'),
                                           onPressed: () {
                                             frontCamera();
                                           },
@@ -258,15 +257,14 @@ class _CameraFaceState extends State<CameraFace> {
                                           child: new Text(
                                             "Tampak Kanan",
                                             style: TextStyle(
-                                              color: Colors.black,
+                                              color: Colors.white,
                                               letterSpacing: 0.5,
                                               fontSize: 20.0,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Arial Black',
                                             ),
                                           ),
-                                          color:
-                                              Color.fromRGBO(208, 249, 255, 1),
+                                          color: Hexcolor('#4C8CA7'),
                                           onPressed: () {
                                             rightCamera();
                                           },
@@ -296,15 +294,14 @@ class _CameraFaceState extends State<CameraFace> {
                                           child: new Text(
                                             "Tampak Kiri",
                                             style: TextStyle(
-                                              color: Colors.black,
+                                              color: Colors.white,
                                               letterSpacing: 0.5,
                                               fontSize: 20.0,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Arial Black',
                                             ),
                                           ),
-                                          color:
-                                              Color.fromRGBO(208, 249, 255, 1),
+                                          color: Hexcolor('#4C8CA7'),
                                           onPressed: () {
                                             leftCamera();
                                           },

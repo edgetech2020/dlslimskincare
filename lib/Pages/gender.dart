@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,7 +42,7 @@ class _GenderSexState extends State<GenderSex> {
         width: ResponsiveFlutter.of(context).wp(100),
         decoration: BoxDecoration(
             image: DecorationImage(
-          image: AssetImage("assets/images/Background-Login 1.jpg"),
+          image: AssetImage("assets/images/Background Personal Info1.jpg"),
           fit: BoxFit.cover,
         )),
         child: Container(
@@ -59,10 +60,9 @@ class _GenderSexState extends State<GenderSex> {
                         horizontal: MediaQuery.of(context).size.width * 0.14),
                     child: Text(
                       "Hai,",
-                      style: TextStyle(
-                        fontFamily: "Roboto",
-                        fontSize: ResponsiveFlutter.of(context).hp(6),
-                      ),
+                      style: GoogleFonts.roboto(
+                          color: Color(0xff4C8CA7),
+                          fontSize: ResponsiveFlutter.of(context).hp(6)),
                       maxLines: 1,
                     ),
                   ),
@@ -75,6 +75,7 @@ class _GenderSexState extends State<GenderSex> {
                         fontFamily: "Roboto",
                         fontSize: ResponsiveFlutter.of(context).hp(6),
                         fontWeight: FontWeight.w700,
+                        color: Color(0xff4C8CA7),
                       ),
                       maxLines: 1,
                     ),
@@ -127,7 +128,7 @@ class _GenderSexState extends State<GenderSex> {
                                         offset: Offset(0, 10))
                                   ],
                                   color: Colors.white),
-                              child: Image.asset('assets/images/pria.png'),
+                              child: Image.asset('assets/images/Lakik.jpg'),
                             ),
                           ),
                         ),
@@ -158,7 +159,7 @@ class _GenderSexState extends State<GenderSex> {
                                       offset: Offset(0, 10))
                                 ],
                                 color: Colors.white),
-                            child: Image.asset('assets/images/wanita.png'),
+                            child: Image.asset('assets/images/Cewek.jpg'),
                           ),
                         ),
                       ),
@@ -168,20 +169,6 @@ class _GenderSexState extends State<GenderSex> {
               ),
               Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width * 0.14),
-                          // width: MediaQuery.of(context).size.width * 1,
-                          // height: MediaQuery.of(context).size.height * 1,
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                              "Terima kasih telah mengisi data diri anda ")),
-                    ],
-                  ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: RaisedButton(

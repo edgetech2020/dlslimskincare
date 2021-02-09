@@ -86,16 +86,16 @@ class _Splashscreen extends State<Splashscreen> {
         width: MediaQuery.of(context).size.height * 1,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/utama.png'),
+                image: AssetImage('assets/images/Loading.jpg'),
                 fit: BoxFit.cover)),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Hero(
-                  tag: Hal(),
-                  child: Image(image: AssetImage('assets/images/logo.png'))),
+              // Hero(
+              //     tag: Hal(),
+              //     child: Image(image: AssetImage('assets/images/logo.png'))),
 
               // Icon(
               //   Icons.local_hospital_rounded,

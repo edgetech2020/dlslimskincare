@@ -2,6 +2,7 @@ import 'package:dlslim/Model/shared.dart';
 import 'package:dlslim/api/api_controller.dart';
 import 'package:dlslim/api/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class BeautyId extends StatefulWidget {
@@ -37,8 +38,7 @@ class _BeautyIdState extends State<BeautyId> {
       height: height,
       decoration: BoxDecoration(
           image: DecorationImage(
-              image:
-                  AssetImage('assets/images/Background Beauty Concern 1.jpg'),
+              image: AssetImage('assets/images/Background Beauty Concern1.jpg'),
               fit: BoxFit.cover)),
       child: Container(
         margin: EdgeInsets.only(left: 25),
@@ -222,7 +222,11 @@ class _BeautyIdState extends State<BeautyId> {
                     (now == index) ? Hexcolor('#4C8CA7') : Colors.transparent,
                 width: 5),
             borderRadius: BorderRadius.circular(10)),
-        child: Center(child: Text(title)),
+        child: Center(
+            child: Text(
+          title,
+          style: GoogleFonts.roboto(color: Hexcolor('#4C8CA7')),
+        )),
       ),
     );
   }

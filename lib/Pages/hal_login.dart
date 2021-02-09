@@ -17,7 +17,7 @@ class HalState extends State<Hal> {
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
-                    'assets/images/Background-Login-dan-Sign-Up-1.jpg'),
+                    'assets/images/Background Login dan Sign Up1.jpg'),
                 fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

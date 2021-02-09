@@ -32,6 +32,9 @@ class _RegistrasiState extends State<Registrasi> {
   // }
 
   Future postShared() async {
+    setState(() {
+      globals.isLoginButtonDisabled = true;
+    });
     var body = json.encode({
       'username': username.text,
       'password': password.text,
@@ -79,18 +82,22 @@ class _RegistrasiState extends State<Registrasi> {
   Widget build(BuildContext context) {
     var isRegistButton = Container(
       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
-      width: MediaQuery.of(context).size.width * 0.9,
+      width: MediaQuery.of(context).size.width * 0.85,
+      height: MediaQuery.of(context).size.height * 0.05,
       child: RaisedButton(
-        child: Text(
-          "Daftar",
-          style: TextStyle(color: Hexcolor('#e6f8f6')),
-        ),
+        child: (isRegistButtonDisabled == false)
+            ? Text(
+                "Daftar",
+                style: TextStyle(color: Hexcolor('#e6f8f6')),
+              )
+            : Center(child: CircularProgressIndicator()),
         onPressed: isRegistButtonDisabled
             ? null
             : () {
-                if (_form.currentState.validate()) {
-                  postShared();
-                }
+                setState(() {
+                  isRegistButtonDisabled = true;
+                });
+                postShared();
 
                 // Navigator.pushReplacementNamed(context, '/gender');
               },
@@ -108,7 +115,7 @@ class _RegistrasiState extends State<Registrasi> {
             height: MediaQuery.of(context).size.height * 1,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/images/Background-Login 1.jpg'),
+                    image: AssetImage('assets/images/Background Sign Up1.jpg'),
                     fit: BoxFit.cover)),
           ),
           Container(
@@ -121,15 +128,7 @@ class _RegistrasiState extends State<Registrasi> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.1,
-                    ),
-                    Center(
-                        child: Text(
-                      'Daftar Disini',
-                      style: ExtraStyle.styleHeading(),
-                    )),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
+                      height: MediaQuery.of(context).size.height * 0.25,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
