@@ -10,6 +10,7 @@ Map loginPostt;
 bool isLoginButtonDisabled = false;
 Map gagalLogin;
 String gagalMsk = '';
+bool isButtonDis = false;
 
 String username;
 String password;

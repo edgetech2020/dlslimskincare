@@ -97,9 +97,9 @@ class _RegistrasiState extends State<Registrasi> {
                 setState(() {
                   isRegistButtonDisabled = true;
                 });
-                postShared();
+                // postShared();
 
-                // Navigator.pushReplacementNamed(context, '/gender');
+                Navigator.pushReplacementNamed(context, '/gender');
               },
         color: Hexcolor('#4C8CA7'),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

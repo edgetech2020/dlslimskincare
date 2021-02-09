@@ -2,6 +2,7 @@ import 'package:dlslim/Model/shared.dart';
 import 'package:dlslim/api/api_controller.dart';
 import 'package:dlslim/api/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class UpdateProfile extends StatefulWidget {
@@ -117,7 +118,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               offset: Offset(0, 10))
                         ],
                         color: Colors.white),
-                    child: Image.asset('assets/images/pria.png'),
+                    child: Image.asset('assets/images/pria_1.png'),
                   ),
                 ),
               ),
@@ -148,7 +149,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                             offset: Offset(0, 10))
                       ],
                       color: Colors.white),
-                  child: Image.asset('assets/images/wanita.png'),
+                  child: Image.asset('assets/images/bencong.png'),
                 ),
               ),
             ),
@@ -296,7 +297,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     (now == index) ? Hexcolor('#4C8CA7') : Colors.transparent,
                 width: 5),
             borderRadius: BorderRadius.circular(10)),
-        child: Center(child: Text(title)),
+        child: Center(
+            child: Text(
+          title,
+          style: GoogleFonts.roboto(color: Hexcolor('#4C8CA7')),
+        )),
       ),
     );
   }
@@ -311,20 +316,22 @@ class _UpdateProfileState extends State<UpdateProfile> {
         });
       },
       child: Container(
-        width: width * 0.4,
-        height: height * 0.05,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.7), blurRadius: 1)
-            ],
-            border: Border.all(
-                color:
-                    (prob == index) ? Hexcolor('#4C8CA7') : Colors.transparent,
-                width: 5),
-            borderRadius: BorderRadius.circular(10)),
-        child: Center(child: Text(title)),
-      ),
+          width: width * 0.4,
+          height: height * 0.05,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(color: Colors.black.withOpacity(0.7), blurRadius: 1)
+              ],
+              border: Border.all(
+                  color: (prob == index)
+                      ? Hexcolor('#4C8CA7')
+                      : Colors.transparent,
+                  width: 5),
+              borderRadius: BorderRadius.circular(10)),
+          child: Center(
+              child: Text(title,
+                  style: GoogleFonts.roboto(fontWeight: FontWeight.w700)))),
     );
   }
 }

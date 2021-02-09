@@ -128,7 +128,14 @@ class _GenderSexState extends State<GenderSex> {
                                         offset: Offset(0, 10))
                                   ],
                                   color: Colors.white),
-                              child: Image.asset('assets/images/Lakik.jpg'),
+                              child: Container(
+                                width: 80,
+                                height: 80,
+                                child: Image.asset(
+                                  'assets/images/pria_1.png',
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -159,7 +166,7 @@ class _GenderSexState extends State<GenderSex> {
                                       offset: Offset(0, 10))
                                 ],
                                 color: Colors.white),
-                            child: Image.asset('assets/images/Cewek.jpg'),
+                            child: Image.asset('assets/images/bencong.png'),
                           ),
                         ),
                       ),

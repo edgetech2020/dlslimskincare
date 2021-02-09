@@ -6,11 +6,14 @@ import 'package:dlslim/Model/shared.dart';
 import 'package:dlslim/api/api_controller.dart';
 import 'package:dlslim/api/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'beauty_id.dart';
 
 class CameraFace extends StatefulWidget {
   @override
@@ -51,10 +54,10 @@ class _CameraFaceState extends State<CameraFace> {
 
   Future frontCamera() async {
     final front = await picker.getImage(
-        source: ImageSource.camera,
-        maxWidth: 640,
-        maxHeight: 640,
-        preferredCameraDevice: CameraDevice.front);
+      source: ImageSource.camera,
+      maxWidth: 640,
+      maxHeight: 480,
+    );
     setState(() {
       if (front != null) {
         tampakDepan = File(front.path);
@@ -69,10 +72,10 @@ class _CameraFaceState extends State<CameraFace> {
 
   Future rightCamera() async {
     final right = await picker.getImage(
-        source: ImageSource.camera,
-        maxWidth: 640,
-        maxHeight: 640,
-        preferredCameraDevice: CameraDevice.front);
+      source: ImageSource.camera,
+      maxWidth: 640,
+      maxHeight: 480,
+    );
     setState(() {
       if (right != null) {
         tampakKanan = File(right.path);
@@ -85,10 +88,10 @@ class _CameraFaceState extends State<CameraFace> {
 
   Future leftCamera() async {
     final left = await picker.getImage(
-        source: ImageSource.camera,
-        maxWidth: 640,
-        maxHeight: 640,
-        preferredCameraDevice: CameraDevice.front);
+      source: ImageSource.camera,
+      maxWidth: 640,
+      maxHeight: 480,
+    );
     setState(() {
       if (left != null) {
         tampakKiri = File(left.path);
@@ -331,7 +334,7 @@ class _CameraFaceState extends State<CameraFace> {
                                   height: 50,
                                   child: FlatButton(
                                       onPressed: () {
-                                        Navigator.pushNamed(context, '/skin');
+                                        Get.offAll(BeautyId());
                                       },
                                       child: Text(
                                         'Skip For Now',

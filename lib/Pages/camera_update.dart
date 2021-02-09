@@ -52,10 +52,10 @@ class _CameraUpdateState extends State<CameraUpdate> {
 
   Future frontCamera() async {
     final front = await picker.getImage(
-        source: ImageSource.camera,
-        maxWidth: 640,
-        maxHeight: 640,
-        preferredCameraDevice: CameraDevice.front);
+      source: ImageSource.camera,
+      maxWidth: 640,
+      maxHeight: 480,
+    );
     setState(() {
       if (front != null) {
         tampakDepan = File(front.path);
@@ -70,10 +70,10 @@ class _CameraUpdateState extends State<CameraUpdate> {
 
   Future rightCamera() async {
     final right = await picker.getImage(
-        source: ImageSource.camera,
-        maxWidth: 640,
-        maxHeight: 640,
-        preferredCameraDevice: CameraDevice.front);
+      source: ImageSource.camera,
+      maxWidth: 640,
+      maxHeight: 480,
+    );
     setState(() {
       if (right != null) {
         tampakKanan = File(right.path);
@@ -86,10 +86,10 @@ class _CameraUpdateState extends State<CameraUpdate> {
 
   Future leftCamera() async {
     final left = await picker.getImage(
-        source: ImageSource.camera,
-        maxWidth: 640,
-        maxHeight: 640,
-        preferredCameraDevice: CameraDevice.front);
+      source: ImageSource.camera,
+      maxWidth: 640,
+      maxHeight: 480,
+    );
     setState(() {
       if (left != null) {
         tampakKiri = File(left.path);

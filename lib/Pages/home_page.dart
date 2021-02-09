@@ -76,93 +76,95 @@ class _HomePageState extends State<HomePage> {
                   fit: BoxFit.cover)),
           child: Container(
             width: MediaQuery.of(context).size.width,
-            child: ListView(
-              children: [
-                ApiCarousel.apiCarousel(),
-                Container(
-                  margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.05,
-                    right: MediaQuery.of(context).size.width * 0.05,
+            child: SafeArea(
+              child: ListView(
+                children: [
+                  ApiCarousel.apiCarousel(),
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.05,
+                      right: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.03,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "News & Promo",
+                              style: ExtraStyle.styleHeading(),
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/news');
+                              },
+                              child: Text(
+                                'Lihat Semua',
+                                style: ExtraStyle.styleMore(),
+                              ),
+                            ),
+                          ],
+                        ),
+                        ApiNewsPromo.apiNewsPromo(),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.03,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Product",
+                              style: ExtraStyle.styleHeading(),
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/product');
+                              },
+                              child: Text(
+                                'Lihat Semua',
+                                style: ExtraStyle.styleMore(),
+                              ),
+                            ),
+                          ],
+                        ),
+                        ApiProduct.apiProduct(),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.03,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Beauty Treatment",
+                              style: ExtraStyle.styleHeading(),
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                Get.to(AllTreatment());
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => Test()));
+                              },
+                              child: Text(
+                                'Lihat Semua',
+                                style: ExtraStyle.styleMore(),
+                              ),
+                            ),
+                          ],
+                        ),
+                        ApiBeautyTreatment.apiBeautyTreatment(),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.05,
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "News & Promo",
-                            style: ExtraStyle.styleHeading(),
-                          ),
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/news');
-                            },
-                            child: Text(
-                              'Lihat Semua',
-                              style: ExtraStyle.styleMore(),
-                            ),
-                          ),
-                        ],
-                      ),
-                      ApiNewsPromo.apiNewsPromo(),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Product",
-                            style: ExtraStyle.styleHeading(),
-                          ),
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/product');
-                            },
-                            child: Text(
-                              'Lihat Semua',
-                              style: ExtraStyle.styleMore(),
-                            ),
-                          ),
-                        ],
-                      ),
-                      ApiProduct.apiProduct(),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Beauty Treatment",
-                            style: ExtraStyle.styleHeading(),
-                          ),
-                          FlatButton(
-                            onPressed: () {
-                              Get.to(AllTreatment());
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => Test()));
-                            },
-                            child: Text(
-                              'Lihat Semua',
-                              style: ExtraStyle.styleMore(),
-                            ),
-                          ),
-                        ],
-                      ),
-                      ApiBeautyTreatment.apiBeautyTreatment(),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

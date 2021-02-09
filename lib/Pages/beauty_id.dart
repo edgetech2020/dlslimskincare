@@ -133,16 +133,32 @@ class _BeautyIdState extends State<BeautyId> {
               child: RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
-                onPressed: () {
-                  RegistQue.storeQues(
-                      userId: idUser['user_id'].toString(),
-                      gender: gender.toString(),
-                      conditionFace: faceCondition.toString(),
-                      skinType: now.toString(),
-                      skinProblem: prob.toString(),
-                      otherSkinProblem: masalahLain.text ?? '',
-                      prevProduct: productSebelum.text ?? '');
-                },
+                onPressed: isButtonDis
+                    ? null
+                    : () {
+                        setState(() {
+                          isButtonDis = true;
+                        });
+                        RegistQue.storeQues(
+                                userId: idUser['user_id'].toString(),
+                                gender: gender.toString(),
+                                conditionFace: faceCondition.toString(),
+                                skinType: now.toString(),
+                                skinProblem: prob.toString(),
+                                otherSkinProblem: masalahLain.text ?? '',
+                                prevProduct: productSebelum.text ?? '')
+                            .then((value) {
+                          if (value) {
+                            setState(() {
+                              isButtonDis = false;
+                            });
+                          } else {
+                            setState(() {
+                              isButtonDis = false;
+                            });
+                          }
+                        });
+                      },
                 child: Text(
                   'Save',
                   style: TextStyle(color: Colors.white, fontSize: 19),
@@ -253,7 +269,10 @@ class _BeautyIdState extends State<BeautyId> {
                     (prob == index) ? Hexcolor('#4C8CA7') : Colors.transparent,
                 width: 5),
             borderRadius: BorderRadius.circular(10)),
-        child: Center(child: Text(title)),
+        child: Center(
+          child: Text(title,
+              style: GoogleFonts.roboto(color: Hexcolor('#4C8CA7'))),
+        ),
       ),
     );
   }
