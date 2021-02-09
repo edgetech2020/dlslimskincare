@@ -27,7 +27,7 @@ class ApiCarousel {
             } else
               return CarouselSlider.builder(
                   options: CarouselOptions(
-                    height: MediaQuery.of(context).size.height * 0.27,
+                    height: MediaQuery.of(context).size.height * 0.15,
                     aspectRatio: 16 / 9,
                     viewportFraction: 1,
                     initialPage: 0,

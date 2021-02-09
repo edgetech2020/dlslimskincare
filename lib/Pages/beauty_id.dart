@@ -1,7 +1,8 @@
+import 'package:dlslim/Model/shared.dart';
+import 'package:dlslim/api/api_controller.dart';
+import 'package:dlslim/api/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:responsive_flutter/responsive_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BeautyId extends StatefulWidget {
   @override
@@ -9,1015 +10,246 @@ class BeautyId extends StatefulWidget {
 }
 
 class _BeautyIdState extends State<BeautyId> {
-  int _tipe = 0;
-  int _warna = 0;
-  int _dasar = 0;
-  int _rambut = 0;
-  int _warnaRambut = 0;
-  int _hijab = 0;
-
-  Future saveBeautyID() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setInt('tipe', _tipe);
-    pref.setInt('warna', _warna);
-    pref.setInt('dasar', _dasar);
-    pref.setInt('rambut', _rambut);
-    pref.setInt('warna_rambut', _warnaRambut);
-    pref.setInt('hijab', _hijab);
-  }
+  List skinType = ['Normal', 'Sensitive', 'Combination', 'Oily'];
+  List skinProblem = [
+    'Acne (Jerawat)',
+    'Melasma(Flek Hitam)',
+    'Acne Scars',
+    'Dullness(Kusam)'
+  ];
+  List<Widget> type = [];
+  List<Widget> problem = [];
+  int i;
+  int now = 0;
+  int prob = 0;
+  var masalahLain = TextEditingController();
+  var productSebelum = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
+        // backgroundColor: Colors.transparent,
+        body: Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image:
+                  AssetImage('assets/images/Background Beauty Concern 1.jpg'),
+              fit: BoxFit.cover)),
+      child: Container(
+        margin: EdgeInsets.only(left: 25),
+        child: ListView(
           children: [
-            Positioned(
-              child: Container(
-                height: MediaQuery.of(context).size.height * 1,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/utama.png"),
-                        fit: BoxFit.cover)),
-                child: ListView(
-                  // mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                    ),
-                    Center(
-                      child: Text(
-                        'Tipe Kulitmu Seperti Apa ?',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 200.0,
-                      child: ListView(
-                          physics: ClampingScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                      color: Hexcolor('#203b8d'),
-                                      shape: BoxShape.circle),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _tipe = 0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                              color: _tipe == 0
-                                                  ? Hexcolor('#203b8d')
-                                                  : Colors.transparent,
-                                              width: 5),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Color.fromRGBO(
-                                                    105, 170, 175, 0.3),
-                                                blurRadius: 20,
-                                                offset: Offset(0, 10))
-                                          ],
-                                          color: Colors.white),
-                                      child: Center(
-                                          child: Text(
-                                        "Berminyak",
-                                        style: TextStyle(
-                                            fontSize:
-                                                ResponsiveFlutter.of(context)
-                                                    .fontSize(2)),
-                                      )),
-                                      // Image.asset('assets/images/female.png'),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.02)),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Hexcolor('#203b8d'),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _tipe = 1),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _tipe == 1
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Normal",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        ))
-                                        // Image.asset(
-                                        //   'assets/images/Pria_perbaikan.png',
-                                        // ),
-                                        ),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.02)),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Hexcolor('#203b8d'),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _tipe = 2),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _tipe == 2
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Kering",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        ))
-                                        // Image.asset(
-                                        //   'assets/images/Pria_perbaikan.png',
-                                        // ),
-                                        ),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.02)),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Hexcolor('#203b8d'),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _tipe = 3),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _tipe == 3
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Kombinasi",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        ))
-                                        // Image.asset(
-                                        //   'assets/images/Pria_perbaikan.png',
-                                        // ),
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ]),
-                    ),
-                    Center(
-                      child: Text(
-                        'Warna Kulitmu ? ',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 200.0,
-                      child: ListView(
-                          physics: ClampingScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                      color: Hexcolor('#203b8d'),
-                                      shape: BoxShape.circle),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _warna = 0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                              color: _warna == 0
-                                                  ? Hexcolor('#203b8d')
-                                                  : Colors.transparent,
-                                              width: 5),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Color.fromRGBO(
-                                                    105, 170, 175, 0.3),
-                                                blurRadius: 20,
-                                                offset: Offset(0, 10))
-                                          ],
-                                          color: Colors.white),
-                                      child: Center(
-                                          child: Text(
-                                        "Hitam",
-                                        style: TextStyle(
-                                            fontSize:
-                                                ResponsiveFlutter.of(context)
-                                                    .fontSize(2)),
-                                      )),
-                                      // Image.asset('assets/images/female.png'),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.02)),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Hexcolor('#203b8d'),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _warna = 1),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _warna == 1
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Coklat",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        ))
-                                        // Image.asset(
-                                        //   'assets/images/Pria_perbaikan.png',
-                                        // ),
-                                        ),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.02)),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Hexcolor('#203b8d'),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _warna = 3),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _warna == 3
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Normal",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        ))
-                                        // Image.asset(
-                                        //   'assets/images/Pria_perbaikan.png',
-                                        // ),
-                                        ),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.02)),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Hexcolor('#203b8d'),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _warna = 4),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _warna == 4
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Putih Kecoklatan",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        ))
-                                        // Image.asset(
-                                        //   'assets/images/Pria_perbaikan.png',
-                                        // ),
-                                        ),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.02)),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Hexcolor('#203b8d'),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _warna = 5),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _warna == 5
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Putih",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        ))
-                                        // Image.asset(
-                                        //   'assets/images/Pria_perbaikan.png',
-                                        // ),
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ]),
-                    ),
-                    Center(
-                      child: Text(
-                        'Warna Kulit Dasarmu ?  ',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 200.0,
-                      child: ListView(
-                          physics: ClampingScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                      color: Hexcolor('#203b8d'),
-                                      shape: BoxShape.circle),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _dasar = 0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                              color: _dasar == 0
-                                                  ? Hexcolor('#203b8d')
-                                                  : Colors.transparent,
-                                              width: 5),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Color.fromRGBO(
-                                                    105, 170, 175, 0.3),
-                                                blurRadius: 20,
-                                                offset: Offset(0, 10))
-                                          ],
-                                          color: Colors.white),
-                                      child: Center(
-                                          child: Text(
-                                        "Warm",
-                                        style: TextStyle(
-                                            fontSize:
-                                                ResponsiveFlutter.of(context)
-                                                    .fontSize(2)),
-                                      )),
-                                      // Image.asset('assets/images/female.png'),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.02)),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Hexcolor('#203b8d'),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _dasar = 1),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _dasar == 1
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Neutral",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        ))
-                                        // Image.asset(
-                                        //   'assets/images/Pria_perbaikan.png',
-                                        // ),
-                                        ),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.02)),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Hexcolor('#203b8d'),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _dasar = 2),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _dasar == 2
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Cool",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        ))
-                                        // Image.asset(
-                                        //   'assets/images/Pria_perbaikan.png',
-                                        // ),
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ]),
-                    ),
-                    Center(
-                      child: Text(
-                        'Tipe Rambut Kamu ?  ',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 200.0,
-                      child: ListView(
-                          physics: ClampingScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                      color: Hexcolor('#203b8d'),
-                                      shape: BoxShape.circle),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _rambut = 0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                              color: _rambut == 0
-                                                  ? Hexcolor('#203b8d')
-                                                  : Colors.transparent,
-                                              width: 5),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Color.fromRGBO(
-                                                    105, 170, 175, 0.3),
-                                                blurRadius: 20,
-                                                offset: Offset(0, 10))
-                                          ],
-                                          color: Colors.white),
-                                      child: Center(
-                                          child: Text(
-                                        "Keriting",
-                                        style: TextStyle(
-                                            fontSize:
-                                                ResponsiveFlutter.of(context)
-                                                    .fontSize(2)),
-                                      )),
-                                      // Image.asset('assets/images/female.png'),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.02)),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Hexcolor('#203b8d'),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _rambut = 1),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _rambut == 1
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Lurus",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        ))
-                                        // Image.asset(
-                                        //   'assets/images/Pria_perbaikan.png',
-                                        // ),
-                                        ),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.02)),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Hexcolor('#203b8d'),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () => setState(() => _rambut = 2),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _rambut == 2
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Bergelombang",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        ))
-                                        // Image.asset(
-                                        //   'assets/images/Pria_perbaikan.png',
-                                        // ),
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ]),
-                    ),
-                    Center(
-                      child: Text(
-                        'Rambutmu Di Warnai ?  ',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    // center rambut
-                    Center(
-                      child: SizedBox(
-                        height: 200.0,
-                        child: ListView(
-                            physics: ClampingScrollPhysics(),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.3,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    decoration: BoxDecoration(
-                                        color: Hexcolor('#203b8d'),
-                                        shape: BoxShape.circle),
-                                    child: GestureDetector(
-                                      onTap: () =>
-                                          setState(() => _warnaRambut = 0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _warnaRambut == 0
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Iya",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        )),
-                                        // Image.asset('assets/images/female.png'),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                      padding: EdgeInsets.all(
-                                          MediaQuery.of(context).size.width *
-                                              0.02)),
-                                  Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.3,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Hexcolor('#203b8d'),
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: () =>
-                                          setState(() => _warnaRambut = 1),
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                  color: _warnaRambut == 1
-                                                      ? Hexcolor('#203b8d')
-                                                      : Colors.transparent,
-                                                  width: 5),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Color.fromRGBO(
-                                                        105, 170, 175, 0.3),
-                                                    blurRadius: 20,
-                                                    offset: Offset(0, 10))
-                                              ],
-                                              color: Colors.white),
-                                          child: Center(
-                                              child: Text(
-                                            "Tidak",
-                                            style: TextStyle(
-                                                fontSize: ResponsiveFlutter.of(
-                                                        context)
-                                                    .fontSize(2)),
-                                          ))
-                                          // Image.asset(
-                                          //   'assets/images/Pria_perbaikan.png',
-                                          // ),
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ]),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        'Anda seorang hijaber ?  ',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    //center hijab
-                    Center(
-                      child: SizedBox(
-                        height: 200.0,
-                        child: ListView(
-                            physics: ClampingScrollPhysics(),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.3,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    decoration: BoxDecoration(
-                                        color: Hexcolor('#203b8d'),
-                                        shape: BoxShape.circle),
-                                    child: GestureDetector(
-                                      onTap: () => setState(() => _hijab = 0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: _hijab == 0
-                                                    ? Hexcolor('#203b8d')
-                                                    : Colors.transparent,
-                                                width: 5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Color.fromRGBO(
-                                                      105, 170, 175, 0.3),
-                                                  blurRadius: 20,
-                                                  offset: Offset(0, 10))
-                                            ],
-                                            color: Colors.white),
-                                        child: Center(
-                                            child: Text(
-                                          "Iya",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(2)),
-                                        )),
-                                        // Image.asset('assets/images/female.png'),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                      padding: EdgeInsets.all(
-                                          MediaQuery.of(context).size.width *
-                                              0.02)),
-                                  Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.3,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Hexcolor('#203b8d'),
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: () => setState(() => _hijab = 1),
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                  color: _hijab == 1
-                                                      ? Hexcolor('#203b8d')
-                                                      : Colors.transparent,
-                                                  width: 5),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Color.fromRGBO(
-                                                        105, 170, 175, 0.3),
-                                                    blurRadius: 20,
-                                                    offset: Offset(0, 10))
-                                              ],
-                                              color: Colors.white),
-                                          child: Center(
-                                              child: Text(
-                                            "Tidak",
-                                            style: TextStyle(
-                                                fontSize: ResponsiveFlutter.of(
-                                                        context)
-                                                    .fontSize(2)),
-                                          ))
-                                          // Image.asset(
-                                          //   'assets/images/Pria_perbaikan.png',
-                                          // ),
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ]),
-                      ),
-                    ),
-                    Center(
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.02),
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: RaisedButton(
-                          child: Text(
-                            "Selanjutnya",
-                            style: TextStyle(color: Hexcolor('#e6f8f6')),
-                          ),
-                          onPressed: () {
-                            saveBeautyID();
-                            Navigator.pushNamed(context, '/concern');
-                          },
-                          color: Color.fromRGBO(0, 0, 104, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 1,
-                      height: MediaQuery.of(context).size.width * 0.1,
-                    )
-                  ],
-                ),
+            SizedBox(
+              height: height * 0.3,
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text('Skin Type',
+                  style: TextStyle(
+                      color: Hexcolor('#4C8CA7'),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700)),
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text('Pilih sesuai dengan kondisi wajahmu saat ini',
+                  style: TextStyle(
+                    color: Hexcolor('#4C8CA7'),
+                    fontSize: 15,
+                  )),
+            ),
+            SizedBox(
+              height: height * 0.01,
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 20),
+              child: Wrap(
+                spacing: 20,
+                runSpacing: 10,
+                children: type,
               ),
             ),
+            SizedBox(
+              height: height * 0.05,
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text('Skin Problems',
+                  style: TextStyle(
+                      color: Hexcolor('#4C8CA7'),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700)),
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text('Pilih sesuai dengan kondisi wajahmu saat ini',
+                  style: TextStyle(
+                    color: Hexcolor('#4C8CA7'),
+                    fontSize: 15,
+                  )),
+            ),
+            SizedBox(
+              height: height * 0.01,
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 20),
+              child: Wrap(
+                spacing: 20,
+                runSpacing: 10,
+                children: problem,
+              ),
+            ),
+            SizedBox(
+              height: height * 0.01,
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 20),
+              width: width * 0.8,
+              child: tex(
+                  labelText: 'Permasalahan kulit lainnya',
+                  controller: masalahLain),
+            ),
+            SizedBox(
+              height: height * 0.01,
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 20),
+              width: width * 0.8,
+              child: tex(
+                  labelText: 'Produk yang digunakan sebelumnya',
+                  controller: productSebelum),
+            ),
+            SizedBox(
+              height: height * 0.01,
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 20),
+              width: width * 0.8,
+              child: RaisedButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                onPressed: () {
+                  RegistQue.storeQues(
+                      userId: idUser['user_id'].toString(),
+                      gender: gender.toString(),
+                      conditionFace: faceCondition.toString(),
+                      skinType: now.toString(),
+                      skinProblem: prob.toString(),
+                      otherSkinProblem: masalahLain.text ?? '',
+                      prevProduct: productSebelum.text ?? '');
+                },
+                child: Text(
+                  'Save',
+                  style: TextStyle(color: Colors.white, fontSize: 19),
+                ),
+                color: Hexcolor('#4C8CA7'),
+              ),
+            )
           ],
         ),
+      ),
+    ));
+  }
+
+  TextFormField tex({TextEditingController controller, String labelText}) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Hexcolor('#4C8CA7'), width: 5)),
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Hexcolor('#4C8CA7'), width: 5)),
+          labelText: labelText,
+          labelStyle: TextStyle(color: Hexcolor('#4C8CA7'))),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    buildWidget();
+    LoadUP.loadAPI().then((_) {
+      setState(() {
+        debugPrint('Gender : ' + gender.toString());
+        // debugPrint('Face Condition : ' + faceCondition.toString());
+      });
+    });
+    LoadUP.getUidRes().then((value) {
+      setState(() {});
+    });
+    ShareAll.getUserID().then((value) {
+      setState(() {});
+    });
+  }
+
+  void buildWidget() {
+    type = [];
+    problem = [];
+    setState(() {
+      for (i = 0; i < skinType.length; i++) {
+        type.add(conten(skinType[i], i));
+      }
+      for (i = 0; i < skinProblem.length; i++) {
+        problem.add(problems(skinProblem[i], i));
+      }
+    });
+  }
+
+  InkWell conten(String title, int index) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          now = index;
+          debugPrint(now.toString());
+          buildWidget();
+        });
+      },
+      child: Container(
+        width: width * 0.4,
+        height: height * 0.05,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(color: Colors.black.withOpacity(0.7), blurRadius: 1)
+            ],
+            border: Border.all(
+                color:
+                    (now == index) ? Hexcolor('#4C8CA7') : Colors.transparent,
+                width: 5),
+            borderRadius: BorderRadius.circular(10)),
+        child: Center(child: Text(title)),
+      ),
+    );
+  }
+
+  InkWell problems(String title, int index) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          prob = index;
+          debugPrint(prob.toString());
+          buildWidget();
+        });
+      },
+      child: Container(
+        width: width * 0.4,
+        height: height * 0.05,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(color: Colors.black.withOpacity(0.7), blurRadius: 1)
+            ],
+            border: Border.all(
+                color:
+                    (prob == index) ? Hexcolor('#4C8CA7') : Colors.transparent,
+                width: 5),
+            borderRadius: BorderRadius.circular(10)),
+        child: Center(child: Text(title)),
       ),
     );
   }

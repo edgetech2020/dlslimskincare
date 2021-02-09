@@ -16,6 +16,7 @@ class _DetailNewsState extends State<DetailNews> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: Appbar.getAppBar(context),
       body: Container(
         child: DraggableScrollableSheet(

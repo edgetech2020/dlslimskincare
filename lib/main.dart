@@ -7,12 +7,16 @@ import 'package:dlslim/Pages/gender.dart';
 import 'package:dlslim/Pages/home_page.dart';
 import 'package:dlslim/Pages/product_demo.dart';
 import 'package:dlslim/Pages/registrasi.dart';
+import 'package:dlslim/Pages/setting.dart';
+import 'package:dlslim/Pages/whislisst.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'Pages/cartList.dart';
 import 'Pages/detail.dart';
 import 'Pages/detailNews.dart';
 import 'Pages/hal_login.dart';
+import 'Pages/history.dart';
 import 'Pages/login.dart';
 import 'Model/bottomnavbar.dart';
 import 'Pages/newPromo.dart';
@@ -29,7 +33,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       // darkTheme: ThemeData.dark(),
       title: 'DL Slim Skin Care',
       theme: ThemeData(
@@ -60,6 +64,8 @@ class MyApp extends StatelessWidget {
         '/buynow': (BuildContext context) =>
             BuyNow(ModalRoute.of(context).settings.arguments),
         '/productsdemo': (BuildContext context) => ProductDemo(),
+        '/whislist': (BuildContext context) => Whislist(),
+        '/setting': (BuildContext context) => Settings(),
       },
     );
   }

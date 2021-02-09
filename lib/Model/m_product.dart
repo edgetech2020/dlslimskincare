@@ -14,13 +14,15 @@ class ApiProduct {
     double _rating = 0;
 
     Future fetchData() async {
-      final response =
-          await http.get("https://dashboard.dlslimskincare.com/api/products/");
-      // await Future.delayed(Duration(seconds: 10));
-      if (response.statusCode == 200) {
-        list = json.decode(response.body) as List;
-        return list;
-      }
+      try {
+        final response = await http
+            .get("https://dashboard.dlslimskincare.com/api/products/");
+        // await Future.delayed(Duration(seconds: 10));
+        if (response.statusCode == 200) {
+          list = json.decode(response.body) as List;
+          return list;
+        }
+      } catch (e) {}
     }
 
     return Container(

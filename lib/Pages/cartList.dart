@@ -1,6 +1,14 @@
+import 'dart:convert';
+
 import 'package:dlslim/Model/appBar.dart';
+import 'package:dlslim/Model/shared.dart';
+import 'package:dlslim/Model/webviewCheckOut.dart';
+import 'package:dlslim/api/testget.dart';
 import 'package:flutter/material.dart';
-import 'package:dlslim/Model/globals.dart' as globals;
+import 'package:http/http.dart' as http;
+import 'package:dlslim/api/globals.dart' as globals;
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CartList extends StatefulWidget {
   @override
@@ -12,8 +20,25 @@ class _CartListState extends State<CartList> {
   int prevId = 0;
   int counterL = 0;
   bool isEmpty;
+  Map idUser;
+  Map cart;
+  List cartList;
+
+  void initState() {
+    super.initState();
+    ShareAll.getUserID().then((value) {
+      setState(() {
+        TestGetApi.getListCart().then((value) {
+          setState(() {});
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: Appbar.getAppBar(context),
       body: Stack(
@@ -21,44 +46,67 @@ class _CartListState extends State<CartList> {
           Center(
               child: Container(
             child: ListView.builder(
-                itemCount: globals.cartList.length,
+                itemCount: globals.cartId?.length ?? 0,
                 itemBuilder: (context, int index) {
-                  hasil = globals.cartList[index].toString();
-                  if (globals.cartList[index] == prevId) {
-                    // hasil = hasil + "(" + counterL.toString() + ")";
-                    hasil = globals.cartList[index].toString();
-                    counterL++;
-                    isEmpty = false;
-                  } else {
-                    hasil = "no";
-                    isEmpty = true;
-                    prevId = -1;
-                    counterL = 0;
-                  }
-                  prevId = globals.cartList[index];
                   return Card(
-                    child: isEmpty ? null : Text(hasil),
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Container(
+                            width: width * 0.3,
+                            height: height * 0.15,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        globals.imagenot ?? globals.imagenot))),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(globals.cartId[index]['product_name']
+                                  .toString()),
+                              Text('Qty :' +
+                                  ' ' +
+                                  globals.cartId[index]['quantity'].toString()),
+                              Text((globals.cartId[index]['product_price'] !=
+                                      null)
+                                  ? NumberFormat.currency(
+                                          locale: 'id',
+                                          symbol: 'Rp. ',
+                                          decimalDigits: 0)
+                                      .format(globals.cartId[index]
+                                              ['product_price'] *
+                                          globals.cartId[index]['quantity'])
+                                      .toString()
+                                  : '')
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 }),
           )),
-          Center(
+          Positioned(
+            top: height * 0.75,
+            left: width * 0.15,
             child: Container(
-              width: 250.0,
+              width: width * 0.7,
               child: RaisedButton(
-                child: Text(
-                  "LogOut",
-                  style: TextStyle(color: Color.fromRGBO(230, 248, 246, 1)),
-                ),
-                onPressed: () {
-                  globals.cartList.clear();
-                  setState(() {});
-                },
-                color: Color.fromRGBO(0, 0, 104, 1),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
+                color: Colors.blue,
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => CheckOut()));
+                },
+                child: Text(
+                  'Beli Sekarang',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
-          ),
+          )
         ],
       ),
     );

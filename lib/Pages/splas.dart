@@ -1,7 +1,9 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:dlslim/Model/bottomnavbar.dart';
 
 import 'package:dlslim/Pages/hal_login.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 import 'dart:async';
 
@@ -24,14 +26,15 @@ class _Splashscreen extends State<Splashscreen> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     isLogin = pref.get('isLogin') ?? false;
     if (isLogin) {
-      Navigator.pushReplacementNamed(context, '/rumah');
+      Get.off(BottomNavBar());
     } else {
-      Navigator.pushReplacementNamed(context, '/hal');
+      Get.off(Hal());
     }
   }
 
   void initState() {
     super.initState();
+
     splashscreenStart(context);
     // Konek.checkConnection(context);
   }

@@ -1,12 +1,9 @@
-import 'dart:async';
-import 'dart:convert';
 import 'dart:ui';
-
+import 'package:dlslim/api/globals.dart' as globals;
+import 'package:dlslim/api/api_controller.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -14,6 +11,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  LoginPost loginPost;
   Map uid = Map();
   TextEditingController usernm = TextEditingController();
   TextEditingController passrr = new TextEditingController();
@@ -27,32 +25,6 @@ class _LoginState extends State<Login> {
   Map<String, dynamic> mseg;
   String msg = '';
   bool isLogin = false;
-  bool isLoginButtonDisabled = false;
-
-  Future _login() async {
-    var body = json.encode({'username': usernm.text, 'password': passrr.text});
-    var url = "https://dlslimskincare.com/wp-json/remote-login/login";
-    http.post(
-      url,
-      body: body,
-      headers: {"Content-Type": "application/json"},
-    ).then((http.Response response) async {
-      mseg = json.decode(response.body);
-      // final int statusCode = mseg['code'];
-      if (response.statusCode == 200) {
-        SharedPreferences pref = await SharedPreferences.getInstance();
-        pref.setBool('isLogin', true);
-        pref.setString('username', usernm.text);
-        pref.setString('response', response.body);
-        Navigator.pushReplacementNamed(context, '/rumah');
-      } else
-        return setState(() {
-          msg = mseg['message'] ?? '';
-          isLoginButtonDisabled = false;
-        });
-      _scaffoldKey.currentState.hideCurrentSnackBar();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +33,7 @@ class _LoginState extends State<Login> {
         "Login",
         style: TextStyle(color: Hexcolor('#e6f8f6')),
       ),
-      onPressed: isLoginButtonDisabled
+      onPressed: globals.isLoginButtonDisabled
           ? null
           : () {
               FocusScope.of(context).unfocus();
@@ -74,12 +46,24 @@ class _LoginState extends State<Login> {
                 ),
               ));
               setState(() {
-                msg = '';
-                isLoginButtonDisabled = true;
+                globals.gagalMsk = '';
+                globals.isLoginButtonDisabled = true;
               });
-              _login();
+              LoginPost.loginPostTest(context, usernm.text, passrr.text)
+                  .then((_) {
+                if (globals.gagalLogin['success'] == false) {
+                  setState(() {
+                    globals.isLoginButtonDisabled = false;
+                  });
+                } else {
+                  setState(() {
+                    globals.isLoginButtonDisabled = false;
+                  });
+                }
+              });
+              // _login();
             },
-      color: Color.fromRGBO(0, 0, 104, 1),
+      color: Hexcolor('#4C8CA7'),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
     );
     return Scaffold(
@@ -87,7 +71,7 @@ class _LoginState extends State<Login> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/utama.png"),
+            image: AssetImage("assets/images/Background-Login 1.jpg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -97,13 +81,13 @@ class _LoginState extends State<Login> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
+                  height: MediaQuery.of(context).size.height * 0.3,
                 ),
-                Container(
-                    child: Image.asset(
-                  'assets/images/logo.png',
-                  fit: BoxFit.cover,
-                )),
+                // Container(
+                //     child: Image.asset(
+                //   'assets/images/logo.png',
+                //   fit: BoxFit.cover,
+                // )),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
                 ),
@@ -111,18 +95,18 @@ class _LoginState extends State<Login> {
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextField(
                     controller: usernm,
-                    enabled: !isLoginButtonDisabled,
+                    enabled: !globals.isLoginButtonDisabled,
                     obscureText: false,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
                       prefixIcon: Icon(Icons.people),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Hexcolor('#203b8d')),
+                        borderSide: BorderSide(color: Hexcolor('#4C8CA7')),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Hexcolor('#203b8d')),
+                          borderSide: BorderSide(color: Hexcolor('#4C8CA7')),
                           borderRadius: BorderRadius.circular(15)),
                       labelText: 'Username',
                     ),
@@ -133,7 +117,7 @@ class _LoginState extends State<Login> {
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextField(
                     controller: passrr,
-                    enabled: !isLoginButtonDisabled,
+                    enabled: !globals.isLoginButtonDisabled,
                     obscureText: !_passwordVisible,
                     onSubmitted: (_) {
                       loginRaisedButton.onPressed?.call();
@@ -158,11 +142,11 @@ class _LoginState extends State<Login> {
                       fillColor: Colors.white,
                       prefixIcon: Icon(Icons.lock),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Hexcolor('#203b8d')),
+                        borderSide: BorderSide(color: Hexcolor('#4C8CA7')),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Hexcolor('#203b8d')),
+                          borderSide: BorderSide(color: Hexcolor('#4C8CA7')),
                           borderRadius: BorderRadius.circular(15)),
                       labelText: 'Password',
                     ),
@@ -179,7 +163,7 @@ class _LoginState extends State<Login> {
                   width: 300,
                   height: 100,
                   child: Text(
-                    msg,
+                    globals.gagalMsk,
                     style: ExtraStyle.productTitle(),
                     textAlign: TextAlign.center,
                   ),

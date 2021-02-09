@@ -1,11 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:dlslim/Model/globals.dart' as globals;
+import 'package:dlslim/api/globals.dart' as globals;
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Appbar {
   static getAppBar(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.transparent,
+
       title: Container(
         height: MediaQueryData.fromWindow(window).size.height * 0.04,
         child: TextField(
@@ -24,15 +27,34 @@ class Appbar {
           ),
         ),
       ),
-      backgroundColor: Colors.blue,
+      // backgroundColor: Colors.transparent,
       elevation: 0.0,
       actions: [
         Padding(
           padding: EdgeInsets.only(
               right: MediaQueryData.fromWindow(window).size.width * 0.05),
-          child: Icon(
-            Icons.favorite,
-            color: Colors.black,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/whislist');
+            },
+            child: Icon(
+              Icons.favorite,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              right: MediaQueryData.fromWindow(window).size.width * 0.05),
+          child: GestureDetector(
+            onTap: () {
+              // Navigator.pushNamed(context, '/whislist');
+              Fluttertoast.showToast(msg: 'This Feature is Coming Soon');
+            },
+            child: Icon(
+              Icons.chat,
+              color: Colors.black,
+            ),
           ),
         ),
         Padding(
@@ -47,7 +69,7 @@ class Appbar {
                 Icons.shopping_cart,
                 color: Colors.black,
               ),
-              if (globals.cartList.length > 0)
+              if ((globals.cartId?.length != null) && globals.cartId.length > 0)
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: CircleAvatar(
@@ -55,7 +77,7 @@ class Appbar {
                     backgroundColor: Colors.red,
                     foregroundColor: Colors.white,
                     child: Text(
-                      globals.cartList.length.toString(),
+                      globals.cartId.length.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12.0,

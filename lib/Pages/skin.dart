@@ -24,7 +24,8 @@ class _SkinPageState extends State<SkinPage> {
         height: MediaQuery.of(context).size.height * 10,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/utama.png"), fit: BoxFit.cover),
+              image: AssetImage("assets/images/Background-Login 1.jpg"),
+              fit: BoxFit.cover),
         ),
         child: ListView(
           children: [
@@ -34,11 +35,14 @@ class _SkinPageState extends State<SkinPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                  ),
                   Container(
                     width: MediaQuery.of(context).size.width * 10,
                     child: Center(
                         child: Text(
-                      "Bisa anda beritahu kami bagaimana kondisi kulit wajah kamu",
+                      "Beritahu kami terkait kondisi wajahmu saat ini",
                       // maxLines: 2,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -48,7 +52,7 @@ class _SkinPageState extends State<SkinPage> {
                   ),
                   Container(
                     margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.1),
+                        top: MediaQuery.of(context).size.height * 0.05),
                     child: Column(
                       children: [
                         Row(
@@ -67,7 +71,7 @@ class _SkinPageState extends State<SkinPage> {
                                       shape: BoxShape.circle,
                                       border: Border.all(
                                           color: _value == 0
-                                              ? Hexcolor('#203b8d')
+                                              ? Hexcolor('#4C8CA7')
                                               : Colors.transparent,
                                           width: 5),
                                       boxShadow: [
@@ -103,7 +107,7 @@ class _SkinPageState extends State<SkinPage> {
                                         shape: BoxShape.circle,
                                         border: Border.all(
                                             color: _value == 1
-                                                ? Hexcolor('#203b8d')
+                                                ? Hexcolor('#4C8CA7')
                                                 : Colors.transparent,
                                             width: 5),
                                         boxShadow: [
@@ -116,7 +120,7 @@ class _SkinPageState extends State<SkinPage> {
                                         color: Colors.white),
                                     child: Center(
                                         child: Text(
-                                      "Normal",
+                                      "Kombinasi",
                                       style: TextStyle(
                                           fontSize:
                                               ResponsiveFlutter.of(context)
@@ -130,45 +134,88 @@ class _SkinPageState extends State<SkinPage> {
                             ),
                           ],
                         ),
-                        Center(
-                          child: Container(
-                            margin: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.05),
-                            height: MediaQuery.of(context).size.height * 0.17,
-                            width: MediaQuery.of(context).size.width * 0.37,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Hexcolor('#203b8d'),
-                            ),
-                            child: GestureDetector(
-                              onTap: () => setState(() => _value = 2),
-                              child: Container(
-                                height: 120,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: _value == 2
-                                            ? Hexcolor('#203b8d')
-                                            : Colors.transparent,
-                                        width: 5),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Color.fromRGBO(
-                                              105, 170, 175, 0.3),
-                                          blurRadius: 20,
-                                          offset: Offset(0, 10))
-                                    ],
-                                    color: Colors.white),
-                                child: Center(
-                                    child: Text(
-                                  "Kering",
-                                  style: TextStyle(
-                                      fontSize: ResponsiveFlutter.of(context)
-                                          .fontSize(3)),
-                                )),
-                                // Image.asset('assets/images/male.png'),
+                        Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height *
+                                      0.05),
+                              height: MediaQuery.of(context).size.height * 0.17,
+                              width: MediaQuery.of(context).size.width * 0.37,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Hexcolor('#203b8d'),
                               ),
+                              child: GestureDetector(
+                                onTap: () => setState(() => _value = 2),
+                                child: Container(
+                                  height: 120,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                          color: _value == 2
+                                              ? Hexcolor('#4C8CA7')
+                                              : Colors.transparent,
+                                          width: 5),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Color.fromRGBO(
+                                                105, 170, 175, 0.3),
+                                            blurRadius: 20,
+                                            offset: Offset(0, 10))
+                                      ],
+                                      color: Colors.white),
+                                  child: Center(
+                                      child: Text(
+                                    "Normal",
+                                    style: TextStyle(
+                                        fontSize: ResponsiveFlutter.of(context)
+                                            .fontSize(3)),
+                                  )),
+                                  // Image.asset('assets/images/male.png'),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height * 0.05),
+                          height: MediaQuery.of(context).size.height * 0.17,
+                          width: MediaQuery.of(context).size.width * 0.37,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Hexcolor('#203b8d'),
+                          ),
+                          child: GestureDetector(
+                            onTap: () => setState(() => _value = 3),
+                            child: Container(
+                              height: 120,
+                              width: 120,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: _value == 3
+                                          ? Hexcolor('#4C8CA7')
+                                          : Colors.transparent,
+                                      width: 5),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color:
+                                            Color.fromRGBO(105, 170, 175, 0.3),
+                                        blurRadius: 20,
+                                        offset: Offset(0, 10))
+                                  ],
+                                  color: Colors.white),
+                              child: Center(
+                                  child: Text(
+                                "Kering",
+                                style: TextStyle(
+                                    fontSize: ResponsiveFlutter.of(context)
+                                        .fontSize(3)),
+                              )),
+                              // Image.asset('assets/images/male.png'),
                             ),
                           ),
                         ),
@@ -177,7 +224,7 @@ class _SkinPageState extends State<SkinPage> {
                   ),
                   Container(
                     margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.1),
+                        top: MediaQuery.of(context).size.height * 0.03),
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: RaisedButton(
                       child: Text(
@@ -188,7 +235,7 @@ class _SkinPageState extends State<SkinPage> {
                         saveBeautyID();
                         Navigator.pushNamed(context, '/beauty');
                       },
-                      color: Color.fromRGBO(0, 0, 104, 1),
+                      color: Hexcolor('#4C8CA7'),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
                     ),

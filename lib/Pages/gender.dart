@@ -19,11 +19,19 @@ class _GenderSexState extends State<GenderSex> {
 
   void initState() {
     super.initState();
+    getUsername().then((value) {
+      setState(() {});
+    });
   }
 
   Future setGender() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('gender', _value);
+  }
+
+  Future getUsername() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    uname = pref.getString('uname');
   }
 
   @override
@@ -33,7 +41,7 @@ class _GenderSexState extends State<GenderSex> {
         width: ResponsiveFlutter.of(context).wp(100),
         decoration: BoxDecoration(
             image: DecorationImage(
-          image: AssetImage("assets/images/utama.png"),
+          image: AssetImage("assets/images/Background-Login 1.jpg"),
           fit: BoxFit.cover,
         )),
         child: Container(
@@ -44,7 +52,7 @@ class _GenderSexState extends State<GenderSex> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.1,
+                    height: MediaQuery.of(context).size.height * 0.25,
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(
@@ -108,7 +116,7 @@ class _GenderSexState extends State<GenderSex> {
                                   borderRadius: BorderRadius.circular(15),
                                   border: Border.all(
                                       color: _value == 1
-                                          ? Hexcolor('#203b8d')
+                                          ? Hexcolor('#4C8CA7')
                                           : Colors.transparent,
                                       width: 5),
                                   boxShadow: [
@@ -140,7 +148,7 @@ class _GenderSexState extends State<GenderSex> {
                                 borderRadius: BorderRadius.circular(15),
                                 border: Border.all(
                                     color: _value == 0
-                                        ? Hexcolor('#203b8d')
+                                        ? Hexcolor('#4C8CA7')
                                         : Colors.transparent,
                                     width: 5),
                                 boxShadow: [
@@ -187,7 +195,7 @@ class _GenderSexState extends State<GenderSex> {
                         //     MaterialPageRoute(builder: (_) => CameraPage()));
                         Navigator.pushNamed(context, '/camera');
                       },
-                      color: Color.fromRGBO(0, 0, 104, 1),
+                      color: Hexcolor('#4C8CA7'),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
                     ),

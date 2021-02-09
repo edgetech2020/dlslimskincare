@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -30,8 +30,13 @@ dependencies:
   data_connection_checker: ^0.3.4
   email_validator: ^1.0.6
   flutter_html: ^1.0.0
+  flutter_inappwebview: ^4.0.0+4
+  fluttertoast: ^7.1.5
+  get: ^3.24.0
+  google_fonts: ^1.1.2
   hexcolor: ^1.0.4
   http: ^0.12.2
+  http_parser: ^3.1.4
   image_picker: ^0.6.7+11
   intl: ^0.16.1
   path_provider: ^1.6.24
@@ -41,12 +46,17 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.8.0"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon.jpg"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -71,7 +81,7 @@ flutter:
         - asset: assets/fonts/Montserrat-Regular.ttf
         - asset: assets/fonts/Montserrat-Italic.ttf
           style: italic
-      # - family: Montserrat 
+      # - family: Montserrat
       #   fonts:
       #    - asset: fonts/Montserrat-Regular.ttf
       #    - asset: fonts/Montserrat-Bold.ttf

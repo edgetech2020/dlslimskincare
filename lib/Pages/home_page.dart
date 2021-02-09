@@ -4,11 +4,13 @@ import 'package:dlslim/Model/m_beautyTreatment.dart';
 import 'package:dlslim/Model/m_carousel.dart';
 import 'package:dlslim/Model/m_newsPromo.dart';
 import 'package:dlslim/Model/m_product.dart';
+import 'package:dlslim/Model/shared.dart';
+import 'package:dlslim/Pages/treamentall.dart';
+import 'package:dlslim/api/testget.dart';
 
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/route_manager.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,7 +20,23 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String name = '';
   bool isLogin = true;
+  Map cart;
+  Map idUser;
+  List cartList;
   bool isLogOut = false;
+
+  void initState() {
+    super.initState();
+    ShareAll.getUserID().then((value) {
+      setState(() {
+        debugPrint(idUser.toString());
+        TestGetApi.getListCart().then((value) {
+          setState(() {});
+        });
+      });
+    });
+  }
+
   static const snackBarDuration = Duration(seconds: 3);
 
   final snackBar = SnackBar(
@@ -44,49 +62,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  // ignore: override_on_non_overriding_member
-  void initstate() {
-    super.initState();
-    loadPage();
-  }
-
-  Future loadUser() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    isLogin = pref.get('isLogin') ?? false;
-    print(isLogin);
-    if (isLogin) {
-      Navigator.pushReplacementNamed(context, '/rumah');
-    } else {
-      Navigator.pushReplacementNamed(context, '/hal');
-    }
-  }
-
-  Future loadUid() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    setState(() {
-      name = pref.getString('username') ?? "gagal Load";
-    });
-    return name;
-  }
-
-  Future logoutUser() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref?.clear();
-    Navigator.pushReplacementNamed(context, '/hal');
-  }
-
-  loadPage() async {
-    var duration = const Duration(seconds: 2);
-    return Timer(duration, () {
-      loadUser();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => onWillPop(context),
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         body: Container(
           width: MediaQuery.of(context).size.width * 1,
           height: MediaQuery.of(context).size.height * 1,
@@ -140,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           FlatButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/productsdemo');
+                              Navigator.pushNamed(context, '/product');
                             },
                             child: Text(
                               'Lihat Semua',
@@ -162,6 +142,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           FlatButton(
                             onPressed: () {
+                              Get.to(AllTreatment());
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(
@@ -178,24 +159,6 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
-                      // Center(
-                      //   child: Container(
-                      //     width: 250.0,
-                      //     child: RaisedButton(
-                      //       child: Text(
-                      //         "LogOut",
-                      //         style: TextStyle(
-                      //             color: Color.fromRGBO(230, 248, 246, 1)),
-                      //       ),
-                      //       onPressed: () {
-                      //         logoutUser();
-                      //       },
-                      //       color: Color.fromRGBO(0, 0, 104, 1),
-                      //       shape: RoundedRectangleBorder(
-                      //           borderRadius: BorderRadius.circular(15)),
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),

@@ -28,6 +28,7 @@ class _NewsPromoState extends State<NewsPromo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: Appbar.getAppBar(context),
       body: Container(
         width: MediaQuery.of(context).size.width * 1,

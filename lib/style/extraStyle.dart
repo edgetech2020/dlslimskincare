@@ -49,7 +49,7 @@ class ExtraStyle {
         // color 203b8d
         color: Color.fromRGBO(32, 59, 141, 1),
         fontFamily: "MontSerrat",
-        fontSize: 18);
+        fontSize: 16);
   }
 
   static TextStyle productBuyNow() {
@@ -79,5 +79,13 @@ class ExtraStyle {
                       child: Center(
                           child: Text('Beauty Treatment', style: styleIsi()))),
                 )));
+  }
+
+  static TextStyle profileTextTitle() {
+    return const TextStyle(
+        // color 203b8d
+        color: Color.fromRGBO(32, 59, 141, 1),
+        fontFamily: "MontSerrat",
+        fontSize: 20);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:dlslim/Model/appBar.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -16,6 +17,7 @@ class _ProductDemoState extends State<ProductDemo> {
   final int _defaultPhotosPerPageCount = 10;
   List<Products> _produk;
   final int _nextPageThreshold = 5;
+  ScrollController sController;
 
   @override
   void initState() {
@@ -25,7 +27,22 @@ class _ProductDemoState extends State<ProductDemo> {
     _error = false;
     _loading = true;
     _produk = [];
-    fetchProduct();
+    fetchProduct(1);
+    sController = ScrollController();
+    sController.addListener(() {
+      if (sController.offset >= sController.position.maxScrollExtent &&
+          !sController.position.outOfRange) {
+        setState(() {
+          Fluttertoast.showToast(msg: "reach the top");
+        });
+      }
+      if (sController.offset <= sController.position.minScrollExtent &&
+          !sController.position.outOfRange) {
+        setState(() {
+          Fluttertoast.showToast(msg: "reach the top");
+        });
+      }
+    });
   }
 
   @override
@@ -52,7 +69,7 @@ class _ProductDemoState extends State<ProductDemo> {
             setState(() {
               _loading = true;
               _error = false;
-              fetchProduct();
+              fetchProduct(1);
             });
           },
           child: Padding(
@@ -63,11 +80,11 @@ class _ProductDemoState extends State<ProductDemo> {
       }
     } else {
       return ListView.builder(
-          itemCount: _produk.length + (_hasMore ? 1 : 0),
+          itemCount: _produk.length,
+          // itemCount: _produk.length + (_hasMore ? 1 : 0),
           itemBuilder: (BuildContext context, index) {
-            if (index == _produk.length - _nextPageThreshold) {
-              fetchProduct();
-            }
+            // Fluttertoast.showToast(msg: index.toString());
+            if (index == _produk.length - _nextPageThreshold) {}
             if (index == _produk.length) {
               if (_error) {
                 return Center(
@@ -76,7 +93,6 @@ class _ProductDemoState extends State<ProductDemo> {
                     setState(() {
                       _loading = true;
                       _error = false;
-                      fetchProduct();
                     });
                   },
                   child: Padding(
@@ -103,10 +119,11 @@ class _ProductDemoState extends State<ProductDemo> {
     return Container();
   }
 
-  Future<void> fetchProduct() async {
+  Future<void> fetchProduct(int pageNumber) async {
+    Fluttertoast.showToast(msg: "called");
     try {
-      final response = await http.get(
-          'https://dashboard.dlslimskincare.com/api/products?_page=$_pageNumber');
+      final response = await http
+          .get('https://dashboard.dlslimskincare.com/api/products/$pageNumber');
       List<Products> product = Products.parseList(json.decode(response.body));
       setState(() {
         _hasMore = product.length == _defaultPhotosPerPageCount;
@@ -127,11 +144,13 @@ class Products {
   String title;
   String price;
   String deskripsi;
+  String picture;
 
-  Products(this.title, this.price, this.deskripsi);
+  Products(this.title, this.price, this.deskripsi, this.picture);
 
   factory Products.fromJson(Map<String, dynamic> json) {
-    return Products(json['name'], json['price'], json['description']);
+    return Products(json['name'], json['price'], json['description'],
+        json['images'][0]['src']);
   }
   static List<Products> parseList(List<dynamic> list) {
     return list.map((i) => Products.fromJson(i)).toList();
