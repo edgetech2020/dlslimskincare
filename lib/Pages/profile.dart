@@ -392,6 +392,23 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ],
           ),
+          Center(
+            child: Container(
+              width: 250.0,
+              child: RaisedButton(
+                child: Text(
+                  "Log Out",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Logout.logoutUser(context);
+                },
+                color: Colors.blue,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+              ),
+            ),
+          ),
         ],
       ),
     );

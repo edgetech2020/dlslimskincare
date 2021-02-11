@@ -1,17 +1,25 @@
 import 'dart:ui';
 
+import 'package:dlslim/api/api_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:dlslim/api/globals.dart' as globals;
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Appbar {
-  static getAppBar(BuildContext context) {
+  // static var ppp = TextEditingController();
+  static getAppBar(BuildContext context, {String base64}) {
     return AppBar(
       backgroundColor: Colors.transparent,
 
       title: Container(
         height: MediaQueryData.fromWindow(window).size.height * 0.04,
         child: TextField(
+          textInputAction: TextInputAction.go,
+          // controller: ppp,
+          onSubmitted: (value) {
+            GetProduct.getSearch(value, base64);
+            debugPrint(value);
+          },
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,

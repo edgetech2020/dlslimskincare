@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:dlslim/Model/bottomnavbar.dart';
 import 'package:dlslim/Pages/beauty_id.dart';
+import 'package:dlslim/Pages/product_search.dart';
 import 'package:dlslim/api/globals.dart' as globals;
 import 'package:dlslim/api/globals.dart';
 import 'package:flutter/material.dart';
@@ -177,6 +178,21 @@ class UpdateAvatar {
       print(await response.stream.bytesToString());
     } else {
       print(response.reasonPhrase);
+    }
+  }
+}
+
+class GetProduct {
+  static Future getSearch(String name, String base64) async {
+    var url =
+        'http://dlslimskincare.com/wp-json/wcfmmp/v1/products/?search=$name';
+    var response =
+        await http.get(url, headers: {"Authorization": "Basic " + base64});
+    if (response.statusCode == 200) {
+      pencarian = json.decode(response.body);
+      Get.to(Search());
+    } else {
+      pencarian = json.decode(response.body);
     }
   }
 }

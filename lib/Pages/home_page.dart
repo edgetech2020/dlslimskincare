@@ -41,6 +41,12 @@ class _HomePageState extends State<HomePage> {
       });
       // });
     });
+    LoadUP.getUP().then((value) {
+      up = username;
+      ap = password;
+      debugPrint('UP : ' + value);
+      setState(() {});
+    });
   }
 
   static const snackBarDuration = Duration(seconds: 3);
@@ -178,10 +184,6 @@ class _HomePageState extends State<HomePage> {
         body: Container(
           width: MediaQuery.of(context).size.width * 1,
           height: MediaQuery.of(context).size.height * 1,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/home.png"),
-                  fit: BoxFit.cover)),
           child: Container(
             width: MediaQuery.of(context).size.width,
             child: SafeArea(

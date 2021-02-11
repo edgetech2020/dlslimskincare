@@ -46,5 +46,9 @@ var imagenot =
     'https://dlslimskincare.com/wp-content/uploads/2020/10/no-image-icon-6.png';
 
 bool homeLoaded = false;
+List pencarian;
+
+String up;
+String ap;
 
 List<Widget> homeWidgets = [];
