@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 class ApiCarousel {
   static Container apiCarousel() {
+    print("triggered carousel");
     List gambar = [
       'https://dlslimskincare.com/wp-content/uploads/2020/10/no-image-icon-6.png'
     ];

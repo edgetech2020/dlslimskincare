@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 class ApiNewsPromo {
   static Container apiNewsPromo() {
+    print('triggered news promo');
     List news = List();
     final String url = "https://dashboard.dlslimskincare.com/api/news";
 

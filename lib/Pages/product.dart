@@ -28,6 +28,7 @@ class _ProductState extends State<Product> {
 
   @override
   void initState() {
+    print('yuyuuyuyuyuyu');
     this.productData(_pageNumber);
     super.initState();
     _scrollController.addListener(() {

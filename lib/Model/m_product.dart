@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 
 class ApiProduct {
   static Container apiProduct() {
+    print('triggered product');
     List list = List();
     double _rating = 0;
 

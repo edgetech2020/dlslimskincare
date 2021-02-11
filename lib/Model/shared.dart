@@ -12,6 +12,7 @@ class ShareAll {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       globals.idUser = json.decode(pref.getString('response'));
+      // Future
     } catch (e) {}
   }
 }

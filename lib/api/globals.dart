@@ -44,3 +44,7 @@ double width = MediaQueryData.fromWindow(window).size.width;
 double height = MediaQueryData.fromWindow(window).size.height;
 var imagenot =
     'https://dlslimskincare.com/wp-content/uploads/2020/10/no-image-icon-6.png';
+
+bool homeLoaded = false;
+
+List<Widget> homeWidgets = [];
