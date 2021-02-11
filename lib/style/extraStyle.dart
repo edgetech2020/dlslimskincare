@@ -36,11 +36,12 @@ class ExtraStyle {
         fontSize: 12);
   }
 
-  static TextStyle profileUname() {
-    return const TextStyle(
+  static TextStyle profileUname({Color colors, FontWeight fontWeight}) {
+    return TextStyle(
         // color 203b8d
-        color: Color.fromRGBO(230, 248, 246, 1),
+        color: colors ?? Colors.black,
         fontFamily: "MontSerrat",
+        fontWeight: fontWeight,
         fontSize: 18);
   }
 

@@ -12,6 +12,7 @@ import 'package:dlslim/api/globals.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -88,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
       }
     });
     if (cameraPict != null) {
-      pict = await imgFile.readAsBytesSync();
+      pict = imgFile.readAsBytesSync();
       UpdateAvatar.upload(idUser['user_id'].toString(), pict, nameFile);
     }
     setState(() {});
@@ -165,10 +166,6 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/images/home.png'), fit: BoxFit.cover),
-        ),
         child: SafeArea(
           top: true,
           child: Stack(
@@ -197,7 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     dialogAva();
                   },
                   child: Icon(
-                    Icons.settings,
+                    Icons.camera_enhance,
                     size: 50,
                   ),
                 ),
@@ -208,10 +205,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     top: MediaQuery.of(context).size.width * 0.45),
                 width: MediaQuery.of(context).size.width * 0.7,
                 height: MediaQuery.of(context).size.height * 0.13,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  color: Color.fromRGBO(32, 59, 141, 1),
-                ),
                 child: Column(
                   children: [
                     Container(
@@ -220,8 +213,15 @@ class _ProfilePageState extends State<ProfilePage> {
                               0.04),
                       child: Text(
                         (fullname != null) ? fullname : '-',
-                        style: ExtraStyle.profileUname(),
+                        style: ExtraStyle.profileUname(
+                            colors: Color(0xff4C8CA7),
+                            fontWeight: FontWeight.w700),
                       ),
+                    ),
+                    Container(
+                      // margin: EdgeInsets.only(top: 10),
+                      child: Text((gender != null) ? gender : '-',
+                          style: ExtraStyle.profileUname()),
                     ),
                     Container(
                       child: Text(
@@ -233,29 +233,166 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: height * 0.35),
-                child: profileList(),
+                margin: EdgeInsets.only(top: height * 0.30),
+                child: Center(child: container()),
               )
-              // Positioned.fill(
-              //     child: DraggableScrollableSheet(
-              //         initialChildSize: 0.55,
-              //         minChildSize: 0.55,
-              //         maxChildSize: 0.8,
-              //         builder: (BuildContext context,
-              //             ScrollController scrollController) {
-              //           return Container(
-              //             decoration: BoxDecoration(
-              //                 color: Colors.blue[100],
-              //                 borderRadius: BorderRadius.only(
-              //                     topLeft: Radius.circular(30),
-              //                     topRight: Radius.circular(30))),
-              //             child:
-              //                 profileList(scrollController: scrollController),
-              //           );
-              //         })),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Container container() {
+    return Container(
+      width: globals.width * 0.85,
+      height: globals.height * 0.4,
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.blue),
+          borderRadius: BorderRadius.circular(15)),
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(left: 28),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Beauty Concern',
+              style: GoogleFonts.roboto(
+                  color: Color(0xff4C8CA7),
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700),
+            ),
+          ),
+          SizedBox(
+            height: height * 0.03,
+          ),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 28),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Skin type',
+                      style: GoogleFonts.roboto(
+                        color: Color(0xff4C8CA7),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: Text((skinType != null) ? skinType : '-')),
+                ],
+              ),
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 28),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Skin Problem',
+                      style: GoogleFonts.roboto(
+                        color: Color(0xff4C8CA7),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: 10, left: 22),
+                      child: Text((skinProb != null) ? skinProb : '-')),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(
+            height: height * 0.03,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    // alignment: Alignment.topLeft,
+                    child: Text(
+                      'Left',
+                      style: GoogleFonts.roboto(
+                          color: Color(0xff4C8CA7),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Container(
+                    width: globals.width * 0.15,
+                    height: globals.height * 0.07,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                            image: (potoKiri != null)
+                                ? NetworkImage(potoKiri)
+                                : NetworkImage(globals.imagenot))),
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    // alignment: Alignment.topLeft,
+                    child: Text(
+                      'Front',
+                      style: GoogleFonts.roboto(
+                          color: Color(0xff4C8CA7),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Container(
+                    width: globals.width * 0.15,
+                    height: globals.height * 0.07,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                            image: (potoDepan != null)
+                                ? NetworkImage(potoDepan)
+                                : NetworkImage(globals.imagenot))),
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    // alignment: Alignment.topLeft,
+                    child: Text(
+                      'Right',
+                      style: GoogleFonts.roboto(
+                          color: Color(0xff4C8CA7),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Container(
+                    width: globals.width * 0.15,
+                    height: globals.height * 0.07,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                            image: (potoKanan != null)
+                                ? NetworkImage(potoKanan)
+                                : NetworkImage(globals.imagenot))),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -340,14 +477,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Gender',
-                          style: ExtraStyle.profileTextTitle(),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 10),
-                          child: Text((gender != null) ? gender : '-'),
-                        ),
                         Container(
                             margin: EdgeInsets.only(top: 15),
                             child: Text(
