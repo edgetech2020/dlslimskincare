@@ -64,7 +64,6 @@ class _ProfilePageState extends State<ProfilePage> {
             avatar = globals.profileGet['datas']['avatar_url'];
             fullname = globals.profileGet['datas']['username'];
             email = globals.profileGet['datas']['email'];
-
             gender = globals.profileGet['datas']['_gender'];
             skinType = globals.profileGet['datas']['skin_type'];
             skinProb = globals.profileGet['datas']['skin_problem'];
