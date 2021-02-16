@@ -139,7 +139,7 @@ class _CameraFaceState extends State<CameraFace> {
                   idUser['user_id'].toString(),
                   tampakDepanBase64 ?? '',
                   tampakKananBase64 ?? '',
-                  tampakKiriBase64);
+                  tampakKiriBase64 ?? '');
               // savePict();
             },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
