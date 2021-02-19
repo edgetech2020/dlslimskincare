@@ -4,6 +4,7 @@ import 'package:dlslim/api/api_controller.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -50,7 +51,7 @@ class _LoginState extends State<Login> {
                 globals.isLoginButtonDisabled = true;
               });
               LoginPost.loginPostTest(context, usernm.text, passrr.text)
-                  .then((_) {
+                  .then((_) async {
                 if (globals.gagalLogin['success'] == false) {
                   setState(() {
                     globals.isLoginButtonDisabled = false;
@@ -60,6 +61,9 @@ class _LoginState extends State<Login> {
                     globals.isLoginButtonDisabled = false;
                   });
                 }
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                pref.setString('user', usernm.text);
+                pref.setString('pass', passrr.text);
               });
               // _login();
             },

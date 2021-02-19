@@ -19,28 +19,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginPost {
   static Future loginPostTest(
       BuildContext context, String username, String password) async {
-    try {
-      var url = 'https://dlslimskincare.com/wp-json/remote-login/login';
-      var apiResult = await http.post(url,
-          body: json.encode({'username': username, 'password': password}),
-          headers: {"Content-Type": "application/json"});
-      var jsonObject = json.decode(apiResult.body) as Map;
-      globals.gagalLogin = jsonObject;
-      if (apiResult.statusCode == 200) {
-        SharedPreferences pref = await SharedPreferences.getInstance();
-        pref.setString('response', apiResult.body);
-        pref.setBool('isLogin', true);
-        pref.setString('username', username);
-        pref.setString('password', password);
-        Get.offAll(BottomNavBar());
-        // Navigator.pushReplacementNamed(context, '/rumah');
-        debugPrint(jsonObject.toString());
-      } else {
-        debugPrint(jsonObject['message']);
-        globals.gagalMsk = jsonObject['message'] ?? '';
-        globals.isLoginButtonDisabled = false;
-      }
-    } catch (e) {}
+    var url = 'https://dlslimskincare.com/wp-json/remote-login/login';
+    var apiResult = await http.post(url,
+        body: json.encode({'username': username, 'password': password}),
+        headers: {"Content-Type": "application/json"});
+    var jsonObject = json.decode(apiResult.body) as Map;
+    globals.gagalLogin = jsonObject;
+    if (apiResult.statusCode == 200) {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.setString('response', apiResult.body);
+      pref.setBool('isLogin', true);
+      pref.setString('username', username);
+      pref.setString('password', password);
+      Get.offAll(BottomNavBar());
+      // Navigator.pushReplacementNamed(context, '/rumah');
+      debugPrint(jsonObject.toString());
+    } else {
+      debugPrint(jsonObject['message']);
+      globals.gagalMsk = jsonObject['message'] ?? '';
+      globals.isLoginButtonDisabled = false;
+    }
   }
 }
 
@@ -190,8 +188,10 @@ class GetProduct {
         await http.get(url, headers: {"Authorization": "Basic " + base64});
     if (response.statusCode == 200) {
       pencarian = json.decode(response.body);
+      debugPrint(response.body);
       Get.to(Search());
     } else {
+      debugPrint(response.body);
       pencarian = json.decode(response.body);
     }
   }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dlslim/Model/appBar.dart';
 import 'package:dlslim/Model/argument.dart';
+import 'package:dlslim/api/globals.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +19,6 @@ class _SearchState extends State<Search> {
   ScrollController _scrollController = ScrollController();
   int _rating = 0;
   bool hasMore;
-  int _pageNumber = 1;
   String msg;
   bool isLoading = false;
   List datah;
@@ -28,50 +28,13 @@ class _SearchState extends State<Search> {
 
   @override
   void initState() {
-    print('yuyuuyuyuyuyu');
-    this.productData(_pageNumber);
     super.initState();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        productData(_pageNumber);
-      }
-    });
+    debugPrint(pencarian.toString());
   }
 
   void dispose() {
     _scrollController.dispose();
     super.dispose();
-  }
-
-  Future productData(int index) async {
-    // Fluttertoast.showToast(msg: "called");
-    if (!isLoading) {
-      setState(() {
-        isLoading = true;
-      });
-      final response = await http.get(
-          'https://dashboard.dlslimskincare.com/api/products/' +
-              index.toString());
-      List tList = new List();
-      datah = json.decode(response.body) as List;
-
-      for (i = 0; i <= datah.length - 1; i++) {
-        tList.add(datah[i]);
-      }
-
-      if (response.statusCode == 200) {
-        setState(() {
-          isLoading = false;
-          current = i;
-          product.addAll(tList);
-          _pageNumber++;
-        });
-      } else {
-        debugPrint('test full');
-        Fluttertoast.showToast(msg: 'No Data Available');
-      }
-    }
   }
 
   @override
@@ -114,16 +77,15 @@ class _SearchState extends State<Search> {
 
   ListView listViewProduct() {
     return ListView.builder(
-        controller: _scrollController,
         scrollDirection: Axis.vertical,
-        itemCount: product?.length ?? 0,
+        itemCount: pencarian?.length ?? 0,
         itemBuilder: (BuildContext context, int index) {
-          if (product.length < 0) {
+          if (pencarian.length < 0) {
             return Center(child: CircularProgressIndicator());
           } else {
             _rating = double.parse(
-                    (product.length > 1 && product[index]['ok'] != false)
-                        ? product[index]['average_rating'].toString()
+                    (pencarian.length > 1 && pencarian[index]['ok'] != false)
+                        ? pencarian[index]['average_rating'].toString()
                         : "0")
                 .round();
             return cardList(context, index);
@@ -144,12 +106,12 @@ class _SearchState extends State<Search> {
             onTap: () {
               Navigator.pushNamed(context, '/detail',
                   arguments: DetailProductArgument(
-                      product[index]['id'],
-                      product[index]['name'].toString(),
-                      product[index]['images'][0]['src'],
-                      product[index]['price'].toString(),
-                      double.parse(product[index]['average_rating']),
-                      product[index]['description'].toString()));
+                      pencarian[index]['id'],
+                      pencarian[index]['name'].toString(),
+                      pencarian[index]['images'][0]['src'],
+                      pencarian[index]['price'].toString(),
+                      double.parse(pencarian[index]['average_rating']),
+                      pencarian[index]['description'].toString()));
             },
             child: bodyExtend(context, index),
           ),
@@ -174,8 +136,8 @@ class _SearchState extends State<Search> {
                         topRight: Radius.circular(25),
                         bottomRight: Radius.circular(25))),
                 child: Image.network(
-                  (product[index]['ok'] != false && product.length > 1)
-                      ? product[index]['images'][0]['src']
+                  (pencarian[index]['ok'] != false && pencarian.length > 1)
+                      ? pencarian[index]['images'][0]['src']
                       : 'https://dlslimskincare.com/wp-content/uploads/2020/10/no-image-icon-6.png',
                   loadingBuilder: (BuildContext context, Widget child,
                       ImageChunkEvent loadingProgress) {
@@ -200,22 +162,22 @@ class _SearchState extends State<Search> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                          (product[index] != null)
-                              ? product[index]['name'].toString()
+                          (pencarian[index] != null)
+                              ? pencarian[index]['name'].toString()
                               : "loading Data",
                           style: ExtraStyle.productTitle()),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
                       Text(
-                        (product[index] != null)
+                        (pencarian[index] != null)
                             ? NumberFormat.currency(
                                     locale: 'id',
                                     symbol: 'Rp. ',
                                     decimalDigits: 0)
-                                .format(int.parse((product.length > 1 &&
-                                        product[index]['ok'] != false)
-                                    ? product[index]['price']
+                                .format(int.parse((pencarian.length > 1 &&
+                                        pencarian[index]['ok'] != false)
+                                    ? pencarian[index]['price']
                                     : '0'))
                             : "Loading Data",
                         style: ExtraStyle.productTitle(),
@@ -257,7 +219,7 @@ class _SearchState extends State<Search> {
                                 : Colors.grey,
                           ),
                           Text("(" +
-                              product[index]['rating_count'].toString() +
+                              pencarian[index]['rating_count'].toString() +
                               ")")
                         ],
                       ),

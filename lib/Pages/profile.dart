@@ -202,7 +202,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Container(
                 margin: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.16,
-                    top: MediaQuery.of(context).size.width * 0.45),
+                    top: MediaQuery.of(context).size.width * 0.35),
                 width: MediaQuery.of(context).size.width * 0.7,
                 height: MediaQuery.of(context).size.height * 0.13,
                 child: Column(
@@ -233,7 +233,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: height * 0.30),
+                margin: EdgeInsets.only(top: height * 0.1),
                 child: Center(child: container()),
               )
             ],
@@ -246,11 +246,12 @@ class _ProfilePageState extends State<ProfilePage> {
   Container container() {
     return Container(
       width: globals.width * 0.85,
-      height: globals.height * 0.4,
+      height: globals.height * 0.35,
       decoration: BoxDecoration(
           border: Border.all(color: Colors.blue),
           borderRadius: BorderRadius.circular(15)),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             margin: EdgeInsets.only(left: 28),
@@ -282,7 +283,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 10),
+                      margin: EdgeInsets.only(top: 10, left: 5),
                       child: Text((skinType != null) ? skinType : '-')),
                 ],
               ),
@@ -392,6 +393,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ],
           ),
+          SizedBox(
+            height: 15,
+          ),
           Center(
             child: Container(
               width: 250.0,
@@ -403,7 +407,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () {
                   Logout.logoutUser(context);
                 },
-                color: Colors.blue,
+                color: Color(0xff4C8CA7),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
               ),

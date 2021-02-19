@@ -1,23 +1,49 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:dlslim/api/api_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:dlslim/api/globals.dart' as globals;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/route_manager.dart';
 
 class Appbar {
   // static var ppp = TextEditingController();
+  static void loading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  }
+
   static getAppBar(BuildContext context, {String base64}) {
     return AppBar(
       backgroundColor: Colors.transparent,
-
       title: Container(
         height: MediaQueryData.fromWindow(window).size.height * 0.04,
         child: TextField(
           textInputAction: TextInputAction.go,
           // controller: ppp,
-          onSubmitted: (value) {
-            GetProduct.getSearch(value, base64);
+          onSubmitted: (value) async {
+            loading(context);
+            await GetProduct.getSearch(
+                    value,
+                    base64Encode(
+                        utf8.encode('${globals.username}:${globals.password}')))
+                .then((value) {
+              if (globals.pencarian == [] && globals.pencarian != null) {
+                Get.back();
+              }
+            });
             debugPrint(value);
           },
           decoration: InputDecoration(
@@ -47,7 +73,7 @@ class Appbar {
             },
             child: Icon(
               Icons.favorite,
-              color: Colors.black,
+              color: Colors.grey,
             ),
           ),
         ),
@@ -61,7 +87,7 @@ class Appbar {
             },
             child: Icon(
               Icons.chat,
-              color: Colors.black,
+              color: Colors.grey,
             ),
           ),
         ),
@@ -75,7 +101,7 @@ class Appbar {
             child: Stack(alignment: Alignment.center, children: [
               Icon(
                 Icons.shopping_cart,
-                color: Colors.black,
+                color: Colors.grey,
               ),
               if ((globals.cartId?.length != null) && globals.cartId.length > 0)
                 Padding(

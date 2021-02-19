@@ -20,9 +20,9 @@ class _GenderSexState extends State<GenderSex> {
 
   void initState() {
     super.initState();
-    getUsername().then((value) {
-      setState(() {});
-    });
+    // getUsername().then((value) {
+    //   setState(() {});
+    // });
   }
 
   Future setGender() async {
@@ -129,12 +129,17 @@ class _GenderSexState extends State<GenderSex> {
                                   ],
                                   color: Colors.white),
                               child: Container(
-                                width: 80,
-                                height: 80,
-                                child: Image.asset(
-                                  'assets/images/pria_1.png',
-                                  fit: BoxFit.contain,
-                                ),
+                                width: 30,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image:
+                                            AssetImage('assets/images/man.png'),
+                                        fit: BoxFit.cover)),
+                                // child: Image.asset(
+                                //   'assets/images/man.png',
+                                //   fit: BoxFit.contain,
+                                // ),
                               ),
                             ),
                           ),
@@ -166,7 +171,10 @@ class _GenderSexState extends State<GenderSex> {
                                       offset: Offset(0, 10))
                                 ],
                                 color: Colors.white),
-                            child: Image.asset('assets/images/bencong.png'),
+                            child: Container(
+                                width: 10,
+                                height: 10,
+                                child: Image.asset('assets/images/woman.png')),
                           ),
                         ),
                       ),

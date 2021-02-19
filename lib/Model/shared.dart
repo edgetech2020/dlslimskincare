@@ -20,8 +20,8 @@ class ShareAll {
 class LoadUP {
   static Future getUP() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    globals.username = pref.getString('username');
-    globals.password = pref.getString('password');
+    globals.username = pref.getString('user');
+    globals.password = pref.getString('pass');
   }
 
   static Future getUidRes() async {

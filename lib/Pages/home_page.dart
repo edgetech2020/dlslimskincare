@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     LoadUP.getUP().then((value) {
       up = username;
       ap = password;
-      debugPrint('UP : ' + value);
+      debugPrint('UP : ' + up);
       setState(() {});
     });
   }
