@@ -3,7 +3,6 @@ import 'package:dlslim/Pages/gender.dart';
 import 'package:dlslim/api/globals.dart' as globals;
 import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
-import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -90,7 +89,11 @@ class _RegistrasiState extends State<Registrasi> {
                 "Daftar",
                 style: TextStyle(color: Hexcolor('#e6f8f6')),
               )
-            : Center(child: CircularProgressIndicator()),
+            : Center(
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.white,
+                strokeWidth: 2,
+              )),
         onPressed: isRegistButtonDisabled
             ? null
             : () {

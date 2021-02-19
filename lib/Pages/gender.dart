@@ -20,9 +20,9 @@ class _GenderSexState extends State<GenderSex> {
 
   void initState() {
     super.initState();
-    // getUsername().then((value) {
-    //   setState(() {});
-    // });
+    getUsername().then((value) {
+      setState(() {});
+    });
   }
 
   Future setGender() async {
@@ -70,7 +70,7 @@ class _GenderSexState extends State<GenderSex> {
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.14),
                     child: Text(
-                      uname ?? '',
+                      uname ?? '-',
                       style: TextStyle(
                         fontFamily: "Roboto",
                         fontSize: ResponsiveFlutter.of(context).hp(6),
@@ -133,8 +133,8 @@ class _GenderSexState extends State<GenderSex> {
                                 height: 30,
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        image:
-                                            AssetImage('assets/images/man.png'),
+                                        image: AssetImage(
+                                            'assets/images/pria.png'),
                                         fit: BoxFit.cover)),
                                 // child: Image.asset(
                                 //   'assets/images/man.png',
@@ -172,9 +172,14 @@ class _GenderSexState extends State<GenderSex> {
                                 ],
                                 color: Colors.white),
                             child: Container(
-                                width: 10,
-                                height: 10,
-                                child: Image.asset('assets/images/woman.png')),
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/wanita.png'),
+                                      fit: BoxFit.cover)),
+                            ),
                           ),
                         ),
                       ),
