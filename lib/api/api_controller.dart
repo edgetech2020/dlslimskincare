@@ -181,15 +181,27 @@ class UpdateAvatar {
 }
 
 class GetProduct {
-  static Future getSearch(String name, String base64) async {
+  static Future getSearch(
+      BuildContext context, String name, String base64) async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            content: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        });
     var url =
         'http://dlslimskincare.com/wp-json/wcfmmp/v1/products/?search=$name';
     var response =
         await http.get(url, headers: {"Authorization": "Basic " + base64});
     if (response.statusCode == 200) {
+      Get.back();
       pencarian = json.decode(response.body);
       debugPrint(response.body);
-      Get.to(Search());
     } else {
       debugPrint(response.body);
       pencarian = json.decode(response.body);

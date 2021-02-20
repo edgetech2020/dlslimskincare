@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:dlslim/Pages/product_search.dart';
 import 'package:dlslim/api/api_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:dlslim/api/globals.dart' as globals;
@@ -9,21 +11,9 @@ import 'package:get/route_manager.dart';
 
 class Appbar {
   // static var ppp = TextEditingController();
-  static void loading(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          content: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      },
-    );
-  }
+  static BuildContext dialoCtxt;
+
+  static loading(BuildContext context) {}
 
   static getAppBar(BuildContext context, {String base64}) {
     return AppBar(
@@ -34,15 +24,16 @@ class Appbar {
           textInputAction: TextInputAction.go,
           // controller: ppp,
           onSubmitted: (value) async {
-            loading(context);
             await GetProduct.getSearch(
+                    context,
                     value,
                     base64Encode(
                         utf8.encode('${globals.username}:${globals.password}')))
-                .then((value) {
-              if (globals.pencarian == [] && globals.pencarian != null) {
-                Get.back();
-              }
+                .then((value) async {
+              if (value == [] && globals.pencarian != null) {}
+              Timer(Duration(milliseconds: 100), () {
+                Get.to(Search());
+              });
             });
             debugPrint(value);
           },

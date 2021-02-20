@@ -10,6 +10,7 @@ import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:dlslim/api/globals.dart' as globals;
 import 'dart:async';
@@ -52,6 +53,17 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Future addToCart() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            content: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        });
     try {
       var url = 'https://dlslimskincare.com/wp-json/cocart/v1/add-item';
       http.post(url, body: {
@@ -63,6 +75,7 @@ class _DetailPageState extends State<DetailPage> {
       }).then((http.Response response) {
         Map test1 = json.decode(response.body);
         if (response.statusCode == 200) {
+          Get.back();
           setState(() {
             Fluttertoast.showToast(msg: 'Item Telah Ditambah Kekeranjang');
           });

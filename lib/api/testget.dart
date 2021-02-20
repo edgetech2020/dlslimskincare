@@ -2,16 +2,29 @@ import 'dart:convert';
 
 import 'package:dlslim/api/globals.dart' as globals;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
 
 class TestGetApi {
-  static Future getListCart() async {
+  static Future getListCart(BuildContext context) async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            content: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        });
     try {
       final response = await http.get(
           'http://dlslimskincare.com/wp-json/cocart/v1/get-cart/customer/' +
               globals.idUser['user_id'].toString());
       if (response.statusCode == 200) {
+        Get.back();
         globals.cart = json.decode(response.body) as Map;
         globals.cartId = globals.cart.values.toList();
       }

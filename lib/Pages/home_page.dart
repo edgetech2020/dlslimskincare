@@ -34,9 +34,15 @@ class _HomePageState extends State<HomePage> {
     ShareAll.getUserID().then((value) async {
       // setState(() {
       debugPrint(idUser.toString());
-      TestGetApi.getListCart().then((value) {
+      if (_loaded != true) {
+        loadingAction();
+      }
+      TestGetApi.getListCart(context).then((value) {
         setState(() {
           _loaded = true;
+          if (_loaded == true) {
+            Navigator.pop(context);
+          }
         });
       });
       // });
@@ -47,6 +53,20 @@ class _HomePageState extends State<HomePage> {
       debugPrint('UP : ' + up);
       setState(() {});
     });
+  }
+
+  loadingAction() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            content: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        });
   }
 
   static const snackBarDuration = Duration(seconds: 3);
@@ -77,12 +97,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     void goToNews() {
       // () {
-      Navigator.pushNamed(_scaffoldKey.currentContext, '/news');
+      Navigator.pushNamed(context, '/news');
       // }
     }
 
     void goToProduct() {
-      Navigator.pushNamed(_scaffoldKey.currentContext, '/product');
+      Navigator.pushNamed(context, '/product');
     }
 
     List<Widget> loadChildren() {

@@ -40,6 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
   static const chars = '0a1b2c3e4d5f6g7h8i9jklmnopqrstuvwxy';
   Random rnd = Random();
   String nameFile;
+  bool loaded = false;
 
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))));
@@ -47,9 +48,16 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     ShareAll.getUserID().then((value) {
+      if (loaded != true) {
+        loadingAction();
+      }
       setState(() {
         ProfileGet.getProf(userId: idUser['user_id'].toString()).then((value) {
           setState(() {
+            loaded = true;
+            if (loaded == true) {
+              Navigator.pop(context);
+            }
             try {
               potoKiri =
                   globals.profileGet['datas']['capture_filename']['left'];
@@ -74,6 +82,20 @@ class _ProfilePageState extends State<ProfilePage> {
         });
       });
     });
+  }
+
+  loadingAction() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            content: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        });
   }
 
   Future getPictCamera(BuildContext context) async {
