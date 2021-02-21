@@ -29,14 +29,19 @@ class _ProductState extends State<Product> {
   @override
   void initState() {
     print('yuyuuyuyuyuyu');
-    this.productData(_pageNumber);
+
+    try {
+      this.productData(_pageNumber);
+      _scrollController.addListener(() {
+        if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent) {
+          // loadingAction();
+          productData(_pageNumber);
+        }
+      });
+    } catch (e) {}
+
     super.initState();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        productData(_pageNumber);
-      }
-    });
   }
 
   void dispose() {
@@ -44,34 +49,56 @@ class _ProductState extends State<Product> {
     super.dispose();
   }
 
+  loadingAction() {
+    showDialog(
+        useSafeArea: false,
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            content: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        });
+  }
+
   Future productData(int index) async {
     // Fluttertoast.showToast(msg: "called");
-    if (!isLoading) {
-      setState(() {
-        isLoading = true;
-      });
-      final response = await http.get(
-          'https://dashboard.dlslimskincare.com/api/products/' +
-              index.toString());
-      List tList = new List();
-      datah = json.decode(response.body) as List;
-
-      for (i = 0; i <= datah.length - 1; i++) {
-        tList.add(datah[i]);
-      }
-
-      if (response.statusCode == 200) {
+    try {
+      if (!isLoading) {
         setState(() {
-          isLoading = false;
-          current = i;
-          product.addAll(tList);
-          _pageNumber++;
+          isLoading = true;
         });
-      } else {
-        debugPrint('test full');
-        Fluttertoast.showToast(msg: 'No Data Available');
+        final response = await http.get(
+            'https://dashboard.dlslimskincare.com/api/products/' +
+                index.toString());
+        List tList = new List();
+        datah = json.decode(response.body) as List;
+
+        for (i = 0; i <= datah.length - 1; i++) {
+          tList.add(datah[i]);
+        }
+
+        if (response.statusCode == 200) {
+          setState(() {
+            isLoading = false;
+
+            current = i;
+            product.addAll(tList);
+            _pageNumber++;
+          });
+        } else {
+          debugPrint('test full');
+          Fluttertoast.showToast(msg: 'No Data Available');
+        }
       }
-    }
+      if (isLoading == true) {
+        loadingAction();
+      }
+    } catch (e) {}
   }
 
   @override
@@ -84,10 +111,7 @@ class _ProductState extends State<Product> {
       body: Container(
         width: MediaQuery.of(context).size.width * 1,
         height: MediaQuery.of(context).size.height * 1,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/home.png"),
-                fit: BoxFit.cover)),
+        decoration: BoxDecoration(),
         child: ListView(
           children: [
             Column(

@@ -5,6 +5,7 @@ import 'package:dlslim/Model/m_carousel.dart';
 import 'package:dlslim/Model/m_newsPromo.dart';
 import 'package:dlslim/Model/m_product.dart';
 import 'package:dlslim/Model/shared.dart';
+import 'package:dlslim/Pages/product.dart';
 import 'package:dlslim/Pages/treamentall.dart';
 import 'package:dlslim/api/globals.dart';
 import 'package:dlslim/api/testget.dart';
@@ -12,6 +13,7 @@ import 'package:dlslim/api/testget.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -57,7 +59,9 @@ class _HomePageState extends State<HomePage> {
 
   loadingAction() {
     showDialog(
+        useSafeArea: false,
         context: context,
+        barrierDismissible: false,
         builder: (context) {
           return AlertDialog(
             backgroundColor: Colors.transparent,
@@ -93,6 +97,15 @@ class _HomePageState extends State<HomePage> {
     return true;
   }
 
+  _launchURL() async {
+    const url = 'https://dlslimskincare.com/appointment/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     void goToNews() {
@@ -102,7 +115,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     void goToProduct() {
-      Navigator.pushNamed(context, '/product');
+      Get.to(Product());
     }
 
     List<Widget> loadChildren() {
@@ -170,13 +183,7 @@ class _HomePageState extends State<HomePage> {
                       style: ExtraStyle.styleHeading(),
                     ),
                     FlatButton(
-                      onPressed: () {
-                        Get.to(AllTreatment());
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => Test()));
-                      },
+                      onPressed: _launchURL,
                       child: Text(
                         'Lihat Semua',
                         style: ExtraStyle.styleMore(),

@@ -4,6 +4,7 @@ import 'package:dlslim/Model/shared.dart';
 import 'package:dlslim/api/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class CheckOut extends StatefulWidget {
   @override
@@ -26,6 +27,8 @@ class _CheckOutState extends State<CheckOut> {
     return Scaffold(
       appBar: AppBar(
         title: Text('CheckOut'),
+        centerTitle: true,
+        backgroundColor: Hexcolor('#4C8CA7'),
       ),
       body: Container(
         child: InAppWebView(

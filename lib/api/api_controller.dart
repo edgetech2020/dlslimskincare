@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:dlslim/Model/bottomnavbar.dart';
+import 'package:dlslim/Model/model_profile.dart';
 import 'package:dlslim/Pages/beauty_id.dart';
 import 'package:dlslim/Pages/product_search.dart';
 import 'package:dlslim/api/globals.dart' as globals;
@@ -129,17 +130,16 @@ class RegistQue {
 }
 
 class ProfileGet {
-  static Future getProf({String userId}) async {
+  static Future<ModelProfile> getProf({String userId}) async {
     var url = 'https://dashboard.dlslimskincare.com/api/profile/retreive';
-    await http
-        .post(url, body: {'user_id': userId}).then((http.Response response) {
-      profileGet = json.decode(response.body);
-      if (response.statusCode == 200) {
-        debugPrint(response.body);
-      } else {
-        debugPrint(response.body);
-      }
-    });
+    var response = await http.post(url, body: {'user_id': userId});
+    var jsobObject = json.decode(response.body);
+    if (response.statusCode == 200) {
+      debugPrint(response.body);
+    } else {
+      debugPrint(response.body);
+    }
+    return ModelProfile.jsonObject(jsobObject);
   }
 }
 

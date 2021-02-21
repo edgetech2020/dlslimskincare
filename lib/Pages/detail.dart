@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/route_manager.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:dlslim/api/globals.dart' as globals;
 import 'dart:async';
@@ -113,15 +114,15 @@ class _DetailPageState extends State<DetailPage> {
         child: Stack(
           children: [
             Container(
-              // margin: EdgeInsets.only(
-              //     top: MediaQuery.of(context).size.height * 0.05),
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.05),
               width: MediaQuery.of(context).size.width * 1,
               height: MediaQuery.of(context).size.height * 0.4,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(25),
                       bottomRight: Radius.circular(25)),
-                  color: Color.fromRGBO(32, 59, 141, 0.8),
+                  color: Colors.white,
                   image: DecorationImage(
                       image: NetworkImage((widget.arguments.foto != null)
                           ? widget.arguments.foto
@@ -135,9 +136,9 @@ class _DetailPageState extends State<DetailPage> {
                 bottom: false,
                 top: true,
                 child: DraggableScrollableSheet(
-                  initialChildSize: 0.7,
+                  initialChildSize: 0.6,
                   maxChildSize: 0.9,
-                  minChildSize: 0.7,
+                  minChildSize: 0.6,
                   builder: (BuildContext context,
                       ScrollController scrollController) {
                     return Container(
@@ -412,12 +413,12 @@ class _DetailPageState extends State<DetailPage> {
                     child: RaisedButton(
                       child: Text(
                         "+ Keranjang",
-                        style: TextStyle(color: Color.fromRGBO(32, 59, 141, 1)),
+                        style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () {
                         addToCart();
                       },
-                      color: Color.fromRGBO(139, 223, 215, 1),
+                      color: Hexcolor('#4C8CA7'),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
                     ),

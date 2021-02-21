@@ -55,6 +55,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       appBar: AppBar(
         title: Text('Update Profile'),
         centerTitle: true,
+        backgroundColor: Color(0xFF4C8CA7),
       ),
       body: Container(
         child: Center(
@@ -118,7 +119,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               offset: Offset(0, 10))
                         ],
                         color: Colors.white),
-                    child: Image.asset('assets/images/pria_1.png'),
+                    child: Image.asset('assets/images/man.png'),
                   ),
                 ),
               ),
@@ -149,7 +150,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                             offset: Offset(0, 10))
                       ],
                       color: Colors.white),
-                  child: Image.asset('assets/images/bencong.png'),
+                  child: Image.asset('assets/images/woman.png'),
                 ),
               ),
             ),
@@ -191,7 +192,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
         ),
         Container(
           alignment: Alignment.centerLeft,
-          child: Text('Skin Problems',
+          child: Text('Skin Problem',
               style: TextStyle(
                   color: Hexcolor('#4C8CA7'),
                   fontSize: 20,
@@ -308,14 +309,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   InkWell problems(String title, int index) {
     return InkWell(
-      onTap: () {
-        setState(() {
-          prob = index;
-          debugPrint(prob.toString());
-          buildWidget();
-        });
-      },
-      child: Container(
+        onTap: () {
+          setState(() {
+            prob = index;
+            debugPrint(prob.toString());
+            buildWidget();
+          });
+        },
+        child: Container(
           width: width * 0.4,
           height: height * 0.05,
           decoration: BoxDecoration(
@@ -331,7 +332,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
               borderRadius: BorderRadius.circular(10)),
           child: Center(
               child: Text(title,
-                  style: GoogleFonts.roboto(fontWeight: FontWeight.w700)))),
-    );
+                  style: GoogleFonts.roboto(
+                      fontWeight: FontWeight.w700, color: Color(0xFF4C8CA7)))),
+        ));
   }
 }

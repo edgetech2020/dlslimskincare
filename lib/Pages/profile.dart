@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
-import 'package:dlslim/Model/bottomnavbar.dart';
+import 'package:dlslim/Model/model_profile.dart';
 import 'package:dlslim/Pages/camera_update.dart';
 import 'package:dlslim/Pages/profile_update.dart';
 import 'package:dlslim/api/api_controller.dart';
@@ -11,9 +11,12 @@ import 'package:dlslim/Model/shared.dart';
 import 'package:dlslim/api/globals.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:responsive_flutter/responsive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -26,21 +29,12 @@ class _ProfilePageState extends State<ProfilePage> {
   Map uid = Map();
   File imgFile;
   List<int> pict;
-  String potoDepan;
-  String avatar;
-  String fullname;
-  String email;
-  String potoKiri;
-  String potoKanan;
-  String gender;
-  String skinType;
-  String skinProb;
-  String otherSkinProb;
-  String oldProd;
   static const chars = '0a1b2c3e4d5f6g7h8i9jklmnopqrstuvwxy';
   Random rnd = Random();
   String nameFile;
   bool loaded = false;
+  File rotatedImage;
+  ModelProfile modelProfile = ModelProfile();
 
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))));
@@ -54,34 +48,99 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {
         ProfileGet.getProf(userId: idUser['user_id'].toString()).then((value) {
           setState(() {
+            modelProfile = value;
             loaded = true;
             if (loaded == true) {
               Navigator.pop(context);
             }
-            try {
-              potoKiri =
-                  globals.profileGet['datas']['capture_filename']['left'];
-              potoDepan =
-                  globals.profileGet['datas']['capture_filename']['front'];
-              potoKanan =
-                  globals.profileGet['datas']['capture_filename']['right'];
-            } catch (e) {
-              potoKiri = globals.imagenot;
-              potoDepan = globals.imagenot;
-              potoKanan = globals.imagenot;
-            }
-            avatar = globals.profileGet['datas']['avatar_url'];
-            fullname = globals.profileGet['datas']['username'];
-            email = globals.profileGet['datas']['email'];
-            gender = globals.profileGet['datas']['_gender'];
-            skinType = globals.profileGet['datas']['skin_type'];
-            skinProb = globals.profileGet['datas']['skin_problem'];
-            otherSkinProb = globals.profileGet['datas']['other_skin_problem'];
-            oldProd = globals.profileGet['datas']['prev_product'];
           });
         });
       });
     });
+  }
+
+  openDialogD(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Container(
+            height: height * 0.5,
+            width: width * 0.9,
+            child: PhotoView(
+              customSize: Size.fromWidth(width * 0.9),
+              imageProvider: NetworkImage(modelProfile.potoDepan),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  openDialogl(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Container(
+            height: height * 0.5,
+            width: width * 0.9,
+            child: PhotoView(
+              customSize: Size.fromWidth(width * 0.9),
+              imageProvider: NetworkImage(modelProfile.potoKiri),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  openDialogR(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Container(
+            height: height * 0.5,
+            width: width * 0.9,
+            child: PhotoView(
+              customSize: Size.fromWidth(width * 0.9),
+              imageProvider: NetworkImage(modelProfile.potoKanan),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  openDialogA(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Container(
+            color: Colors.transparent,
+            height: height * 0.4,
+            width: width * 0.9,
+            child: PhotoView(
+              imageProvider: (imgFile != null)
+                  ? MemoryImage(imgFile.readAsBytesSync())
+                  : (modelProfile != null)
+                      ? NetworkImage(modelProfile.avatar)
+                      : NetworkImage(globals.imagenot),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   loadingAction() {
@@ -101,30 +160,30 @@ class _ProfilePageState extends State<ProfilePage> {
   Future getPictCamera(BuildContext context) async {
     final cameraPict = await ImagePicker().getImage(
         source: ImageSource.camera,
-        maxHeight: 270,
-        maxWidth: 360,
+        maxHeight: 720,
+        maxWidth: 720,
         preferredCameraDevice: CameraDevice.front);
-    setState(() {
-      nameFile = getRandomString(5);
-      if (cameraPict != null) {
-        imgFile = File(cameraPict.path);
-      }
-    });
+    nameFile = getRandomString(5);
     if (cameraPict != null) {
-      pict = imgFile.readAsBytesSync();
+      imgFile = await FlutterExifRotation.rotateImage(path: cameraPict.path);
+    }
+    setState(() {});
+
+    if (cameraPict != null) {
+      pict = await imgFile.readAsBytes();
       UpdateAvatar.upload(idUser['user_id'].toString(), pict, nameFile);
     }
     setState(() {});
-    Get.to(BottomNavBar());
+    // Get.to(BottomNavBar());
     Navigator.of(context).pop();
   }
 
   Future getPictGaleri(BuildContext context) async {
     final galleryPict = await ImagePicker().getImage(
-        source: ImageSource.gallery,
-        maxHeight: 270,
-        maxWidth: 360,
-        preferredCameraDevice: CameraDevice.front);
+      source: ImageSource.gallery,
+      maxHeight: 720,
+      maxWidth: 720,
+    );
     setState(() {
       nameFile = getRandomString(5);
       if (galleryPict != null) {
@@ -138,7 +197,6 @@ class _ProfilePageState extends State<ProfilePage> {
       UpdateAvatar.upload(idUser['user_id'].toString(), pict, nameFile);
     }
     setState(() {});
-    Get.to(BottomNavBar());
     Navigator.of(context).pop();
   }
 
@@ -192,39 +250,44 @@ class _ProfilePageState extends State<ProfilePage> {
           top: true,
           child: Stack(
             children: [
-              Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.35),
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: MediaQuery.of(context).size.height * 0.2,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.black,
-                    image: DecorationImage(
-                        image: (imgFile != null)
-                            ? MemoryImage(imgFile.readAsBytesSync())
-                            : (avatar != null)
-                                ? NetworkImage(avatar)
-                                : NetworkImage(globals.imagenot),
-                        fit: BoxFit.contain)),
+              InkWell(
+                onTap: () {
+                  openDialogA(context);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.37),
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.black,
+                      image: DecorationImage(
+                          image: (imgFile != null)
+                              ? MemoryImage(imgFile.readAsBytesSync())
+                              : (modelProfile.avatar != null)
+                                  ? NetworkImage(modelProfile.avatar)
+                                  : NetworkImage(globals.imagenot),
+                          fit: BoxFit.contain)),
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(
-                    left: globals.width * 0.55, top: globals.height * 0.13),
+                    left: globals.width * 0.55, top: globals.height * 0.1),
                 child: InkWell(
                   onTap: () {
                     dialogAva();
                   },
                   child: Icon(
                     Icons.camera_enhance,
-                    size: 50,
+                    size: 40,
                   ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.16,
-                    top: MediaQuery.of(context).size.width * 0.35),
+                    top: ResponsiveFlutter.of(context).hp(15)),
                 width: MediaQuery.of(context).size.width * 0.7,
                 height: MediaQuery.of(context).size.height * 0.13,
                 child: Column(
@@ -232,9 +295,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     Container(
                       margin: EdgeInsets.only(
                           top: MediaQueryData.fromWindow(window).size.height *
-                              0.04),
+                              0.01),
                       child: Text(
-                        (fullname != null) ? fullname : '-',
+                        (modelProfile.fullname != null)
+                            ? modelProfile.fullname
+                            : '-',
                         style: ExtraStyle.profileUname(
                             colors: Color(0xff4C8CA7),
                             fontWeight: FontWeight.w700),
@@ -242,12 +307,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     Container(
                       // margin: EdgeInsets.only(top: 10),
-                      child: Text((gender != null) ? gender : '-',
+                      child: Text(
+                          (modelProfile.gender != null)
+                              ? modelProfile.gender
+                              : '-',
                           style: ExtraStyle.profileUname()),
                     ),
                     Container(
                       child: Text(
-                        (email != null) ? email : '-',
+                        (modelProfile.email != null) ? modelProfile.email : '-',
                         style: ExtraStyle.profileUname(),
                       ),
                     ),
@@ -255,7 +323,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: height * 0.1),
+                margin:
+                    EdgeInsets.only(top: ResponsiveFlutter.of(context).hp(22)),
                 child: Center(child: container()),
               )
             ],
@@ -268,36 +337,56 @@ class _ProfilePageState extends State<ProfilePage> {
   Container container() {
     return Container(
       width: globals.width * 0.85,
-      height: globals.height * 0.35,
+      height: globals.height * 0.58,
       decoration: BoxDecoration(
           border: Border.all(color: Colors.blue),
           borderRadius: BorderRadius.circular(15)),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            margin: EdgeInsets.only(left: 28),
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Beauty Concern',
-              style: GoogleFonts.roboto(
-                  color: Color(0xff4C8CA7),
-                  fontSize: 25,
-                  fontWeight: FontWeight.w700),
-            ),
+          SizedBox(
+            height: ResponsiveFlutter.of(context).hp(1.5),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 28),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Beauty Concern',
+                  style: GoogleFonts.roboto(
+                      color: Color(0xff4C8CA7),
+                      fontSize: 25,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+              Container(
+                child: IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Get.to(UpdateProfile());
+                  },
+                ),
+              ),
+            ],
           ),
           SizedBox(
-            height: height * 0.03,
+            height: height * 0.01,
           ),
           Row(
             children: [
+              SizedBox(
+                width: width * 0.07,
+              ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 28),
-                    alignment: Alignment.centerLeft,
+                    // alignment: Alignment.centerLeft,
                     child: Text(
-                      'Skin type',
+                      'Skin Type',
                       style: GoogleFonts.roboto(
                         color: Color(0xff4C8CA7),
                         fontSize: 18,
@@ -305,15 +394,21 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 10, left: 5),
-                      child: Text((skinType != null) ? skinType : '-')),
+                      margin: EdgeInsets.only(top: 10),
+                      child: Text((modelProfile.skinType != null)
+                          ? modelProfile.skinType
+                          : '-')),
                 ],
               ),
+              SizedBox(
+                width: width * 0.07,
+              ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 28),
-                    alignment: Alignment.centerLeft,
+                    // margin: EdgeInsets.only(left: 28),
+                    // alignment: Alignment.centerLeft,
                     child: Text(
                       'Skin Problem',
                       style: GoogleFonts.roboto(
@@ -323,14 +418,85 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 10, left: 22),
-                      child: Text((skinProb != null) ? skinProb : '-')),
+                      margin: EdgeInsets.only(top: 10),
+                      child: Text((modelProfile.skinProb != null)
+                          ? modelProfile.skinProb
+                          : '-')),
                 ],
               ),
             ],
           ),
           SizedBox(
-            height: height * 0.03,
+            height: height * 0.01,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: EdgeInsets.only(
+                  left: 28,
+                ),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Masalah Kulit Lainnya',
+                  style: GoogleFonts.roboto(
+                    color: Color(0xff4C8CA7),
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 10, left: 28),
+                  child: Text((modelProfile.otherSkinProb != null)
+                      ? modelProfile.otherSkinProb
+                      : '-')),
+              Container(
+                margin: EdgeInsets.only(left: 28, top: 10),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Product Sebelumnya',
+                  style: GoogleFonts.roboto(
+                    color: Color(0xff4C8CA7),
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 10, left: 28, bottom: 10),
+                  child: Text((modelProfile.oldProd != null)
+                      ? modelProfile.oldProd
+                      : '-')),
+            ],
+          ),
+          SizedBox(
+            height: height * 0.02,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 28),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Face Review',
+                  style: GoogleFonts.roboto(
+                      color: Color(0xff4C8CA7),
+                      fontSize: 25,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+              Container(
+                child: IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Get.to(CameraUpdate());
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: height * 0.01,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -339,25 +505,29 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    // alignment: Alignment.topLeft,
                     child: Text(
                       'Left',
                       style: GoogleFonts.roboto(
-                          color: Color(0xff4C8CA7),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700),
+                        color: Color(0xff4C8CA7),
+                        fontSize: 18,
+                      ),
                     ),
                   ),
-                  Container(
-                    width: globals.width * 0.15,
-                    height: globals.height * 0.07,
-                    decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                            image: (potoKiri != null)
-                                ? NetworkImage(potoKiri)
-                                : NetworkImage(globals.imagenot))),
+                  InkWell(
+                    onTap: () {
+                      openDialogl(context);
+                    },
+                    child: Container(
+                      width: globals.width * 0.15,
+                      height: globals.height * 0.07,
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                              image: (modelProfile.potoKiri != null)
+                                  ? NetworkImage(modelProfile.potoKiri)
+                                  : NetworkImage(globals.imagenot))),
+                    ),
                   ),
                 ],
               ),
@@ -365,25 +535,36 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    // alignment: Alignment.topLeft,
                     child: Text(
                       'Front',
                       style: GoogleFonts.roboto(
-                          color: Color(0xff4C8CA7),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700),
+                        color: Color(0xff4C8CA7),
+                        fontSize: 18,
+                      ),
                     ),
                   ),
-                  Container(
-                    width: globals.width * 0.15,
-                    height: globals.height * 0.07,
-                    decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                            image: (potoDepan != null)
-                                ? NetworkImage(potoDepan)
-                                : NetworkImage(globals.imagenot))),
+                  InkWell(
+                    onTap: () {
+                      openDialogD(context);
+                    },
+                    child: Container(
+                      width: globals.width * 0.15,
+                      height: globals.height * 0.07,
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                              image: (modelProfile.potoDepan != null)
+                                  ? NetworkImage(modelProfile.potoDepan)
+                                  : NetworkImage(globals.imagenot))),
+                      // child: ClipRRect(
+                      //   child: PhotoView(
+                      //     imageProvider: (potoDepan != null)
+                      //         ? NetworkImage(potoDepan)
+                      //         : NetworkImage(globals.imagenot),
+                      //   ),
+                      // ),
+                    ),
                   ),
                 ],
               ),
@@ -391,32 +572,36 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    // alignment: Alignment.topLeft,
                     child: Text(
                       'Right',
                       style: GoogleFonts.roboto(
-                          color: Color(0xff4C8CA7),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700),
+                        color: Color(0xff4C8CA7),
+                        fontSize: 18,
+                      ),
                     ),
                   ),
-                  Container(
-                    width: globals.width * 0.15,
-                    height: globals.height * 0.07,
-                    decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                            image: (potoKanan != null)
-                                ? NetworkImage(potoKanan)
-                                : NetworkImage(globals.imagenot))),
+                  InkWell(
+                    onTap: () {
+                      openDialogR(context);
+                    },
+                    child: Container(
+                      width: globals.width * 0.15,
+                      height: globals.height * 0.07,
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                              image: (modelProfile.potoKanan != null)
+                                  ? NetworkImage(modelProfile.potoKanan)
+                                  : NetworkImage(globals.imagenot))),
+                    ),
                   ),
                 ],
               ),
             ],
           ),
           SizedBox(
-            height: 15,
+            height: 50,
           ),
           Center(
             child: Container(
@@ -438,156 +623,5 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
     );
-  }
-
-  ListView profileList({ScrollController scrollController}) {
-    return ListView.builder(
-        scrollDirection: Axis.vertical,
-        controller: scrollController,
-        itemCount: 1,
-        itemBuilder: (BuildContext context, int index) {
-          return Column(
-            children: [
-              InkWell(
-                onTap: () {
-                  Get.to(CameraUpdate());
-                },
-                child: Container(
-                  width: globals.width * 0.8,
-                  height: globals.height * 0.12,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(25)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            width: globals.width * 0.15,
-                            height: globals.height * 0.07,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(25),
-                                image: DecorationImage(
-                                    image: (potoKiri != null)
-                                        ? NetworkImage(potoKiri)
-                                        : NetworkImage(globals.imagenot))),
-                          ),
-                          Container(
-                            width: globals.width * 0.15,
-                            height: globals.height * 0.07,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(25),
-                                image: DecorationImage(
-                                    image: (potoDepan != null)
-                                        ? NetworkImage(potoDepan)
-                                        : NetworkImage(globals.imagenot))),
-                          ),
-                          Container(
-                            width: globals.width * 0.15,
-                            height: globals.height * 0.07,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(25),
-                                image: DecorationImage(
-                                    image: (potoKanan != null)
-                                        ? NetworkImage(potoKanan)
-                                        : NetworkImage(globals.imagenot))),
-                          ),
-                        ],
-                      ),
-                      Text('Ubah Foto Kondisi Wajah')
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Get.to(UpdateProfile());
-                },
-                child: Container(
-                  margin: EdgeInsets.only(top: 20),
-                  width: globals.width * 0.8,
-                  height: globals.height * 0.5,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                            margin: EdgeInsets.only(top: 15),
-                            child: Text(
-                              'Skin Type',
-                              style: ExtraStyle.profileTextTitle(),
-                            )),
-                        Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text((skinType != null) ? skinType : '-')),
-                        Container(
-                            margin: EdgeInsets.only(top: 15),
-                            child: Text(
-                              'Skin Problem',
-                              style: ExtraStyle.profileTextTitle(),
-                            )),
-                        Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text((skinProb != null) ? skinProb : '-')),
-                        Container(
-                            margin: EdgeInsets.only(top: 15),
-                            child: Text(
-                              'Masalah Kulit Lainnya',
-                              style: ExtraStyle.profileTextTitle(),
-                            )),
-                        Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text(
-                                (otherSkinProb != null) ? otherSkinProb : '-')),
-                        Container(
-                            margin: EdgeInsets.only(top: 15),
-                            child: Text(
-                              'Product Sebelumnya',
-                              style: ExtraStyle.profileTextTitle(),
-                            )),
-                        Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text((oldProd != null) ? oldProd : '-')),
-                        Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only(top: 15),
-                            child: Text('Ubah Profile')),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Center(
-                child: Container(
-                  width: 250.0,
-                  child: RaisedButton(
-                    child: Text(
-                      "Log Out",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () {
-                      Logout.logoutUser(context);
-                    },
-                    color: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: globals.height * 0.1,
-              ),
-            ],
-          );
-        });
   }
 }

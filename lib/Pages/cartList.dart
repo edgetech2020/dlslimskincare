@@ -5,6 +5,7 @@ import 'package:dlslim/Model/shared.dart';
 import 'package:dlslim/Model/webviewCheckOut.dart';
 import 'package:dlslim/api/testget.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
 import 'package:dlslim/api/globals.dart' as globals;
 import 'package:intl/intl.dart';
@@ -95,7 +96,7 @@ class _CartListState extends State<CartList> {
               child: RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
-                color: Colors.blue,
+                color: Hexcolor('#4C8CA7'),
                 onPressed: () {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => CheckOut()));

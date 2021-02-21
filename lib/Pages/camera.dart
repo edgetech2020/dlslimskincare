@@ -6,6 +6,7 @@ import 'package:dlslim/Model/shared.dart';
 import 'package:dlslim/api/api_controller.dart';
 import 'package:dlslim/api/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
@@ -55,14 +56,15 @@ class _CameraFaceState extends State<CameraFace> {
   Future frontCamera() async {
     final front = await picker.getImage(
       source: ImageSource.camera,
-      maxWidth: 640,
-      maxHeight: 480,
+      maxHeight: 400,
+      maxWidth: 720,
+      preferredCameraDevice: CameraDevice.front,
     );
-    setState(() {
-      if (front != null) {
-        tampakDepan = File(front.path);
-      }
-    });
+    if (front != null) {
+      // tampakDepan = File(front.path);
+      tampakDepan = await FlutterExifRotation.rotateImage(path: front.path);
+    }
+    setState(() {});
     if (front != null) {
       tampakDepanBase64 = base64Encode(tampakDepan.readAsBytesSync());
       var size = await tampakDepan.readAsBytes();
@@ -72,15 +74,15 @@ class _CameraFaceState extends State<CameraFace> {
 
   Future rightCamera() async {
     final right = await picker.getImage(
-      source: ImageSource.camera,
-      maxWidth: 640,
-      maxHeight: 480,
-    );
-    setState(() {
-      if (right != null) {
-        tampakKanan = File(right.path);
-      }
-    });
+        source: ImageSource.camera,
+        maxHeight: 400,
+        maxWidth: 720,
+        preferredCameraDevice: CameraDevice.front);
+
+    if (right != null) {
+      tampakKanan = await FlutterExifRotation.rotateImage(path: right.path);
+    }
+    setState(() {});
     if (right != null) {
       tampakKananBase64 = base64Encode(tampakKanan.readAsBytesSync());
     }
@@ -89,14 +91,15 @@ class _CameraFaceState extends State<CameraFace> {
   Future leftCamera() async {
     final left = await picker.getImage(
       source: ImageSource.camera,
-      maxWidth: 640,
-      maxHeight: 480,
+      maxHeight: 400,
+      maxWidth: 720,
+      preferredCameraDevice: CameraDevice.front,
     );
-    setState(() {
-      if (left != null) {
-        tampakKiri = File(left.path);
-      }
-    });
+    if (left != null) {
+      // tampakKiri = File(left.path);
+      tampakKiri = await FlutterExifRotation.rotateImage(path: left.path);
+    }
+    setState(() {});
     if (left != null) {
       tampakKiriBase64 = base64Encode(tampakKiri.readAsBytesSync());
     }

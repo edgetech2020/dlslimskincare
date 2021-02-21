@@ -79,7 +79,7 @@ class _BeautyIdState extends State<BeautyId> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              child: Text('Skin Problems',
+              child: Text('Skin Problem',
                   style: TextStyle(
                       color: Hexcolor('#4C8CA7'),
                       fontSize: 20,

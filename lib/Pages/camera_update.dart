@@ -6,6 +6,7 @@ import 'package:dlslim/Model/shared.dart';
 import 'package:dlslim/api/api_controller.dart';
 import 'package:dlslim/api/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
@@ -53,14 +54,15 @@ class _CameraUpdateState extends State<CameraUpdate> {
   Future frontCamera() async {
     final front = await picker.getImage(
       source: ImageSource.camera,
-      maxWidth: 640,
-      maxHeight: 480,
+      maxHeight: 400,
+      maxWidth: 720,
+      preferredCameraDevice: CameraDevice.front,
     );
-    setState(() {
-      if (front != null) {
-        tampakDepan = File(front.path);
-      }
-    });
+    if (front != null) {
+      // tampakDepan = File(front.path);
+      tampakDepan = await FlutterExifRotation.rotateImage(path: front.path);
+    }
+    setState(() {});
     if (front != null) {
       tampakDepanBase64 = base64Encode(tampakDepan.readAsBytesSync());
       var size = await tampakDepan.readAsBytes();
@@ -70,15 +72,16 @@ class _CameraUpdateState extends State<CameraUpdate> {
 
   Future rightCamera() async {
     final right = await picker.getImage(
-      source: ImageSource.camera,
-      maxWidth: 640,
-      maxHeight: 480,
-    );
-    setState(() {
-      if (right != null) {
-        tampakKanan = File(right.path);
-      }
-    });
+        source: ImageSource.camera,
+        maxHeight: 400,
+        maxWidth: 720,
+        preferredCameraDevice: CameraDevice.front);
+
+    if (right != null) {
+      // tampakKanan = File(right.path);
+      tampakKanan = await FlutterExifRotation.rotateImage(path: right.path);
+    }
+    setState(() {});
     if (right != null) {
       tampakKananBase64 = base64Encode(tampakKanan.readAsBytesSync());
     }
@@ -87,14 +90,15 @@ class _CameraUpdateState extends State<CameraUpdate> {
   Future leftCamera() async {
     final left = await picker.getImage(
       source: ImageSource.camera,
-      maxWidth: 640,
-      maxHeight: 480,
+      maxHeight: 400,
+      maxWidth: 720,
+      preferredCameraDevice: CameraDevice.front,
     );
-    setState(() {
-      if (left != null) {
-        tampakKiri = File(left.path);
-      }
-    });
+    if (left != null) {
+      // tampakKiri = File(left.path);
+      tampakKiri = await FlutterExifRotation.rotateImage(path: left.path);
+    }
+    setState(() {});
     if (left != null) {
       tampakKiriBase64 = base64Encode(tampakKiri.readAsBytesSync());
     }
@@ -145,27 +149,24 @@ class _CameraUpdateState extends State<CameraUpdate> {
     return Scaffold(
         extendBody: true,
         key: _scaffoldKey,
+        appBar: AppBar(
+          title: Text('Update Your Face Review'),
+          centerTitle: true,
+          backgroundColor: Color(0xff4C8CA7),
+        ),
         body: Column(
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height * 1,
+              // height: MediaQuery.of(context).size.height * 1,
               width: MediaQuery.of(context).size.width * 1,
               child: Stack(
                 children: <Widget>[
-                  Positioned(
-                      child: Container(
-                          // decoration: BoxDecoration(
-                          //     image: DecorationImage(
-                          //         image: AssetImage(
-                          //             'assets/images/Background-Login 1.jpg'),
-                          //         fit: BoxFit.cover)),
-                          )),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
                           padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.width * 0.4)),
+                              top: MediaQuery.of(context).size.width * 0.15)),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
@@ -178,24 +179,14 @@ class _CameraUpdateState extends State<CameraUpdate> {
                                   // padding: const EdgeInsets.symmetric(horizontal: 100),
                                   child: Column(
                                     children: <Widget>[
-                                      // Text(
-                                      //   'Supaya kami dapat mengetahui masalah pada keluhan kulit anda',
-                                      //   style: TextStyle(
-                                      //     fontWeight: FontWeight.bold,
-                                      //     fontSize:
-                                      //         ResponsiveFlutter.of(context)
-                                      //             .fontSize(2.5),
-                                      //   ),
-                                      //   textAlign: TextAlign.center,
-                                      // ),
-
                                       Text(
-                                        'silahkan melakukan foto',
+                                        'Silahkan Melakukan Foto',
                                         style: TextStyle(
+                                          color: Color(0xff4C8CA7),
                                           fontWeight: FontWeight.bold,
                                           fontSize:
                                               ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
+                                                  .fontSize(3),
                                         ),
                                         textAlign: TextAlign.center,
                                       ),
@@ -203,7 +194,7 @@ class _CameraUpdateState extends State<CameraUpdate> {
                                   ),
                                 ),
                                 Padding(
-                                    padding: const EdgeInsets.only(top: 20)),
+                                    padding: const EdgeInsets.only(top: 50)),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -215,15 +206,14 @@ class _CameraUpdateState extends State<CameraUpdate> {
                                           child: new Text(
                                             "Tampak Depan",
                                             style: TextStyle(
-                                              color: Colors.black,
+                                              color: Colors.white,
                                               letterSpacing: 0.5,
                                               fontSize: 20.0,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Arial Black',
                                             ),
                                           ),
-                                          color:
-                                              Color.fromRGBO(208, 249, 255, 1),
+                                          color: Color(0xff4C8CA7),
                                           onPressed: () {
                                             frontCamera();
                                           },
@@ -253,15 +243,14 @@ class _CameraUpdateState extends State<CameraUpdate> {
                                           child: new Text(
                                             "Tampak Kanan",
                                             style: TextStyle(
-                                              color: Colors.black,
+                                              color: Colors.white,
                                               letterSpacing: 0.5,
                                               fontSize: 20.0,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Arial Black',
                                             ),
                                           ),
-                                          color:
-                                              Color.fromRGBO(208, 249, 255, 1),
+                                          color: Color(0xff4C8CA7),
                                           onPressed: () {
                                             rightCamera();
                                           },
@@ -291,15 +280,14 @@ class _CameraUpdateState extends State<CameraUpdate> {
                                           child: new Text(
                                             "Tampak Kiri",
                                             style: TextStyle(
-                                              color: Colors.black,
+                                              color: Colors.white,
                                               letterSpacing: 0.5,
                                               fontSize: 20.0,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Arial Black',
                                             ),
                                           ),
-                                          color:
-                                              Color.fromRGBO(208, 249, 255, 1),
+                                          color: Color(0xff4C8CA7),
                                           onPressed: () {
                                             leftCamera();
                                           },
@@ -324,19 +312,6 @@ class _CameraUpdateState extends State<CameraUpdate> {
                                         MediaQuery.of(context).size.width * 0.5,
                                     height: 50,
                                     child: raisedButton),
-                                Padding(padding: const EdgeInsets.only(top: 5)),
-                                Container(
-                                  width: 300,
-                                  height: 50,
-                                  child: FlatButton(
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                      child: Text(
-                                        'Skip For Now',
-                                        style: TextStyle(color: Colors.grey),
-                                      )),
-                                )
                               ],
                             ),
                           ),
