@@ -59,6 +59,50 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  logoutDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(child: Text('Apakah anda yakin ingin keluar ?')),
+                SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: width * 0.2,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        child: Text('No'),
+                        style: ElevatedButton.styleFrom(primary: Colors.grey),
+                      ),
+                    ),
+                    Container(
+                      width: width * 0.2,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Logout.logoutUser(context);
+                          },
+                          child: Text('Yes'),
+                          style: ElevatedButton.styleFrom(primary: Colors.red)),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   openDialogD(BuildContext context) {
     showDialog(
       context: context,
@@ -612,7 +656,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
-                  Logout.logoutUser(context);
+                  logoutDialog();
                 },
                 color: Color(0xff4C8CA7),
                 shape: RoundedRectangleBorder(

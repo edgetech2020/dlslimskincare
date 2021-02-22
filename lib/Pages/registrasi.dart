@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dlslim/Pages/gender.dart';
+import 'package:dlslim/Pages/verifikasi.dart';
 import 'package:dlslim/api/globals.dart' as globals;
 import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
@@ -55,7 +56,9 @@ class _RegistrasiState extends State<Registrasi> {
           isRegistButtonDisabled = true;
         });
         debugPrint(response.body);
-        Get.offAll(GenderSex());
+        Get.off(Verifikasi(
+          email: email.text,
+        ));
       } else
         setState(() {
           msg = mseg["message"] ?? "Anda tidak terhubung ke internet";

@@ -5,6 +5,7 @@ import 'package:dlslim/Model/m_carousel.dart';
 import 'package:dlslim/Model/m_newsPromo.dart';
 import 'package:dlslim/Model/m_product.dart';
 import 'package:dlslim/Model/shared.dart';
+import 'package:dlslim/Pages/newPromo.dart';
 import 'package:dlslim/Pages/product.dart';
 import 'package:dlslim/Pages/treamentall.dart';
 import 'package:dlslim/api/globals.dart';
@@ -59,7 +60,6 @@ class _HomePageState extends State<HomePage> {
 
   loadingAction() {
     showDialog(
-        useSafeArea: false,
         context: context,
         barrierDismissible: false,
         builder: (context) {
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     void goToNews() {
       // () {
-      Navigator.pushNamed(context, '/news');
+      Get.to(NewsPromo());
       // }
     }
 
