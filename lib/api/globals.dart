@@ -50,5 +50,7 @@ List pencarian;
 
 String up;
 String ap;
+List jsonFilter;
+var editList;
 
 List<Widget> homeWidgets = [];

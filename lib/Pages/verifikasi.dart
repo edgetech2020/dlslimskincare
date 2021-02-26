@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:dlslim/Model/model_verif.dart';
 import 'package:dlslim/Pages/login.dart';
 import 'package:dlslim/api/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/route_manager.dart';
+import 'package:dlslim/api/api_controller.dart';
 
 class Verifikasi extends StatefulWidget {
   final String email;
@@ -16,6 +19,8 @@ class _VerifikasiState extends State<Verifikasi> {
   int time = 60;
   Timer timer;
   bool isLoading = false;
+  ModelVerif mdl = ModelVerif();
+
   @override
   void initState() {
     super.initState();
@@ -60,6 +65,9 @@ class _VerifikasiState extends State<Verifikasi> {
               SizedBox(
                 height: 15,
               ),
+              // RaisedButton(onPressed: () {
+
+              // }),
               Container(
                 width: width * 0.85,
                 child: ElevatedButton(
@@ -68,6 +76,14 @@ class _VerifikasiState extends State<Verifikasi> {
                         ? null
                         : () {
                             countdown();
+                            VerifyEmail.verifySent(email: widget.email)
+                                .then((value) {
+                              setState(() {
+                                mdl = value;
+                                debugPrint('Regist : ' + mdl.ok.toString());
+                                Fluttertoast.showToast(msg: mdl.pesan);
+                              });
+                            });
                             if (time != 0) {
                               isLoading = true;
                               setState(() {});

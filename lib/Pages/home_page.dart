@@ -5,6 +5,7 @@ import 'package:dlslim/Model/m_carousel.dart';
 import 'package:dlslim/Model/m_newsPromo.dart';
 import 'package:dlslim/Model/m_product.dart';
 import 'package:dlslim/Model/shared.dart';
+import 'package:dlslim/Pages/filter.dart';
 import 'package:dlslim/Pages/newPromo.dart';
 import 'package:dlslim/Pages/product.dart';
 import 'package:dlslim/Pages/treamentall.dart';
@@ -115,7 +116,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     void goToProduct() {
-      Get.to(Product());
+      Get.to(Filter());
     }
 
     List<Widget> loadChildren() {

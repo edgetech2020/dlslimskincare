@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:dlslim/Model/model_verif.dart';
 import 'package:dlslim/Pages/gender.dart';
 import 'package:dlslim/Pages/verifikasi.dart';
+import 'package:dlslim/api/api_controller.dart';
 import 'package:dlslim/api/globals.dart' as globals;
 import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
@@ -25,6 +27,7 @@ class _RegistrasiState extends State<Registrasi> {
   Map<String, dynamic> mseg;
   String msg;
   bool isLogin = false;
+  ModelVerif verifyEmail = ModelVerif();
 
   // void emailVal() {
   //   var email = TextEditingController().text;
@@ -48,7 +51,7 @@ class _RegistrasiState extends State<Registrasi> {
       // final int statusCode = mseg["code"];
       if (response.statusCode == 200) {
         SharedPreferences pref = await SharedPreferences.getInstance();
-        pref.setBool('isLogin', true);
+        // pref.setBool('isLogin', true);
         pref.setString('response', response.body);
         pref.setString('uname', username.text);
         globals.userId = response.body.toString();
@@ -56,14 +59,22 @@ class _RegistrasiState extends State<Registrasi> {
           isRegistButtonDisabled = true;
         });
         debugPrint(response.body);
-        Get.off(Verifikasi(
-          email: email.text,
-        ));
       } else
         setState(() {
           msg = mseg["message"] ?? "Anda tidak terhubung ke internet";
           isRegistButtonDisabled = false;
         });
+      if (mseg['code'] == 200) {
+        VerifyEmail.verifySent(email: email.text).then((value) {
+          setState(() {
+            verifyEmail = value;
+            debugPrint('Regist : ' + verifyEmail.ok.toString());
+            Get.off(Verifikasi(
+              email: email.text,
+            ));
+          });
+        });
+      }
       _scaffoldKey.currentState.hideCurrentSnackBar();
     });
   }
@@ -104,7 +115,6 @@ class _RegistrasiState extends State<Registrasi> {
                   isRegistButtonDisabled = true;
                 });
                 postShared();
-
                 // Navigator.pushReplacementNamed(context, '/gender');
               },
         color: Hexcolor('#4C8CA7'),

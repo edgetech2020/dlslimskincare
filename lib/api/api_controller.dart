@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:dlslim/Model/bottomnavbar.dart';
 import 'package:dlslim/Model/model_profile.dart';
+import 'package:dlslim/Model/model_verif.dart';
 import 'package:dlslim/Pages/beauty_id.dart';
-import 'package:dlslim/Pages/product_search.dart';
 import 'package:dlslim/api/globals.dart' as globals;
 import 'package:dlslim/api/globals.dart';
 import 'package:flutter/material.dart';
@@ -205,6 +205,49 @@ class GetProduct {
     } else {
       debugPrint(response.body);
       pencarian = json.decode(response.body);
+    }
+  }
+}
+
+class VerifyEmail {
+  static Future<ModelVerif> verifySent({String email}) async {
+    var headers = {
+      'x-api-key': 'd1b46720b256ff6a478a806acc251047',
+      'x-api-key-2': '5dc39cbb27756a22630f017acbfb4970'
+    };
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('https://verify.dlslimskincare.com/sent-email-to'));
+    request.fields.addAll({'theEmail': email});
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    final result = await response.stream.bytesToString();
+    final jsonOb = json.decode(result);
+    if (response.statusCode == 200) {
+      print(jsonOb);
+    } else {
+      print(response.reasonPhrase);
+    }
+    return ModelVerif.createJson(jsonOb);
+  }
+}
+
+class FilterSearch {
+  static Future filterSearch() async {
+    var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(
+            'https://dashboard.dlslimskincare.com/products/list-category'));
+
+    http.StreamedResponse response = await request.send();
+    final result = await response.stream.bytesToString();
+    globals.jsonFilter = json.decode(result);
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
     }
   }
 }

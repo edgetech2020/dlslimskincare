@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Product extends StatefulWidget {
+  final int id;
+  Product({this.id});
   @override
   _ProductState createState() => _ProductState();
 }
@@ -66,40 +68,72 @@ class _ProductState extends State<Product> {
   }
 
   Future productData(int index) async {
-    // Fluttertoast.showToast(msg: "called");
-    try {
-      if (!isLoading) {
-        setState(() {
-          isLoading = true;
-        });
-        final response = await http.get(
-            'https://dashboard.dlslimskincare.com/api/products/' +
-                index.toString());
-        List tList = new List();
-        datah = json.decode(response.body) as List;
+    var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(
+            'https://dashboard.dlslimskincare.com/products/list-category'));
+    request.fields.addAll(
+        {'category': widget.id.toString(), 'page_number': index.toString()});
 
-        for (i = 0; i <= datah.length - 1; i++) {
-          tList.add(datah[i]);
-        }
+    http.StreamedResponse response = await request.send();
+    final result = await response.stream.bytesToString();
+    product = json.decode(result);
+    // List tList = new List();
+    // datah = json.decode(result) as List;
 
-        if (response.statusCode == 200) {
-          setState(() {
-            isLoading = false;
+    // for (i = 0; i <= datah.length; i++) {
+    //   tList.add(datah[i]);
+    // }
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      // setState(() {
+      //   isLoading = false;
 
-            current = i;
-            product.addAll(tList);
-            _pageNumber++;
-          });
-        } else {
-          debugPrint('test full');
-          Fluttertoast.showToast(msg: 'No Data Available');
-        }
-      }
-      if (isLoading == true) {
-        loadingAction();
-      }
-    } catch (e) {}
+      //   current = i;
+      //   product.addAll(tList);
+      //   _pageNumber++;
+      // });
+    } else {
+      print(response.reasonPhrase);
+      // Fluttertoast.showToast(msg: 'No Data Available');
+    }
   }
+
+  // Future productData(int index) async {
+  //   // Fluttertoast.showToast(msg: "called");
+  //   try {
+  //     if (!isLoading) {
+  //       setState(() {
+  //         isLoading = true;
+  //       });
+  //       final response = await http.get(
+  //           'https://dashboard.dlslimskincare.com/api/products/' +
+  //               index.toString());
+  //       List tList = new List();
+  //       datah = json.decode(response.body) as List;
+
+  //       for (i = 0; i <= datah.length - 1; i++) {
+  //         tList.add(datah[i]);
+  //       }
+
+  //       if (response.statusCode == 200) {
+  //         setState(() {
+  //           isLoading = false;
+
+  //           current = i;
+  //           product.addAll(tList);
+  //           _pageNumber++;
+  //         });
+  //       } else {
+  //         debugPrint('test full');
+  //         Fluttertoast.showToast(msg: 'No Data Available');
+  //       }
+  //     }
+  //     if (isLoading == true) {
+  //       loadingAction();
+  //     }
+  //   } catch (e) {}
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -117,14 +151,26 @@ class _ProductState extends State<Product> {
             Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.05,
-                    right: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  // width: MediaQuery.of(context).size.width * 0.5,
-                  height: MediaQuery.of(context).size.height * 0.9,
-                  child: listViewProduct(),
-                ),
+                    margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.05,
+                      right: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    // width: MediaQuery.of(context).size.width * 0.5,
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    child: FutureBuilder(
+                        future: productData(_pageNumber).then((value) {
+                          debugPrint(product.toString());
+                          setState(() {});
+                        }),
+                        builder: (ctx, s) {
+                          if (s.connectionState == ConnectionState.waiting &&
+                              !s.hasData) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else
+                            return listViewProduct();
+                        })),
                 SizedBox(
                   height: 250,
                 )

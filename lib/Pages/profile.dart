@@ -292,48 +292,49 @@ class _ProfilePageState extends State<ProfilePage> {
         height: MediaQuery.of(context).size.height,
         child: SafeArea(
           top: true,
-          child: Stack(
+          child: Column(
             children: [
-              InkWell(
-                onTap: () {
-                  openDialogA(context);
-                },
-                child: Container(
-                  margin: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.37),
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  height: MediaQuery.of(context).size.height * 0.15,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.black,
-                      image: DecorationImage(
-                          image: (imgFile != null)
-                              ? MemoryImage(imgFile.readAsBytesSync())
-                              : (modelProfile.avatar != null)
-                                  ? NetworkImage(modelProfile.avatar)
-                                  : NetworkImage(globals.imagenot),
-                          fit: BoxFit.contain)),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                    left: globals.width * 0.55, top: globals.height * 0.1),
-                child: InkWell(
-                  onTap: () {
-                    dialogAva();
-                  },
-                  child: Icon(
-                    Icons.camera_enhance,
-                    size: 40,
+              Stack(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      openDialogA(context);
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.25,
+                      height: MediaQuery.of(context).size.height * 0.15,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.black,
+                          image: DecorationImage(
+                              image: (imgFile != null)
+                                  ? MemoryImage(imgFile.readAsBytesSync())
+                                  : (modelProfile.avatar != null)
+                                      ? NetworkImage(modelProfile.avatar)
+                                      : NetworkImage(globals.imagenot),
+                              fit: BoxFit.contain)),
+                    ),
                   ),
-                ),
+                  InkWell(
+                    onTap: () {
+                      dialogAva();
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          left: globals.width * 0.15,
+                          top: globals.height * 0.1),
+                      child: Icon(
+                        Icons.camera_enhance,
+                        size: 40,
+                        color: Color(0xFF4C8CA7),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.16,
-                    top: ResponsiveFlutter.of(context).hp(15)),
                 width: MediaQuery.of(context).size.width * 0.7,
-                height: MediaQuery.of(context).size.height * 0.13,
+                // height: MediaQuery.of(context).size.height * 0.13,
                 child: Column(
                   children: [
                     Container(
@@ -367,8 +368,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Container(
-                margin:
-                    EdgeInsets.only(top: ResponsiveFlutter.of(context).hp(22)),
                 child: Center(child: container()),
               )
             ],
@@ -380,6 +379,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Container container() {
     return Container(
+      margin: EdgeInsets.only(top: 10),
       width: globals.width * 0.85,
       height: globals.height * 0.58,
       decoration: BoxDecoration(
