@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dlslim/Model/model_verif.dart';
-import 'package:dlslim/Pages/gender.dart';
 import 'package:dlslim/Pages/verifikasi.dart';
 import 'package:dlslim/api/api_controller.dart';
 import 'package:dlslim/api/globals.dart' as globals;

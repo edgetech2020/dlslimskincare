@@ -1,8 +1,12 @@
 import 'dart:ui';
+import 'package:dlslim/Model/bottomnavbar.dart';
+import 'package:dlslim/Pages/gender.dart';
+import 'package:dlslim/Pages/verifikasi.dart';
 import 'package:dlslim/api/globals.dart' as globals;
 import 'package:dlslim/api/api_controller.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,7 +16,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  LoginPost loginPost;
+  LoginPost loginPost = LoginPost();
   Map uid = Map();
   TextEditingController usernm = TextEditingController();
   TextEditingController passrr = new TextEditingController();
@@ -51,7 +55,35 @@ class _LoginState extends State<Login> {
                 globals.isLoginButtonDisabled = true;
               });
               LoginPost.loginPostTest(context, usernm.text, passrr.text)
-                  .then((_) async {
+                  .then((value) async {
+                loginPost = value;
+                setState(() {});
+                switch (loginPost.response) {
+                  case '000':
+                    Get.offAll(BottomNavBar());
+                    SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                    pref.setBool('isLogin', true);
+                    pref.setString('username', usernm.text);
+                    pref.setString('password', passrr.text);
+                    break;
+                  case '001':
+                    Get.to(Verifikasi(
+                      email: usernm.text,
+                    ));
+                    break;
+                  case '002':
+                    Get.to(GenderSex(
+                      uname: usernm.text,
+                    ));
+                    break;
+                  case '003':
+                    Get.to(Verifikasi(
+                      email: usernm.text,
+                    ));
+                    break;
+                  default:
+                }
                 if (globals.gagalLogin['success'] == false) {
                   setState(() {
                     globals.isLoginButtonDisabled = false;
@@ -72,6 +104,8 @@ class _LoginState extends State<Login> {
     );
     return Scaffold(
       key: _scaffoldKey,
+      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomPadding: true,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

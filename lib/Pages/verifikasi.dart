@@ -10,7 +10,8 @@ import 'package:dlslim/api/api_controller.dart';
 
 class Verifikasi extends StatefulWidget {
   final String email;
-  Verifikasi({this.email});
+  final String method;
+  Verifikasi({this.email, this.method});
   @override
   _VerifikasiState createState() => _VerifikasiState();
 }
@@ -24,6 +25,12 @@ class _VerifikasiState extends State<Verifikasi> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   countdown() {

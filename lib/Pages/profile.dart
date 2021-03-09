@@ -292,84 +292,92 @@ class _ProfilePageState extends State<ProfilePage> {
         height: MediaQuery.of(context).size.height,
         child: SafeArea(
           top: true,
-          child: Column(
+          child: ListView(
             children: [
-              Stack(
+              Column(
                 children: [
-                  InkWell(
-                    onTap: () {
-                      openDialogA(context);
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.25,
-                      height: MediaQuery.of(context).size.height * 0.15,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.black,
-                          image: DecorationImage(
-                              image: (imgFile != null)
-                                  ? MemoryImage(imgFile.readAsBytesSync())
-                                  : (modelProfile.avatar != null)
-                                      ? NetworkImage(modelProfile.avatar)
-                                      : NetworkImage(globals.imagenot),
-                              fit: BoxFit.contain)),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      dialogAva();
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(
-                          left: globals.width * 0.15,
-                          top: globals.height * 0.1),
-                      child: Icon(
-                        Icons.camera_enhance,
-                        size: 40,
-                        color: Color(0xFF4C8CA7),
+                  Stack(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          openDialogA(context);
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.black,
+                              image: DecorationImage(
+                                  image: (imgFile != null)
+                                      ? MemoryImage(imgFile.readAsBytesSync())
+                                      : (modelProfile.avatar != null)
+                                          ? NetworkImage(modelProfile.avatar)
+                                          : NetworkImage(globals.imagenot),
+                                  fit: BoxFit.contain)),
+                        ),
                       ),
+                      InkWell(
+                        onTap: () {
+                          dialogAva();
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                              left: globals.width * 0.15,
+                              top: globals.height * 0.1),
+                          child: Icon(
+                            Icons.camera_enhance,
+                            size: 40,
+                            color: Color(0xFF4C8CA7),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    // height: MediaQuery.of(context).size.height * 0.13,
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: MediaQueryData.fromWindow(window)
+                                      .size
+                                      .height *
+                                  0.01),
+                          child: Text(
+                            (modelProfile.fullname != null)
+                                ? modelProfile.fullname
+                                : '-',
+                            style: ExtraStyle.profileUname(
+                                colors: Color(0xff4C8CA7),
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        Container(
+                          // margin: EdgeInsets.only(top: 10),
+                          child: Text(
+                              (modelProfile.gender != null)
+                                  ? modelProfile.gender
+                                  : '-',
+                              style: ExtraStyle.profileUname()),
+                        ),
+                        Container(
+                          child: Text(
+                            (modelProfile.email != null)
+                                ? modelProfile.email
+                                : '-',
+                            style: ExtraStyle.profileUname(),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  Container(
+                    child: Center(child: container()),
+                  )
                 ],
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.7,
-                // height: MediaQuery.of(context).size.height * 0.13,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(
-                          top: MediaQueryData.fromWindow(window).size.height *
-                              0.01),
-                      child: Text(
-                        (modelProfile.fullname != null)
-                            ? modelProfile.fullname
-                            : '-',
-                        style: ExtraStyle.profileUname(
-                            colors: Color(0xff4C8CA7),
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    Container(
-                      // margin: EdgeInsets.only(top: 10),
-                      child: Text(
-                          (modelProfile.gender != null)
-                              ? modelProfile.gender
-                              : '-',
-                          style: ExtraStyle.profileUname()),
-                    ),
-                    Container(
-                      child: Text(
-                        (modelProfile.email != null) ? modelProfile.email : '-',
-                        style: ExtraStyle.profileUname(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: Center(child: container()),
-              )
             ],
           ),
         ),
@@ -385,287 +393,289 @@ class _ProfilePageState extends State<ProfilePage> {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.blue),
           borderRadius: BorderRadius.circular(15)),
-      child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: ResponsiveFlutter.of(context).hp(1.5),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 28),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Beauty Concern',
-                  style: GoogleFonts.roboto(
+      child: ListView(children: [
+        Column(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: ResponsiveFlutter.of(context).hp(1.5),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 28),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Beauty Concern',
+                    style: GoogleFonts.roboto(
+                        color: Color(0xff4C8CA7),
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+                Container(
+                  child: IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: () {
+                      Get.to(UpdateProfile());
+                    },
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: height * 0.01,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: width * 0.07,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      // alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Skin Type',
+                        style: GoogleFonts.roboto(
+                          color: Color(0xff4C8CA7),
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: Text((modelProfile.skinType != null)
+                            ? modelProfile.skinType
+                            : '-')),
+                  ],
+                ),
+                SizedBox(
+                  width: width * 0.07,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      // margin: EdgeInsets.only(left: 28),
+                      // alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Skin Problem',
+                        style: GoogleFonts.roboto(
+                          color: Color(0xff4C8CA7),
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: Text((modelProfile.skinProb != null)
+                            ? modelProfile.skinProb
+                            : '-')),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(
+              height: height * 0.01,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(
+                    left: 28,
+                  ),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Masalah Kulit Lainnya',
+                    style: GoogleFonts.roboto(
                       color: Color(0xff4C8CA7),
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
-              Container(
-                child: IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () {
-                    Get.to(UpdateProfile());
-                  },
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: height * 0.01,
-          ),
-          Row(
-            children: [
-              SizedBox(
-                width: width * 0.07,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    // alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Skin Type',
-                      style: GoogleFonts.roboto(
-                        color: Color(0xff4C8CA7),
-                        fontSize: 18,
-                      ),
+                      fontSize: 18,
                     ),
                   ),
-                  Container(
-                      margin: EdgeInsets.only(top: 10),
-                      child: Text((modelProfile.skinType != null)
-                          ? modelProfile.skinType
-                          : '-')),
-                ],
-              ),
-              SizedBox(
-                width: width * 0.07,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    // margin: EdgeInsets.only(left: 28),
-                    // alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Skin Problem',
-                      style: GoogleFonts.roboto(
-                        color: Color(0xff4C8CA7),
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  Container(
-                      margin: EdgeInsets.only(top: 10),
-                      child: Text((modelProfile.skinProb != null)
-                          ? modelProfile.skinProb
-                          : '-')),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(
-            height: height * 0.01,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(
-                  left: 28,
                 ),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Masalah Kulit Lainnya',
-                  style: GoogleFonts.roboto(
-                    color: Color(0xff4C8CA7),
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Container(
-                  margin: EdgeInsets.only(top: 10, left: 28),
-                  child: Text((modelProfile.otherSkinProb != null)
-                      ? modelProfile.otherSkinProb
-                      : '-')),
-              Container(
-                margin: EdgeInsets.only(left: 28, top: 10),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Product Sebelumnya',
-                  style: GoogleFonts.roboto(
-                    color: Color(0xff4C8CA7),
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Container(
-                  margin: EdgeInsets.only(top: 10, left: 28, bottom: 10),
-                  child: Text((modelProfile.oldProd != null)
-                      ? modelProfile.oldProd
-                      : '-')),
-            ],
-          ),
-          SizedBox(
-            height: height * 0.02,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 28),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Face Review',
-                  style: GoogleFonts.roboto(
+                Container(
+                    margin: EdgeInsets.only(top: 10, left: 28),
+                    child: Text((modelProfile.otherSkinProb != null)
+                        ? modelProfile.otherSkinProb
+                        : '-')),
+                Container(
+                  margin: EdgeInsets.only(left: 28, top: 10),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Product Sebelumnya',
+                    style: GoogleFonts.roboto(
                       color: Color(0xff4C8CA7),
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700),
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
-              ),
-              Container(
-                child: IconButton(
-                  icon: Icon(Icons.edit),
+                Container(
+                    margin: EdgeInsets.only(top: 10, left: 28, bottom: 10),
+                    child: Text((modelProfile.oldProd != null)
+                        ? modelProfile.oldProd
+                        : '-')),
+              ],
+            ),
+            SizedBox(
+              height: height * 0.02,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 28),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Face Review',
+                    style: GoogleFonts.roboto(
+                        color: Color(0xff4C8CA7),
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+                Container(
+                  child: IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: () {
+                      Get.to(CameraUpdate());
+                    },
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: height * 0.01,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: Text(
+                        'Left',
+                        style: GoogleFonts.roboto(
+                          color: Color(0xff4C8CA7),
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        openDialogl(context);
+                      },
+                      child: Container(
+                        width: globals.width * 0.15,
+                        height: globals.height * 0.07,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                                image: (modelProfile.potoKiri != null)
+                                    ? NetworkImage(modelProfile.potoKiri)
+                                    : NetworkImage(globals.imagenot))),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: Text(
+                        'Front',
+                        style: GoogleFonts.roboto(
+                          color: Color(0xff4C8CA7),
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        openDialogD(context);
+                      },
+                      child: Container(
+                        width: globals.width * 0.15,
+                        height: globals.height * 0.07,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                                image: (modelProfile.potoDepan != null)
+                                    ? NetworkImage(modelProfile.potoDepan)
+                                    : NetworkImage(globals.imagenot))),
+                        // child: ClipRRect(
+                        //   child: PhotoView(
+                        //     imageProvider: (potoDepan != null)
+                        //         ? NetworkImage(potoDepan)
+                        //         : NetworkImage(globals.imagenot),
+                        //   ),
+                        // ),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: Text(
+                        'Right',
+                        style: GoogleFonts.roboto(
+                          color: Color(0xff4C8CA7),
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        openDialogR(context);
+                      },
+                      child: Container(
+                        width: globals.width * 0.15,
+                        height: globals.height * 0.07,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                                image: (modelProfile.potoKanan != null)
+                                    ? NetworkImage(modelProfile.potoKanan)
+                                    : NetworkImage(globals.imagenot))),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Center(
+              child: Container(
+                width: 250.0,
+                child: RaisedButton(
+                  child: Text(
+                    "Log Out",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   onPressed: () {
-                    Get.to(CameraUpdate());
+                    logoutDialog();
                   },
+                  color: Color(0xff4C8CA7),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: height * 0.01,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: Text(
-                      'Left',
-                      style: GoogleFonts.roboto(
-                        color: Color(0xff4C8CA7),
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      openDialogl(context);
-                    },
-                    child: Container(
-                      width: globals.width * 0.15,
-                      height: globals.height * 0.07,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(8),
-                          image: DecorationImage(
-                              image: (modelProfile.potoKiri != null)
-                                  ? NetworkImage(modelProfile.potoKiri)
-                                  : NetworkImage(globals.imagenot))),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: Text(
-                      'Front',
-                      style: GoogleFonts.roboto(
-                        color: Color(0xff4C8CA7),
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      openDialogD(context);
-                    },
-                    child: Container(
-                      width: globals.width * 0.15,
-                      height: globals.height * 0.07,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(8),
-                          image: DecorationImage(
-                              image: (modelProfile.potoDepan != null)
-                                  ? NetworkImage(modelProfile.potoDepan)
-                                  : NetworkImage(globals.imagenot))),
-                      // child: ClipRRect(
-                      //   child: PhotoView(
-                      //     imageProvider: (potoDepan != null)
-                      //         ? NetworkImage(potoDepan)
-                      //         : NetworkImage(globals.imagenot),
-                      //   ),
-                      // ),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: Text(
-                      'Right',
-                      style: GoogleFonts.roboto(
-                        color: Color(0xff4C8CA7),
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      openDialogR(context);
-                    },
-                    child: Container(
-                      width: globals.width * 0.15,
-                      height: globals.height * 0.07,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(8),
-                          image: DecorationImage(
-                              image: (modelProfile.potoKanan != null)
-                                  ? NetworkImage(modelProfile.potoKanan)
-                                  : NetworkImage(globals.imagenot))),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Center(
-            child: Container(
-              width: 250.0,
-              child: RaisedButton(
-                child: Text(
-                  "Log Out",
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {
-                  logoutDialog();
-                },
-                color: Color(0xff4C8CA7),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      ]),
     );
   }
 }

@@ -7,6 +7,8 @@ import 'package:responsive_flutter/responsive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GenderSex extends StatefulWidget {
+  final String uname;
+  GenderSex({this.uname});
   @override
   _GenderSexState createState() => _GenderSexState();
 }
@@ -70,7 +72,7 @@ class _GenderSexState extends State<GenderSex> {
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.14),
                     child: Text(
-                      uname ?? '-',
+                      widget.uname,
                       style: TextStyle(
                         fontFamily: "Roboto",
                         fontSize: ResponsiveFlutter.of(context).hp(6),

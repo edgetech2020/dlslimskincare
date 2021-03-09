@@ -148,9 +148,10 @@ class _CameraFaceState extends State<CameraFace> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
     );
     return Scaffold(
+        resizeToAvoidBottomInset: true,
         extendBody: true,
         key: _scaffoldKey,
-        body: Column(
+        body: ListView(
           children: <Widget>[
             Container(
               height: MediaQuery.of(context).size.height * 1,
@@ -165,187 +166,214 @@ class _CameraFaceState extends State<CameraFace> {
                                 'assets/images/Background Complete Your Account1.jpg'),
                             fit: BoxFit.cover)),
                   )),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.width * 0.4)),
+                  ListView(
+                    shrinkWrap: true,
+                    children: [
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.15),
-                          Center(
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  // padding: const EdgeInsets.symmetric(horizontal: 100),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(
-                                        'Supaya kami dapat mengetahui masalah pada keluhan kulit anda',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2.5),
-                                        ),
-                                        textAlign: TextAlign.center,
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  top:
+                                      MediaQuery.of(context).size.width * 0.4)),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.15),
+                              Center(
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      // padding: const EdgeInsets.symmetric(horizontal: 100),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                            'Supaya kami dapat mengetahui masalah pada keluhan kulit anda',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(2.5),
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.05)),
+                                          Text(
+                                            'silahkan melakukan foto',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(2),
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
                                       ),
-                                      Padding(
-                                          padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.05)),
-                                      Text(
-                                        'silahkan melakukan foto',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
+                                    ),
+                                    Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 20)),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: width * 0.05,
                                         ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.only(top: 20)),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
+                                        Container(
+                                            width: 250,
+                                            height: 50,
+                                            child: RaisedButton(
+                                              elevation: 5.0,
+                                              child: new Text(
+                                                "Tampak Depan",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  letterSpacing: 0.5,
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'Arial Black',
+                                                ),
+                                              ),
+                                              color: Hexcolor('#4C8CA7'),
+                                              onPressed: () {
+                                                frontCamera();
+                                              },
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.0)),
+                                            )),
+                                        Icon(
+                                          Icons.check_circle_outline,
+                                          color: (tampakDepan != null)
+                                              ? Colors.green[400]
+                                              : Colors.grey[300],
+                                          size: 30,
+                                        )
+                                      ],
+                                    ),
+                                    Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 30)),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: width * 0.05,
+                                        ),
+                                        Container(
+                                            width: 250,
+                                            height: 50,
+                                            child: RaisedButton(
+                                              elevation: 5.0,
+                                              child: new Text(
+                                                "Tampak Kanan",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  letterSpacing: 0.5,
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'Arial Black',
+                                                ),
+                                              ),
+                                              color: Hexcolor('#4C8CA7'),
+                                              onPressed: () {
+                                                rightCamera();
+                                              },
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.0)),
+                                            )),
+                                        Icon(
+                                          Icons.check_circle_outline,
+                                          color: (tampakKanan != null)
+                                              ? Colors.green[400]
+                                              : Colors.grey[300],
+                                          size: 30,
+                                        )
+                                      ],
+                                    ),
+                                    Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 30)),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: width * 0.05,
+                                        ),
+                                        Container(
+                                            width: 250,
+                                            height: 50,
+                                            child: RaisedButton(
+                                              elevation: 5.0,
+                                              child: new Text(
+                                                "Tampak Kiri",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  letterSpacing: 0.5,
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'Arial Black',
+                                                ),
+                                              ),
+                                              color: Hexcolor('#4C8CA7'),
+                                              onPressed: () {
+                                                leftCamera();
+                                              },
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.0)),
+                                            )),
+                                        Icon(
+                                          Icons.check_circle_outline,
+                                          color: (tampakKiri != null)
+                                              ? Colors.green[400]
+                                              : Colors.grey[300],
+                                          size: 30,
+                                        )
+                                      ],
+                                    ),
+                                    // Text(tampakDepanSize ?? 'null'),
+                                    Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 60)),
                                     Container(
-                                        width: 250,
+                                        width: width * 0.7,
                                         height: 50,
-                                        child: RaisedButton(
-                                          elevation: 5.0,
-                                          child: new Text(
-                                            "Tampak Depan",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              letterSpacing: 0.5,
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Arial Black',
-                                            ),
-                                          ),
-                                          color: Hexcolor('#4C8CA7'),
+                                        child: raisedButton),
+                                    Padding(
+                                        padding: const EdgeInsets.only(top: 5)),
+                                    Container(
+                                      width: 300,
+                                      height: 50,
+                                      child: FlatButton(
                                           onPressed: () {
-                                            frontCamera();
+                                            Get.offAll(BeautyId());
                                           },
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0)),
-                                        )),
-                                    Icon(
-                                      Icons.check_circle_outline,
-                                      color: (tampakDepan != null)
-                                          ? Colors.green[400]
-                                          : Colors.grey[300],
-                                      size: 30,
+                                          child: Text(
+                                            'Skip For Now',
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          )),
                                     )
                                   ],
                                 ),
-                                Padding(
-                                    padding: const EdgeInsets.only(top: 30)),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                        width: 250,
-                                        height: 50,
-                                        child: RaisedButton(
-                                          elevation: 5.0,
-                                          child: new Text(
-                                            "Tampak Kanan",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              letterSpacing: 0.5,
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Arial Black',
-                                            ),
-                                          ),
-                                          color: Hexcolor('#4C8CA7'),
-                                          onPressed: () {
-                                            rightCamera();
-                                          },
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0)),
-                                        )),
-                                    Icon(
-                                      Icons.check_circle_outline,
-                                      color: (tampakKanan != null)
-                                          ? Colors.green[400]
-                                          : Colors.grey[300],
-                                      size: 30,
-                                    )
-                                  ],
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.only(top: 30)),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                        width: 250,
-                                        height: 50,
-                                        child: RaisedButton(
-                                          elevation: 5.0,
-                                          child: new Text(
-                                            "Tampak Kiri",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              letterSpacing: 0.5,
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Arial Black',
-                                            ),
-                                          ),
-                                          color: Hexcolor('#4C8CA7'),
-                                          onPressed: () {
-                                            leftCamera();
-                                          },
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0)),
-                                        )),
-                                    Icon(
-                                      Icons.check_circle_outline,
-                                      color: (tampakKiri != null)
-                                          ? Colors.green[400]
-                                          : Colors.grey[300],
-                                      size: 30,
-                                    )
-                                  ],
-                                ),
-                                // Text(tampakDepanSize ?? 'null'),
-                                Padding(
-                                    padding: const EdgeInsets.only(top: 60)),
-                                Container(
-                                    width: 400,
-                                    height: 50,
-                                    child: raisedButton),
-                                Padding(padding: const EdgeInsets.only(top: 5)),
-                                Container(
-                                  width: 300,
-                                  height: 50,
-                                  child: FlatButton(
-                                      onPressed: () {
-                                        Get.offAll(BeautyId());
-                                      },
-                                      child: Text(
-                                        'Skip For Now',
-                                        style: TextStyle(color: Colors.grey),
-                                      )),
-                                )
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

@@ -13,12 +13,16 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-//get API
-
-// List list = List();
-
 class LoginPost {
-  static Future loginPostTest(
+  final String response;
+  LoginPost({this.response});
+
+  factory LoginPost.createJson(Map<String, dynamic> obj) {
+    return LoginPost(
+      response: obj['user_state'],
+    );
+  }
+  static Future<LoginPost> loginPostTest(
       BuildContext context, String username, String password) async {
     var url = 'https://dlslimskincare.com/wp-json/remote-login/login';
     var apiResult = await http.post(url,
@@ -29,10 +33,7 @@ class LoginPost {
     if (apiResult.statusCode == 200) {
       SharedPreferences pref = await SharedPreferences.getInstance();
       pref.setString('response', apiResult.body);
-      pref.setBool('isLogin', true);
-      pref.setString('username', username);
-      pref.setString('password', password);
-      Get.offAll(BottomNavBar());
+
       // Navigator.pushReplacementNamed(context, '/rumah');
       debugPrint(jsonObject.toString());
     } else {
@@ -40,6 +41,7 @@ class LoginPost {
       globals.gagalMsk = jsonObject['message'] ?? '';
       globals.isLoginButtonDisabled = false;
     }
+    return LoginPost.createJson(jsonObject);
   }
 }
 
