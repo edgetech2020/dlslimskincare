@@ -140,7 +140,7 @@ class _ProductState extends State<Product> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
-      resizeToAvoidBottomPadding: true,
+      // resizeToAvoidBottomPadding: true,
       appBar: Appbar.getAppBar(context),
       body: Container(
         width: MediaQuery.of(context).size.width * 1,

@@ -32,6 +32,12 @@ class _CheckOutState extends State<CheckOut> {
       ),
       body: Container(
         child: InAppWebView(
+          onLoadStop: (controller, url) async {
+            await Future.delayed(Duration(milliseconds: 500));
+            String js =
+                "jQuery(document).ready(function(){jQuery(\"header,footer,.wrap-breadcrumb,#wpadminbar,#tidio-chat,.page-title.the-title\").remove()},10000);setInterval(function(){jQuery('.blockUI.blockOverlay').remove()})";
+            await controller.evaluateJavascript(source: js);
+          },
           initialUrl: 'https://dlslimskincare.com/checkout',
           initialOptions: InAppWebViewGroupOptions(
               crossPlatform: InAppWebViewOptions(

@@ -1,5 +1,7 @@
+import 'package:dlslim/Pages/webview_treatment.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +15,49 @@ class ApiBeautyTreatment {
 
       if (response.statusCode == 200) {
         beauty = json.decode(response.body) as List;
+        print(beauty);
         return beauty;
+      }
+    }
+
+    logicButton(String value) async {
+      switch (value) {
+        case 'New Treatment':
+          Get.to(WebviewTreatment(
+            id: '#id-1',
+          ));
+          break;
+        case 'Treatment For Face Whitening':
+          Get.to(WebviewTreatment(
+            id: '#id-3',
+          ));
+          break;
+        case 'Treatment For Scar':
+          Get.to(WebviewTreatment(
+            id: '#id-4',
+          ));
+          break;
+        case 'Treatment For Scar':
+          Get.to(WebviewTreatment(
+            id: '#id-5',
+          ));
+          break;
+        case 'Treatment For Body Whitening':
+          Get.to(WebviewTreatment(
+            id: '#id-6',
+          ));
+          break;
+        case 'Hair Loss Treatment':
+          Get.to(WebviewTreatment(
+            id: '#id-7',
+          ));
+          break;
+        case 'Treatment For Body Slimming':
+          Get.to(WebviewTreatment(
+            id: '#id-8',
+          ));
+          break;
+        default:
       }
     }
 
@@ -54,7 +98,13 @@ class ApiBeautyTreatment {
                                   color: Colors.transparent,
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(15),
-                                    onTap: () {},
+                                    onTap: () async {
+                                      print(beauty[index]['name']);
+                                      // Get.to(WebviewTreatment(
+                                      //   id: '#id-7',
+                                      // ));
+                                      logicButton(beauty[index]['name']);
+                                    },
                                     child: Container(
                                       decoration: BoxDecoration(
                                           color:

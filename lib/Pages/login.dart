@@ -40,7 +40,7 @@ class _LoginState extends State<Login> {
       ),
       onPressed: globals.isLoginButtonDisabled
           ? null
-          : () {
+          : () async {
               FocusScope.of(context).unfocus();
               _scaffoldKey.currentState.showSnackBar(new SnackBar(
                 content: new Row(
@@ -54,48 +54,54 @@ class _LoginState extends State<Login> {
                 globals.gagalMsk = '';
                 globals.isLoginButtonDisabled = true;
               });
+              SharedPreferences up = await SharedPreferences.getInstance();
+              up.setBool('isLogin', true);
+              print('Test username : ' + usernm.text);
+              up.setString('user', usernm.text);
+              print('Test password : ' + passrr.text);
+
+              up.setString('pass', passrr.text);
               LoginPost.loginPostTest(context, usernm.text, passrr.text)
                   .then((value) async {
                 loginPost = value;
+
                 setState(() {});
-                switch (loginPost.response) {
-                  case '000':
-                    Get.offAll(BottomNavBar());
-                    SharedPreferences pref =
-                        await SharedPreferences.getInstance();
-                    pref.setBool('isLogin', true);
-                    pref.setString('username', usernm.text);
-                    pref.setString('password', passrr.text);
-                    break;
-                  case '001':
-                    Get.to(Verifikasi(
-                      email: usernm.text,
-                    ));
-                    break;
-                  case '002':
-                    Get.to(GenderSex(
-                      uname: usernm.text,
-                    ));
-                    break;
-                  case '003':
-                    Get.to(Verifikasi(
-                      email: usernm.text,
-                    ));
-                    break;
-                  default:
-                }
-                if (globals.gagalLogin['success'] == false) {
-                  setState(() {
-                    globals.isLoginButtonDisabled = false;
-                  });
-                } else {
-                  setState(() {
-                    globals.isLoginButtonDisabled = false;
-                  });
-                }
-                SharedPreferences pref = await SharedPreferences.getInstance();
-                pref.setString('user', usernm.text);
-                pref.setString('pass', passrr.text);
+                Get.offAll(BottomNavBar());
+
+                // switch (loginPost.response) {
+                //   case '000':
+                //     Get.offAll(BottomNavBar());
+
+                //     break;
+                //   case '001':
+                //     Get.to(Verifikasi(
+                //       email: usernm.text,
+                //     ));
+                //     break;
+                //   case '002':
+                //     Get.to(GenderSex(
+                //       uname: usernm.text,
+                //     ));
+                //     break;
+                //   case '003':
+                //     Get.to(Verifikasi(
+                //       email: usernm.text,
+                //     ));
+                //     break;
+                //   default:
+                // }
+                // if (globals.gagalLogin['success'] == false) {
+                //   setState(() {
+                //     globals.isLoginButtonDisabled = false;
+                //   });
+                // } else {
+                //   setState(() {
+                //     globals.isLoginButtonDisabled = false;
+                //   });
+                // }
+                // SharedPreferences pref = await SharedPreferences.getInstance();
+                // pref.setString('user', usernm.text);
+                // pref.setString('pass', passrr.text);
               });
               // _login();
             },
@@ -105,7 +111,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
-      resizeToAvoidBottomPadding: true,
+      // resizeToAvoidBottomPadding: true,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

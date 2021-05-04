@@ -122,7 +122,7 @@ class _RegistrasiState extends State<Registrasi> {
     );
     return Scaffold(
       key: _scaffoldKey,
-      resizeToAvoidBottomPadding: true,
+      // resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: true,
       body: Stack(
         children: [

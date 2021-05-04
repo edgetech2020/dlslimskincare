@@ -33,7 +33,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       appBar: Appbar.getAppBar(context),
       key: keyScaffold,
       resizeToAvoidBottomInset: true,
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.transparent,
       body: Container(
         color: Color.fromRGBO(230, 248, 246, 1),
