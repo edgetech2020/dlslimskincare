@@ -42,40 +42,69 @@ class _RegistrasiState extends State<Registrasi> {
       'password': password.text,
       'email': email.text
     });
-    var url = "http://dlslimskincare.com/wp-json/wp/v2/users/register";
-    http.post(url, body: body, headers: {
-      "Content-Type": "application/json"
-    }).then((http.Response response) async {
-      mseg = json.decode(response.body);
-      // final int statusCode = mseg["code"];
-      if (response.statusCode == 200) {
-        SharedPreferences pref = await SharedPreferences.getInstance();
-        // pref.setBool('isLogin', true);
-        pref.setString('response', response.body);
-        pref.setString('uname', username.text);
-        globals.userId = response.body.toString();
-        setState(() {
-          isRegistButtonDisabled = true;
-        });
-        debugPrint(response.body);
-      } else
-        setState(() {
-          msg = mseg["message"] ?? "Anda tidak terhubung ke internet";
-          isRegistButtonDisabled = false;
-        });
-      if (mseg['code'] == 200) {
-        VerifyEmail.verifySent(email: email.text).then((value) {
-          setState(() {
-            verifyEmail = value;
-            debugPrint('Regist : ' + verifyEmail.ok.toString());
-            Get.off(Verifikasi(
-              email: email.text,
-            ));
-          });
-        });
-      }
-      _scaffoldKey.currentState.hideCurrentSnackBar();
-    });
+    var url = "https://dlslimskincare.com/wp-json/wp/v2/users/register";
+    var response = await http
+        .post(url, body: body, headers: {"Content-Type": "application/json"});
+
+    // if (response.body.length < 1) {
+    //   msg = 'Harap periksa internet anda';
+    //   isRegistButtonDisabled = false;
+    //   setState(() {});
+
+    //   return false;
+    // }
+    // mseg = json.decode(response.body);
+    // if (response.statusCode != 200) {
+    //   setState(() {
+    //     msg = mseg ?? ["message"] ?? "Anda tidak terhubung ke internet";
+    //     isRegistButtonDisabled = false;
+    //   });
+    //   return false;
+    // }
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    // pref.setString('response', response.body);
+    // pref.setString('uname', username.text);
+    // globals.userId = response.body.toString();
+    // setState(() {
+    //   isRegistButtonDisabled = true;
+    // });
+    debugPrint(response.body);
+    // await http.post(url, body: body, headers: {
+    //   "Content-Type": "application/json"
+    // }).then((http.Response response) async {
+    //   if (response.body.length > 1) {
+    //     mseg = json.decode(response.body);
+    //     if (response.statusCode == 200) {
+    //       SharedPreferences pref = await SharedPreferences.getInstance();
+    //       // pref.setBool('isLogin', true);
+    //       pref.setString('response', response.body);
+    //       pref.setString('uname', username.text);
+    //       globals.userId = response.body.toString();
+    //       setState(() {
+    //         isRegistButtonDisabled = true;
+    //       });
+    //       debugPrint(response.body);
+    //     } else
+    //       setState(() {
+    //         msg = mseg["message"] ?? "Anda tidak terhubung ke internet";
+    //         isRegistButtonDisabled = false;
+    //       });
+    //   }
+    //   // final int statusCode = mseg["code"];
+
+    //   // if (mseg['code'] == 200) {
+    //   //   VerifyEmail.verifySent(email: email.text).then((value) {
+    //   //     setState(() {
+    //   //       verifyEmail = value;
+    //   //       debugPrint('Regist : ' + verifyEmail.ok.toString());
+    //   //       Get.off(Verifikasi(
+    //   //         email: email.text,
+    //   //       ));
+    //   //     });
+    //   //   });
+    //   // }
+    //   _scaffoldKey.currentState.hideCurrentSnackBar();
+    // });
   }
 
   String validateEmail(String value) {

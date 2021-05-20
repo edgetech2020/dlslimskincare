@@ -150,7 +150,6 @@ class UpdateAvatar {
     var url = 'https://dlslimskincare.com/wp-json/edge/v1/profile/replace';
     var response = await http.post(url,
         body: {'user_id': userId, 'the-pict': pict, 'submit': 'true'});
-    var res = json.decode(response.body) as Map;
     if (response.statusCode == 200) {
       debugPrint(response.body);
       // Fluttertoast.showToast(msg: null);
