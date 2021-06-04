@@ -27,6 +27,7 @@ class _FilterState extends State<Filter> {
         child: FutureBuilder(
           future: FilterSearch.filterSearch().then((value) {
             debugPrint(jsonFilter.toString());
+            debugPrint(jsonFilter.toString());
             setState(() {});
           }),
           builder: (ctx, s) {
@@ -41,6 +42,7 @@ class _FilterState extends State<Filter> {
                   if (jsonFilter != null) {
                     return InkWell(
                       onTap: () {
+                        print(jsonFilter[index]['id']);
                         Get.to(Product(
                           id: jsonFilter[index]['id'],
                         ));

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:dlslim/Model/bottomnavbar.dart';
 import 'package:dlslim/Pages/gender.dart';
@@ -6,9 +7,12 @@ import 'package:dlslim/api/globals.dart' as globals;
 import 'package:dlslim/api/api_controller.dart';
 import 'package:dlslim/style/extraStyle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:get/route_manager.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   @override
@@ -30,6 +34,60 @@ class _LoginState extends State<Login> {
   Map<String, dynamic> mseg;
   String msg = '';
   bool isLogin = false;
+
+  GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
+
+  Future<void> signInWithGoogle() async {
+    try {
+      await googleSignIn.signIn();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> signInWithFacebook() async {
+    try {
+      final facebookLogin = FacebookLogin();
+      final facebookLoginResult = await facebookLogin.logIn(['email']);
+
+      print(facebookLoginResult.accessToken);
+      print(facebookLoginResult.accessToken.token);
+      print(facebookLoginResult.accessToken.expires);
+      print(facebookLoginResult.accessToken.permissions);
+      print(facebookLoginResult.accessToken.userId);
+      print(facebookLoginResult.accessToken.isValid());
+
+      print(facebookLoginResult.errorMessage);
+      print(facebookLoginResult.status);
+
+      final token = facebookLoginResult.accessToken.token;
+
+      /// for profile details also use the below code
+      var graphResponse = await http.get(
+          'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=$token');
+      var profile = json.decode(graphResponse.body);
+      print(profile);
+      Get.offAll(BottomNavBar());
+      SharedPreferences up = await SharedPreferences.getInstance();
+      up.setBool('isLogin', true);
+      print('Test username : ' + profile['name']);
+      up.setString('user', profile['name']);
+      print('Test password : ' + passrr.text);
+
+      /*
+    from profile you will get the below params
+    {
+     "name": "Iiro Krankka",
+     "first_name": "Iiro",
+     "last_name": "Krankka",
+     "email": "iiro.krankka\u0040gmail.com",
+     "id": "<user id here>"
+    }
+   */
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -205,13 +263,55 @@ class _LoginState extends State<Login> {
                 ),
                 Container(
                   width: 300,
-                  height: 100,
+                  height: 70,
                   child: Text(
                     globals.gagalMsk,
                     style: ExtraStyle.productTitle(),
                     textAlign: TextAlign.center,
                   ),
-                )
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      width: MediaQuery.of(context).size.width * 0.12,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(32, 59, 141, 1),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Material(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.transparent,
+                          child: InkWell(
+                              borderRadius: BorderRadius.circular(50),
+                              onTap: signInWithFacebook,
+                              child: Image(
+                                image: AssetImage('assets/images/facebook.png'),
+                                fit: BoxFit.values[2],
+                              ))),
+                    ),
+                    SizedBox(
+                      width: 35,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      width: MediaQuery.of(context).size.width * 0.12,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(32, 59, 141, 1),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Material(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.transparent,
+                          child: InkWell(
+                              borderRadius: BorderRadius.circular(15),
+                              onTap: signInWithGoogle,
+                              child: Image(
+                                image: AssetImage('assets/images/google.png'),
+                                fit: BoxFit.cover,
+                              ))),
+                    ),
+                  ],
+                ),
               ],
             )
           ],

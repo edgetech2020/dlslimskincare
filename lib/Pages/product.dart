@@ -99,7 +99,7 @@ class _ProductState extends State<Product> {
     }
   }
 
-  // Future productData(int index) async {
+  // Future productDataAll(int index) async {
   //   // Fluttertoast.showToast(msg: "called");
   //   try {
   //     if (!isLoading) {
@@ -108,7 +108,11 @@ class _ProductState extends State<Product> {
   //       });
   //       final response = await http.get(
   //           'https://dashboard.dlslimskincare.com/api/products/' +
-  //               index.toString());
+  //               index.toString(),
+  //           headers: {
+  //             'Cookie':
+  //                 'XSRF-TOKEN=eyJpdiI6IkxqN2NuUzlVMGRCb1BYa2dseFhnK1E9PSIsInZhbHVlIjoiMlwvWWt1dGNsMHRjSmttMEJVaW1SVGYwQ2tZVVZoTGFaRXVCUnFoYTRtXC9vb1RHRXJXbHVtV2RZK0N0b3I0Y2NcL2R2d08yWXVJK0VpRktsVkp3NlhmNUF1VEZyWVdvdkFJcVpkQnQ1T3gyWjhRNkxXamlhc1JDRjVVQmNFaHgwRzEiLCJtYWMiOiI2NWFlMzVjMDMwMTdjMzFiOGY1NTdhMWNlMzRhZjMzYTIwNWVjNmRmY2YwMDMwNGI1NmZkOTBlY2JmMDVhNmU0In0%3D; dl_slim_dashboard_session=eyJpdiI6InYzXC9mdXRqZFpNZ1llNmdKVWh5M2d3PT0iLCJ2YWx1ZSI6ImtNSDJzQ0ZBaVo0dm5PdEc0cXZTWjQ4R1pxVVBjYU15TzRzMUlsT09COU9GUG52XC8xeURGV3VKQ1I4YzJcL3UyYnlXNGptWTdoWlJkQnhoWHNxamJ6U2lVbFd0Z2lteHVkMksyb3RONG82T3Vma0xzS2tqd1h0SjhtdUF1SWRmSWEiLCJtYWMiOiI3MjBmZTBlZmQzM2E2ZTFjMjAyM2JmMzc1ZGMyYWM0ZTE4YWZhYjgwOTIxOGEyNGMyYzhmMzQ3OGJjMDQ0MTU0In0%3D'
+  //           });
   //       List tList = new List();
   //       datah = json.decode(response.body) as List;
 
@@ -125,12 +129,14 @@ class _ProductState extends State<Product> {
   //           _pageNumber++;
   //         });
   //       } else {
-  //         debugPrint('test full');
+  //         isLoading = false;
+  //         debugPrint(response.reasonPhrase);
   //         Fluttertoast.showToast(msg: 'No Data Available');
+  //         setState(() {});
   //       }
   //     }
   //     if (isLoading == true) {
-  //       loadingAction();
+  //       // loadingAction();
   //     }
   //   } catch (e) {}
   // }
@@ -160,7 +166,6 @@ class _ProductState extends State<Product> {
                     child: FutureBuilder(
                         future: productData(_pageNumber).then((value) {
                           debugPrint(product.toString());
-                          setState(() {});
                         }),
                         builder: (ctx, s) {
                           if (s.connectionState == ConnectionState.waiting &&

@@ -34,14 +34,15 @@ class _Splashscreen extends State<Splashscreen> {
 
   void initState() {
     super.initState();
+    userLogin();
 
-    splashscreenStart(context);
+    // splashscreenStart(context);
     // Konek.checkConnection(context);
   }
 
   void dispose() {
     super.dispose();
-    listener.cancel();
+    // listener.cancel();
   }
 
   void _showDialog(String title, String content, BuildContext context) {

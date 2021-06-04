@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dlslim/Model/model_verif.dart';
+import 'package:dlslim/Pages/gender.dart';
 import 'package:dlslim/Pages/verifikasi.dart';
 import 'package:dlslim/api/api_controller.dart';
 import 'package:dlslim/api/globals.dart' as globals;
@@ -46,29 +47,35 @@ class _RegistrasiState extends State<Registrasi> {
     var response = await http
         .post(url, body: body, headers: {"Content-Type": "application/json"});
 
-    // if (response.body.length < 1) {
-    //   msg = 'Harap periksa internet anda';
-    //   isRegistButtonDisabled = false;
-    //   setState(() {});
+    if (response.body.length < 1) {
+      msg = 'Harap periksa internet anda';
+      isRegistButtonDisabled = false;
+      setState(() {});
 
-    //   return false;
-    // }
-    // mseg = json.decode(response.body);
-    // if (response.statusCode != 200) {
-    //   setState(() {
-    //     msg = mseg ?? ["message"] ?? "Anda tidak terhubung ke internet";
-    //     isRegistButtonDisabled = false;
-    //   });
-    //   return false;
-    // }
-    // SharedPreferences pref = await SharedPreferences.getInstance();
-    // pref.setString('response', response.body);
-    // pref.setString('uname', username.text);
-    // globals.userId = response.body.toString();
-    // setState(() {
-    //   isRegistButtonDisabled = true;
-    // });
+      return false;
+    }
+    mseg = json.decode(response.body);
+    if (response.statusCode != 200) {
+      setState(() {
+        msg = mseg ?? ["message"] ?? "Anda tidak terhubung ke internet";
+        isRegistButtonDisabled = false;
+      });
+      return false;
+    }
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('response', response.body);
+    pref.setString('uname', username.text);
+    globals.userId = response.body.toString();
+    setState(() {
+      isRegistButtonDisabled = false;
+    });
     debugPrint(response.body);
+    if (mseg['code'] == 200) {
+      Get.off(GenderSex(
+        uname: username.text,
+      ));
+    }
+
     // await http.post(url, body: body, headers: {
     //   "Content-Type": "application/json"
     // }).then((http.Response response) async {
