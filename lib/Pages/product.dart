@@ -38,7 +38,11 @@ class _ProductState extends State<Product> {
         if (_scrollController.position.pixels ==
             _scrollController.position.maxScrollExtent) {
           // loadingAction();
+          _pageNumber++;
           productData(_pageNumber);
+          print("page ngab $_pageNumber");
+          // print("maxx ");
+          // setState(() {});
         }
       });
     } catch (e) {}
@@ -77,7 +81,7 @@ class _ProductState extends State<Product> {
 
     http.StreamedResponse response = await request.send();
     final result = await response.stream.bytesToString();
-    product = json.decode(result);
+    // product = json.decode(result);
     // List tList = new List();
     // datah = json.decode(result) as List;
 
@@ -85,13 +89,16 @@ class _ProductState extends State<Product> {
     //   tList.add(datah[i]);
     // }
     if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
+      // print(await response.stream.bytesToString());
       // setState(() {
       //   isLoading = false;
 
       //   current = i;
-      //   product.addAll(tList);
-      //   _pageNumber++;
+      product.addAll(json.decode(result));
+      setState(() {});
+      return true;
+      // _pageNumber++;
+      // setState(() {});
       // });
     } else {
       print(response.reasonPhrase);
@@ -163,19 +170,20 @@ class _ProductState extends State<Product> {
                     ),
                     // width: MediaQuery.of(context).size.width * 0.5,
                     height: MediaQuery.of(context).size.height * 0.9,
-                    child: FutureBuilder(
-                        future: productData(_pageNumber).then((value) {
-                          debugPrint(product.toString());
-                        }),
-                        builder: (ctx, s) {
-                          if (s.connectionState == ConnectionState.waiting &&
-                              !s.hasData) {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else
-                            return listViewProduct();
-                        })),
+                    child: listViewProduct()),
+                // child: FutureBuilder(
+                //     future: productData(_pageNumber).then((value) {
+                //       debugPrint(product.toString());
+                //     }),
+                //     builder: (ctx, s) {
+                //       if (s.connectionState == ConnectionState.waiting &&
+                //           !s.hasData) {
+                //         return Center(
+                //           child: CircularProgressIndicator(),
+                //         );
+                //       } else
+                //         return listViewProduct();
+                //     })),
                 SizedBox(
                   height: 250,
                 )
@@ -188,22 +196,28 @@ class _ProductState extends State<Product> {
   }
 
   ListView listViewProduct() {
-    return ListView.builder(
-        controller: _scrollController,
-        scrollDirection: Axis.vertical,
-        itemCount: product?.length ?? 0,
-        itemBuilder: (BuildContext context, int index) {
-          if (product.length < 0) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            _rating = double.parse(
-                    (product.length > 1 && product[index]['ok'] != false)
-                        ? product[index]['average_rating'].toString()
-                        : "0")
-                .round();
-            return cardList(context, index);
-          }
-        });
+    return ListView(
+      controller: _scrollController,
+      children: List.generate(product?.length, (index) {
+        if (product.length < 0) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          _rating = double.parse(
+                  (product.length > 1 && product[index]['ok'] != false)
+                      ? product[index]['average_rating'].toString()
+                      : "0")
+              .round();
+          return cardList(context, index);
+        }
+      }),
+    );
+    // return ListView.builder(
+    //     controller: _scrollController,
+    //     scrollDirection: Axis.vertical,
+    //     itemCount: product?.length ?? 0,
+    //     itemBuilder: (BuildContext context, int index) {
+
+    //     });
   }
 
   Card cardList(BuildContext context, int index) {

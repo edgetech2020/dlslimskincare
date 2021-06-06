@@ -23,10 +23,15 @@ class LoginPost {
     );
   }
   static Future<LoginPost> loginPostTest(
-      BuildContext context, String username, String password) async {
+      BuildContext context, String username, String password,
+      {bool socialLogin}) async {
     var url = 'https://dlslimskincare.com/wp-json/remote-login/login';
     var apiResult = await http.post(url,
-        body: json.encode({'username': username, 'password': password}),
+        body: json.encode({
+          'username': username,
+          'password': password,
+          'social_login': socialLogin
+        }),
         headers: {"Content-Type": "application/json"});
     var jsonObject = json.decode(apiResult.body) as Map;
     globals.gagalLogin = jsonObject;
@@ -35,7 +40,7 @@ class LoginPost {
       pref.setString('response', apiResult.body);
 
       // Navigator.pushReplacementNamed(context, '/rumah');
-      debugPrint(jsonObject.toString());
+      debugPrint('Login : ' + jsonObject.toString());
     } else {
       debugPrint(jsonObject['message']);
       globals.gagalMsk = jsonObject['message'] ?? '';

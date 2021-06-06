@@ -36,6 +36,30 @@ class _LoginState extends State<Login> {
   bool isLogin = false;
 
   GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
+  GoogleSignInAccount googleSignInAccount;
+
+  @override
+  void initState() {
+    super.initState();
+    print('====> GOOGLE SIGN <=====');
+    googleSignIn.onCurrentUserChanged.listen((account) async {
+      googleSignInAccount = account;
+      SharedPreferences up = await SharedPreferences.getInstance();
+      up.setBool('isLogin', true);
+      print('Test username : ' + googleSignInAccount.email);
+      up.setString('user', googleSignInAccount.email);
+      up.setString('pass', '');
+      var result = LoginPost.loginPostTest(
+          context, googleSignInAccount.email, '',
+          socialLogin: true);
+      if (result != null) {
+        Get.offAll(BottomNavBar());
+        up.setBool('socialLogin', true);
+      }
+      print(googleSignInAccount);
+      setState(() {});
+    });
+  }
 
   Future<void> signInWithGoogle() async {
     try {
@@ -45,11 +69,18 @@ class _LoginState extends State<Login> {
     }
   }
 
-  Future<void> signInWithFacebook() async {
+  Future<void> logoutGoogle() async {
     try {
-      final facebookLogin = FacebookLogin();
-      final facebookLoginResult = await facebookLogin.logIn(['email']);
+      await googleSignIn.disconnect();
+    } catch (e) {}
+  }
 
+  Future<void> signInWithFacebook() async {
+    final facebookLogin = FacebookLogin();
+    facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
+    final facebookLoginResult = await facebookLogin.logIn(['email']);
+    // print("dpaet token? " + facebookLoginResult.errorMessage);
+    try {
       print(facebookLoginResult.accessToken);
       print(facebookLoginResult.accessToken.token);
       print(facebookLoginResult.accessToken.expires);
@@ -67,12 +98,26 @@ class _LoginState extends State<Login> {
           'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=$token');
       var profile = json.decode(graphResponse.body);
       print(profile);
-      Get.offAll(BottomNavBar());
-      SharedPreferences up = await SharedPreferences.getInstance();
-      up.setBool('isLogin', true);
-      print('Test username : ' + profile['name']);
-      up.setString('user', profile['name']);
-      print('Test password : ' + passrr.text);
+      if (profile != null) {
+        SharedPreferences up = await SharedPreferences.getInstance();
+        up.setBool('isLogin', true);
+        print('Test username : ' + profile['email']);
+        up.setString('user', profile['email']);
+
+        up.setString('pass', '');
+        var result = await LoginPost.loginPostTest(
+            context, profile['email'], '',
+            socialLogin: true);
+        if (result != null) {
+          Get.offAll(BottomNavBar());
+        }
+      }
+      // Get.offAll(BottomNavBar());
+      // SharedPreferences up = await SharedPreferences.getInstance();
+      // up.setBool('isLogin', true);
+      // print('Test username : ' + profile['name']);
+      // up.setString('user', profile['name']);
+      // print('Test password : ' + passrr.text);
 
       /*
     from profile you will get the below params
@@ -85,6 +130,7 @@ class _LoginState extends State<Login> {
     }
    */
     } catch (e) {
+      print("error gais");
       print(e);
     }
   }
@@ -273,43 +319,25 @@ class _LoginState extends State<Login> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      width: MediaQuery.of(context).size.width * 0.12,
-                      decoration: BoxDecoration(
-                          color: Color.fromRGBO(32, 59, 141, 1),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Material(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.transparent,
-                          child: InkWell(
-                              borderRadius: BorderRadius.circular(50),
-                              onTap: signInWithFacebook,
-                              child: Image(
-                                image: AssetImage('assets/images/facebook.png'),
-                                fit: BoxFit.values[2],
-                              ))),
+                    InkWell(
+                      onTap: signInWithFacebook,
+                      child: Image(
+                        image: AssetImage('assets/images/icon_fb.webp'),
+                        width: 150,
+                        height: 50,
+                      ),
                     ),
                     SizedBox(
-                      width: 35,
+                      width: 15,
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      width: MediaQuery.of(context).size.width * 0.12,
-                      decoration: BoxDecoration(
-                          color: Color.fromRGBO(32, 59, 141, 1),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Material(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.transparent,
-                          child: InkWell(
-                              borderRadius: BorderRadius.circular(15),
-                              onTap: signInWithGoogle,
-                              child: Image(
-                                image: AssetImage('assets/images/google.png'),
-                                fit: BoxFit.cover,
-                              ))),
-                    ),
+                    InkWell(
+                      onTap: signInWithGoogle,
+                      child: Image(
+                        image: AssetImage('assets/images/icon_google.webp'),
+                        width: 150,
+                        height: 50,
+                      ),
+                    )
                   ],
                 ),
               ],

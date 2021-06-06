@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DLSlimskincare</string>
+    <string name="app_name">DL Slim Skin Care</string>
+    <string name="facebook_app_id">1717011978507240</string> 
+    <string name="fb_login_protocol_scheme">fb1717011978507240</string>
 
-    <!-- Replace "000000000000" with your Facebook App ID here. -->
-    <string name="facebook_app_id">1112447862560628</string>
-
-    <!--
-      Replace "000000000000" with your Facebook App ID here.
-      **NOTE**: The scheme needs to start with `fb` and then your ID.
-    -->
-    <string name="fb_login_protocol_scheme">fb1112447862560628</string>
 </resources>

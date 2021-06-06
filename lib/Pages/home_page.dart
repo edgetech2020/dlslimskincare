@@ -39,13 +39,14 @@ class _HomePageState extends State<HomePage> {
       // setState(() {
       debugPrint(idUser.toString());
       if (_loaded != true) {
-        loadingAction();
+        // loadingAction();
       }
       TestGetApi.getListCart(context).then((value) {
         setState(() {
           _loaded = true;
           if (_loaded == true) {
-            Navigator.pop(context);
+            print('GET GET ');
+            // Navigator.pop(context);
           }
         });
       });

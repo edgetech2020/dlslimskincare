@@ -18,6 +18,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -35,12 +36,14 @@ class _ProfilePageState extends State<ProfilePage> {
   bool loaded = false;
   File rotatedImage;
   ModelProfile modelProfile = ModelProfile();
+  bool socialLogin = false;
 
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))));
 
   void initState() {
     super.initState();
+    loadSignInSocial();
     ShareAll.getUserID().then((value) {
       if (loaded != true) {
         loadingAction();
@@ -57,6 +60,12 @@ class _ProfilePageState extends State<ProfilePage> {
         });
       });
     });
+  }
+
+  Future loadSignInSocial() async {
+    SharedPreferences up = await SharedPreferences.getInstance();
+    socialLogin = up.getBool('socialLogin');
+    setState(() {});
   }
 
   logoutDialog() {
@@ -90,7 +99,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       width: width * 0.2,
                       child: ElevatedButton(
                           onPressed: () {
-                            Logout.logoutUser(context);
+                            if (socialLogin != true) {
+                              Logout.logoutUser(context);
+                            } else {
+                              print('Google login');
+                              Logout.logoutUser(context);
+                              GoogleSignIn().disconnect();
+                            }
                           },
                           child: Text('Yes'),
                           style: ElevatedButton.styleFrom(primary: Colors.red)),
