@@ -18,7 +18,16 @@ class Appbar {
   static getAppBar(BuildContext context, {String base64}) {
     return AppBar(
       backgroundColor: Colors.transparent,
-      leadingWidth: 100,
+      leading: InkWell(
+        onTap: () {
+          Get.back();
+        },
+        child: Icon(
+          Icons.arrow_back,
+          color: Colors.grey,
+        ),
+      ),
+      // leadingWidth: 100,
       title: Container(
         height: MediaQueryData.fromWindow(window).size.height * 0.04,
         child: TextField(
