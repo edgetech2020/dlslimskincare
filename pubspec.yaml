@@ -47,6 +47,8 @@ dependencies:
   flutter_exif_rotation: ^0.3.2
   google_sign_in: any
   flutter_facebook_login: any
+  flutter_pusher: ^1.0.2
+
 
 dev_dependencies:
   flutter_test:

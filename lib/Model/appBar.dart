@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:dlslim/Pages/livechat.dart';
 import 'package:dlslim/Pages/product_search.dart';
 import 'package:dlslim/api/api_controller.dart';
 import 'package:flutter/material.dart';
@@ -83,8 +84,9 @@ class Appbar {
               right: MediaQueryData.fromWindow(window).size.width * 0.05),
           child: GestureDetector(
             onTap: () {
+              Get.to(Livechat());
               // Navigator.pushNamed(context, '/whislist');
-              Fluttertoast.showToast(msg: 'This Feature is Coming Soon');
+              // Fluttertoast.showToast(msg: 'This Feature is Coming Soon');
             },
             child: Icon(
               Icons.chat,
