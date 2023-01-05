@@ -96,7 +96,7 @@ class _CartListState extends State<CartList> {
               child: RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
-                color: Hexcolor('#4C8CA7'),
+                color: HexColor('#4C8CA7'),
                 onPressed: () {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => CheckOut()));

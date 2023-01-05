@@ -28,7 +28,7 @@ class _CheckOutState extends State<CheckOut> {
       appBar: AppBar(
         title: Text('CheckOut'),
         centerTitle: true,
-        backgroundColor: Hexcolor('#4C8CA7'),
+        backgroundColor: HexColor('#4C8CA7'),
       ),
       body: Container(
         child: InAppWebView(

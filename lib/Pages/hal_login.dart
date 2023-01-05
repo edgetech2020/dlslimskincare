@@ -31,12 +31,12 @@ class HalState extends State<Hal> {
               child: RaisedButton(
                 child: Text(
                   "SIGN IN",
-                  style: TextStyle(color: Hexcolor('#e6f8f6'), fontSize: 22),
+                  style: TextStyle(color: HexColor('#e6f8f6'), fontSize: 22),
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/loginpage');
                 },
-                color: Hexcolor('#4C8CA7'),
+                color: HexColor('#4C8CA7'),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18)),
               ),
@@ -46,12 +46,12 @@ class HalState extends State<Hal> {
               width: MediaQuery.of(context).size.width * 0.7,
               height: MediaQuery.of(context).size.height * 0.05,
               decoration: BoxDecoration(
-                  border: Border.all(color: Hexcolor('#4C8CA7'), width: 2),
+                  border: Border.all(color: HexColor('#4C8CA7'), width: 2),
                   borderRadius: BorderRadius.circular(18)),
               child: RaisedButton(
                 child: Text(
                   "SIGN UP",
-                  style: TextStyle(color: Hexcolor('#4C8CA7'), fontSize: 22),
+                  style: TextStyle(color: HexColor('#4C8CA7'), fontSize: 22),
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/registrasi');
@@ -70,12 +70,12 @@ class HalState extends State<Hal> {
                       children: <TextSpan>[
                     TextSpan(
                         text: 'Terms and Conditions',
-                        style: TextStyle(color: Hexcolor('#4C8CA7'))),
+                        style: TextStyle(color: HexColor('#4C8CA7'))),
                     TextSpan(
                         text: ' & ', style: TextStyle(color: Colors.black)),
                     TextSpan(
                         text: 'Privacy Policy',
-                        style: TextStyle(color: Hexcolor('#4C8CA7')))
+                        style: TextStyle(color: HexColor('#4C8CA7')))
                   ])),
             )
           ],

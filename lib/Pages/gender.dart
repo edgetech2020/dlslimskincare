@@ -106,7 +106,7 @@ class _GenderSexState extends State<GenderSex> {
                           width: MediaQuery.of(context).size.width * 0.37,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
-                            color: Hexcolor(
+                            color: HexColor(
                               '#203b8d',
                             ),
                           ),
@@ -119,7 +119,7 @@ class _GenderSexState extends State<GenderSex> {
                                   borderRadius: BorderRadius.circular(15),
                                   border: Border.all(
                                       color: _value == 1
-                                          ? Hexcolor('#4C8CA7')
+                                          ? HexColor('#4C8CA7')
                                           : Colors.transparent,
                                       width: 5),
                                   boxShadow: [
@@ -152,7 +152,7 @@ class _GenderSexState extends State<GenderSex> {
                         width: MediaQuery.of(context).size.width * 0.37,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
-                          color: Hexcolor('#203b8d'),
+                          color: HexColor('#203b8d'),
                         ),
                         child: GestureDetector(
                           onTap: () => setState(() => _value = 0),
@@ -163,7 +163,7 @@ class _GenderSexState extends State<GenderSex> {
                                 borderRadius: BorderRadius.circular(15),
                                 border: Border.all(
                                     color: _value == 0
-                                        ? Hexcolor('#4C8CA7')
+                                        ? HexColor('#4C8CA7')
                                         : Colors.transparent,
                                     width: 5),
                                 boxShadow: [
@@ -196,7 +196,7 @@ class _GenderSexState extends State<GenderSex> {
                     child: RaisedButton(
                       child: Text(
                         "Selanjutnya",
-                        style: TextStyle(color: Hexcolor('#e6f8f6')),
+                        style: TextStyle(color: HexColor('#e6f8f6')),
                       ),
                       onPressed: () {
                         setGender();
@@ -204,7 +204,7 @@ class _GenderSexState extends State<GenderSex> {
                         //     MaterialPageRoute(builder: (_) => CameraPage()));
                         Navigator.pushNamed(context, '/camera');
                       },
-                      color: Hexcolor('#4C8CA7'),
+                      color: HexColor('#4C8CA7'),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
                     ),

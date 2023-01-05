@@ -133,7 +133,7 @@ class _CameraUpdateState extends State<CameraUpdate> {
           fontFamily: 'Arial Black',
         ),
       ),
-      color: Hexcolor('#4C8CA7'),
+      color: HexColor('#4C8CA7'),
       onPressed: isButtonoff
           ? null
           : () {

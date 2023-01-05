@@ -144,7 +144,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -154,7 +154,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _skin.contains(0)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -179,7 +179,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.4,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -189,7 +189,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _skin.contains(1)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -214,7 +214,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -224,7 +224,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _skin.contains(2)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -258,7 +258,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.2,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -268,7 +268,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _skin.contains(3)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -293,7 +293,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -303,7 +303,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _skin.contains(4)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -328,7 +328,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.2,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -338,7 +338,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _skin.contains(5)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -363,7 +363,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.2,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -373,7 +373,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _skin.contains(6)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -407,7 +407,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.2,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -417,7 +417,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _skin.contains(7)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -442,7 +442,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.25,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -452,7 +452,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _skin.contains(8)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -477,7 +477,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.25,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -487,7 +487,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _skin.contains(9)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -512,7 +512,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.2,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -522,7 +522,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _skin.contains(10)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -574,7 +574,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -584,7 +584,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _body.contains(0)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -609,7 +609,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -619,7 +619,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _body.contains(1)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -644,7 +644,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.35,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -654,7 +654,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _body.contains(2)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -688,7 +688,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.23,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -698,7 +698,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _body.contains(3)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -723,7 +723,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.27,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -733,7 +733,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _body.contains(4)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -758,7 +758,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.2,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -768,7 +768,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _body.contains(5)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -793,7 +793,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.25,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -803,7 +803,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _body.contains(6)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -837,7 +837,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.2,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -847,7 +847,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _body.contains(7)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -872,7 +872,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.19,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -882,7 +882,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _body.contains(8)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -907,7 +907,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.35,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -917,7 +917,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _body.contains(9)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -942,7 +942,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.22,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -952,7 +952,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _body.contains(10)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -1004,7 +1004,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -1014,7 +1014,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _hair.contains(0)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -1039,7 +1039,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -1049,7 +1049,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _hair.contains(1)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -1074,7 +1074,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.35,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -1084,7 +1084,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _hair.contains(2)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -1118,7 +1118,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.23,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -1128,7 +1128,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _hair.contains(3)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -1153,7 +1153,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.27,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -1163,7 +1163,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _hair.contains(4)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -1188,7 +1188,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.2,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -1198,7 +1198,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _hair.contains(5)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -1223,7 +1223,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.25,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -1233,7 +1233,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _hair.contains(6)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -1267,7 +1267,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -1277,7 +1277,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _hair.contains(7)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -1302,7 +1302,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -1312,7 +1312,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _hair.contains(8)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -1337,7 +1337,7 @@ class _ConcernState extends State<Concern> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(
-                      color: Hexcolor('#203b8d'),
+                      color: HexColor('#203b8d'),
                       borderRadius: BorderRadius.circular(15)),
                   child: GestureDetector(
                     onTap: () => setState(() =>
@@ -1347,7 +1347,7 @@ class _ConcernState extends State<Concern> {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                               color: _hair.contains(9)
-                                  ? Hexcolor('#203b8d')
+                                  ? HexColor('#203b8d')
                                   : Colors.transparent,
                               width: 5),
                           boxShadow: [
@@ -1382,7 +1382,7 @@ class _ConcernState extends State<Concern> {
                 child: RaisedButton(
                   child: Text(
                     "Selanjutnya",
-                    style: TextStyle(color: Hexcolor('#e6f8f6')),
+                    style: TextStyle(color: HexColor('#e6f8f6')),
                   ),
                   onPressed: () {
                     postQuestion();

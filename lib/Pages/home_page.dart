@@ -75,6 +75,15 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
+  _launchURL() async {
+    const url = 'https://dlslimskincare.com/appointment/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   static const snackBarDuration = Duration(seconds: 3);
 
   final snackBar = SnackBar(
@@ -97,15 +106,6 @@ class _HomePageState extends State<HomePage> {
     }
 
     return true;
-  }
-
-  _launchURL() async {
-    const url = 'https://dlslimskincare.com/appointment/';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 
   @override

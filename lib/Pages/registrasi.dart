@@ -136,7 +136,7 @@ class _RegistrasiState extends State<Registrasi> {
         child: (isRegistButtonDisabled == false)
             ? Text(
                 "Daftar",
-                style: TextStyle(color: Hexcolor('#e6f8f6')),
+                style: TextStyle(color: HexColor('#e6f8f6')),
               )
             : Center(
                 child: CircularProgressIndicator(
@@ -152,7 +152,7 @@ class _RegistrasiState extends State<Registrasi> {
                 postShared();
                 // Navigator.pushReplacementNamed(context, '/gender');
               },
-        color: Hexcolor('#4C8CA7'),
+        color: HexColor('#4C8CA7'),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );
@@ -199,12 +199,12 @@ class _RegistrasiState extends State<Registrasi> {
                                     prefixIcon: Icon(Icons.people),
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: Hexcolor('#4C8CA7')),
+                                          color: HexColor('#4C8CA7')),
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                            color: Hexcolor('#4C8CA7')),
+                                            color: HexColor('#4C8CA7')),
                                         borderRadius:
                                             BorderRadius.circular(15)),
                                     labelText: 'Username',
@@ -234,12 +234,12 @@ class _RegistrasiState extends State<Registrasi> {
                                       prefixIcon: Icon(Icons.mail_outline),
                                       border: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                            color: Hexcolor('#4C8CA7')),
+                                            color: HexColor('#4C8CA7')),
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Hexcolor('#4C8CA7')),
+                                              color: HexColor('#4C8CA7')),
                                           borderRadius:
                                               BorderRadius.circular(15)),
                                       labelText: 'E - Mail',
@@ -265,13 +265,13 @@ class _RegistrasiState extends State<Registrasi> {
                                         prefixIcon: Icon(Icons.lock),
                                         border: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Hexcolor('#4C8CA7')),
+                                              color: HexColor('#4C8CA7')),
                                           borderRadius:
                                               BorderRadius.circular(15),
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Hexcolor('#4C8CA7')),
+                                                color: HexColor('#4C8CA7')),
                                             borderRadius:
                                                 BorderRadius.circular(15)),
                                         labelText: 'Password',
@@ -300,13 +300,13 @@ class _RegistrasiState extends State<Registrasi> {
                                         prefixIcon: Icon(Icons.lock),
                                         border: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Hexcolor('#4C8CA7')),
+                                              color: HexColor('#4C8CA7')),
                                           borderRadius:
                                               BorderRadius.circular(15),
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Hexcolor('#4C8CA7')),
+                                                color: HexColor('#4C8CA7')),
                                             borderRadius:
                                                 BorderRadius.circular(15)),
                                         labelText: 'Konfirmasi Password',

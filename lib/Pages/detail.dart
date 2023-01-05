@@ -418,7 +418,7 @@ class _DetailPageState extends State<DetailPage> {
                       onPressed: () {
                         addToCart();
                       },
-                      color: Hexcolor('#4C8CA7'),
+                      color: HexColor('#4C8CA7'),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
                     ),

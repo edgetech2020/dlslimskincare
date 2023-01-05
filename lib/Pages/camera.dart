@@ -134,7 +134,7 @@ class _CameraFaceState extends State<CameraFace> {
           fontFamily: 'Arial Black',
         ),
       ),
-      color: Hexcolor('#4C8CA7'),
+      color: HexColor('#4C8CA7'),
       onPressed: isButtonoff
           ? null
           : () {
@@ -243,7 +243,7 @@ class _CameraFaceState extends State<CameraFace> {
                                                   fontFamily: 'Arial Black',
                                                 ),
                                               ),
-                                              color: Hexcolor('#4C8CA7'),
+                                              color: HexColor('#4C8CA7'),
                                               onPressed: () {
                                                 frontCamera();
                                               },
@@ -286,7 +286,7 @@ class _CameraFaceState extends State<CameraFace> {
                                                   fontFamily: 'Arial Black',
                                                 ),
                                               ),
-                                              color: Hexcolor('#4C8CA7'),
+                                              color: HexColor('#4C8CA7'),
                                               onPressed: () {
                                                 rightCamera();
                                               },
@@ -329,7 +329,7 @@ class _CameraFaceState extends State<CameraFace> {
                                                   fontFamily: 'Arial Black',
                                                 ),
                                               ),
-                                              color: Hexcolor('#4C8CA7'),
+                                              color: HexColor('#4C8CA7'),
                                               onPressed: () {
                                                 leftCamera();
                                               },

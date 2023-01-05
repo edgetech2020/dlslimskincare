@@ -51,7 +51,7 @@ class _BeautyIdState extends State<BeautyId> {
               alignment: Alignment.centerLeft,
               child: Text('Skin Type',
                   style: TextStyle(
-                      color: Hexcolor('#4C8CA7'),
+                      color: HexColor('#4C8CA7'),
                       fontSize: 20,
                       fontWeight: FontWeight.w700)),
             ),
@@ -59,7 +59,7 @@ class _BeautyIdState extends State<BeautyId> {
               alignment: Alignment.centerLeft,
               child: Text('Pilih sesuai dengan kondisi wajahmu saat ini',
                   style: TextStyle(
-                    color: Hexcolor('#4C8CA7'),
+                    color: HexColor('#4C8CA7'),
                     fontSize: 15,
                   )),
             ),
@@ -81,7 +81,7 @@ class _BeautyIdState extends State<BeautyId> {
               alignment: Alignment.centerLeft,
               child: Text('Skin Problem',
                   style: TextStyle(
-                      color: Hexcolor('#4C8CA7'),
+                      color: HexColor('#4C8CA7'),
                       fontSize: 20,
                       fontWeight: FontWeight.w700)),
             ),
@@ -89,7 +89,7 @@ class _BeautyIdState extends State<BeautyId> {
               alignment: Alignment.centerLeft,
               child: Text('Pilih sesuai dengan kondisi wajahmu saat ini',
                   style: TextStyle(
-                    color: Hexcolor('#4C8CA7'),
+                    color: HexColor('#4C8CA7'),
                     fontSize: 15,
                   )),
             ),
@@ -163,7 +163,7 @@ class _BeautyIdState extends State<BeautyId> {
                   'Save',
                   style: TextStyle(color: Colors.white, fontSize: 19),
                 ),
-                color: Hexcolor('#4C8CA7'),
+                color: HexColor('#4C8CA7'),
               ),
             )
           ],
@@ -177,11 +177,11 @@ class _BeautyIdState extends State<BeautyId> {
       controller: controller,
       decoration: InputDecoration(
           focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Hexcolor('#4C8CA7'), width: 5)),
+              borderSide: BorderSide(color: HexColor('#4C8CA7'), width: 5)),
           enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Hexcolor('#4C8CA7'), width: 5)),
+              borderSide: BorderSide(color: HexColor('#4C8CA7'), width: 5)),
           labelText: labelText,
-          labelStyle: TextStyle(color: Hexcolor('#4C8CA7'))),
+          labelStyle: TextStyle(color: HexColor('#4C8CA7'))),
     );
   }
 
@@ -235,13 +235,13 @@ class _BeautyIdState extends State<BeautyId> {
             ],
             border: Border.all(
                 color:
-                    (now == index) ? Hexcolor('#4C8CA7') : Colors.transparent,
+                    (now == index) ? HexColor('#4C8CA7') : Colors.transparent,
                 width: 5),
             borderRadius: BorderRadius.circular(10)),
         child: Center(
             child: Text(
           title,
-          style: GoogleFonts.roboto(color: Hexcolor('#4C8CA7')),
+          style: GoogleFonts.roboto(color: HexColor('#4C8CA7')),
         )),
       ),
     );
@@ -266,12 +266,12 @@ class _BeautyIdState extends State<BeautyId> {
             ],
             border: Border.all(
                 color:
-                    (prob == index) ? Hexcolor('#4C8CA7') : Colors.transparent,
+                    (prob == index) ? HexColor('#4C8CA7') : Colors.transparent,
                 width: 5),
             borderRadius: BorderRadius.circular(10)),
         child: Center(
           child: Text(title,
-              style: GoogleFonts.roboto(color: Hexcolor('#4C8CA7'))),
+              style: GoogleFonts.roboto(color: HexColor('#4C8CA7'))),
         ),
       ),
     );

@@ -140,7 +140,7 @@ class _LoginState extends State<Login> {
     var loginRaisedButton = RaisedButton(
       child: Text(
         "Login",
-        style: TextStyle(color: Hexcolor('#e6f8f6')),
+        style: TextStyle(color: HexColor('#e6f8f6')),
       ),
       onPressed: globals.isLoginButtonDisabled
           ? null
@@ -209,7 +209,7 @@ class _LoginState extends State<Login> {
               });
               // _login();
             },
-      color: Hexcolor('#4C8CA7'),
+      color: HexColor('#4C8CA7'),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
     );
     return Scaffold(
@@ -250,11 +250,11 @@ class _LoginState extends State<Login> {
                       fillColor: Colors.white,
                       prefixIcon: Icon(Icons.people),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Hexcolor('#4C8CA7')),
+                        borderSide: BorderSide(color: HexColor('#4C8CA7')),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Hexcolor('#4C8CA7')),
+                          borderSide: BorderSide(color: HexColor('#4C8CA7')),
                           borderRadius: BorderRadius.circular(15)),
                       labelText: 'Username',
                     ),
@@ -290,11 +290,11 @@ class _LoginState extends State<Login> {
                       fillColor: Colors.white,
                       prefixIcon: Icon(Icons.lock),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Hexcolor('#4C8CA7')),
+                        borderSide: BorderSide(color: HexColor('#4C8CA7')),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Hexcolor('#4C8CA7')),
+                          borderSide: BorderSide(color: HexColor('#4C8CA7')),
                           borderRadius: BorderRadius.circular(15)),
                       labelText: 'Password',
                     ),

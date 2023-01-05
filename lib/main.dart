@@ -11,8 +11,7 @@ import 'package:dlslim/Pages/setting.dart';
 import 'package:dlslim/Pages/verifikasi.dart';
 import 'package:dlslim/Pages/whislisst.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 
 import 'Pages/cartList.dart';
 import 'Pages/detail.dart';

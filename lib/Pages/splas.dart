@@ -24,7 +24,7 @@ class _Splashscreen extends State<Splashscreen> {
   // bool status;
   Future userLogin() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    isLogin = pref.get('isLogin') ?? false;
+    isLogin = pref.getBool('isLogin') ?? false;
     if (isLogin) {
       Get.off(BottomNavBar());
     } else {

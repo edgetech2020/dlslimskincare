@@ -129,12 +129,12 @@ class _LivechatState extends State<Livechat> {
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderSide:
-                                  BorderSide(color: Hexcolor('#4C8CA7')),
+                                  BorderSide(color: HexColor('#4C8CA7')),
                               borderRadius: BorderRadius.circular(15),
                             ),
                             enabledBorder: OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: Hexcolor('#4C8CA7')),
+                                    BorderSide(color: HexColor('#4C8CA7')),
                                 borderRadius: BorderRadius.circular(15)),
                             suffixIcon: IconButton(
                                 icon: Icon(Icons.send),

@@ -62,7 +62,7 @@ class _SkinPageState extends State<SkinPage> {
                               height: MediaQuery.of(context).size.height * 0.17,
                               width: MediaQuery.of(context).size.width * 0.37,
                               decoration: BoxDecoration(
-                                  color: Hexcolor('#203b8d'),
+                                  color: HexColor('#203b8d'),
                                   shape: BoxShape.circle),
                               child: GestureDetector(
                                 onTap: () => setState(() => _value = 0),
@@ -71,7 +71,7 @@ class _SkinPageState extends State<SkinPage> {
                                       shape: BoxShape.circle,
                                       border: Border.all(
                                           color: _value == 0
-                                              ? Hexcolor('#4C8CA7')
+                                              ? HexColor('#4C8CA7')
                                               : Colors.transparent,
                                           width: 5),
                                       boxShadow: [
@@ -98,7 +98,7 @@ class _SkinPageState extends State<SkinPage> {
                               width: MediaQuery.of(context).size.width * 0.37,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Hexcolor('#203b8d'),
+                                color: HexColor('#203b8d'),
                               ),
                               child: GestureDetector(
                                 onTap: () => setState(() => _value = 1),
@@ -107,7 +107,7 @@ class _SkinPageState extends State<SkinPage> {
                                         shape: BoxShape.circle,
                                         border: Border.all(
                                             color: _value == 1
-                                                ? Hexcolor('#4C8CA7')
+                                                ? HexColor('#4C8CA7')
                                                 : Colors.transparent,
                                             width: 5),
                                         boxShadow: [
@@ -144,7 +144,7 @@ class _SkinPageState extends State<SkinPage> {
                               width: MediaQuery.of(context).size.width * 0.37,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Hexcolor('#203b8d'),
+                                color: HexColor('#203b8d'),
                               ),
                               child: GestureDetector(
                                 onTap: () => setState(() => _value = 2),
@@ -155,7 +155,7 @@ class _SkinPageState extends State<SkinPage> {
                                       shape: BoxShape.circle,
                                       border: Border.all(
                                           color: _value == 2
-                                              ? Hexcolor('#4C8CA7')
+                                              ? HexColor('#4C8CA7')
                                               : Colors.transparent,
                                           width: 5),
                                       boxShadow: [
@@ -186,7 +186,7 @@ class _SkinPageState extends State<SkinPage> {
                           width: MediaQuery.of(context).size.width * 0.37,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Hexcolor('#203b8d'),
+                            color: HexColor('#203b8d'),
                           ),
                           child: GestureDetector(
                             onTap: () => setState(() => _value = 3),
@@ -197,7 +197,7 @@ class _SkinPageState extends State<SkinPage> {
                                   shape: BoxShape.circle,
                                   border: Border.all(
                                       color: _value == 3
-                                          ? Hexcolor('#4C8CA7')
+                                          ? HexColor('#4C8CA7')
                                           : Colors.transparent,
                                       width: 5),
                                   boxShadow: [
@@ -229,13 +229,13 @@ class _SkinPageState extends State<SkinPage> {
                     child: RaisedButton(
                       child: Text(
                         "Selanjutnya",
-                        style: TextStyle(color: Hexcolor('#e6f8f6')),
+                        style: TextStyle(color: HexColor('#e6f8f6')),
                       ),
                       onPressed: () {
                         saveBeautyID();
                         Navigator.pushNamed(context, '/beauty');
                       },
-                      color: Hexcolor('#4C8CA7'),
+                      color: HexColor('#4C8CA7'),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
                     ),

@@ -61,7 +61,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         unselectedItemColor: Colors.black,
         showUnselectedLabels: true,
         unselectedLabelStyle: TextStyle(color: Colors.black),
-        selectedItemColor: Hexcolor('#203b8d'),
+        selectedItemColor: HexColor('#203b8d'),
         onTap: _onItemTapped,
       ),
     );

@@ -106,3 +106,4 @@
 
 # Hermes
 -keep class com.facebook.hermes.unicode.** { *; }
+-keep class androidx.lifecycle.DefaultLifecycleObserver
